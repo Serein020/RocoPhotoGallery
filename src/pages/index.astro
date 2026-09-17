@@ -173,6 +173,7 @@ const homeTags = [
                 <div class="hero-layout">
 
                     <div class="hero-copy">
+
                         <div class="sticker-mini">
                             洛克街拍记录
                         </div>
@@ -205,6 +206,7 @@ const homeTags = [
                                 ↓
                             </span>
                         </a>
+
                     </div>
 
 
@@ -213,6 +215,7 @@ const homeTags = [
                         <div class="tape tape-top"></div>
 
                         <div class="photo-paper">
+
                             <div class="photo-frame">
 
                                 <button
@@ -226,16 +229,20 @@ const homeTags = [
                                     aria-label="View featured photo"
                                 >
                                     <div class="photo-placeholder hero-photo">
+
                                         <img
                                             src={heroImage}
                                             alt="Featured game photography"
                                             loading="eager"
                                             decoding="async"
                                         />
+
                                     </div>
                                 </button>
 
+
                                 <div class="photo-note">
+
                                     <div>
                                         <strong>
                                             今日瞬间
@@ -249,10 +256,12 @@ const homeTags = [
                                     <span class="photo-number">
                                         01 / 24
                                     </span>
+
                                 </div>
 
                             </div>
                         </div>
+
 
                         <div
                             class="doodle doodle-star"
@@ -267,7 +276,9 @@ const homeTags = [
                         ></div>
 
                     </div>
+
                 </div>
+
 
                 <div class="hero-bottomline">
                     <span>NEW</span>
@@ -290,6 +301,7 @@ const homeTags = [
                 <div class="section-intro">
 
                     <div>
+
                         <span class="section-index">
                             02
                         </span>
@@ -301,6 +313,7 @@ const homeTags = [
                         <h2 id="exhibition-title">
                             Exhibition
                         </h2>
+
                     </div>
 
                     <p class="section-description"></p>
@@ -324,6 +337,7 @@ const homeTags = [
                                     class={`tape tape-card ${homeTapeClasses[index]}`}
                                 ></div>
                             )}
+
 
                             <button
                                 type="button"
@@ -369,6 +383,7 @@ const homeTags = [
                             <div class="work-caption">
 
                                 <div>
+
                                     <h3>
                                         {homeTitles[index]}
                                     </h3>
@@ -376,6 +391,7 @@ const homeTags = [
                                     <p>
                                         {homeTags[index]}
                                     </p>
+
                                 </div>
 
                                 <time
@@ -395,7 +411,9 @@ const homeTags = [
 
 
                 <div class="works-more">
+
                     <a href="/exhibition">
+
                         <span>
                             VIEW ALL PHOTOS
                         </span>
@@ -403,7 +421,9 @@ const homeTags = [
                         <span aria-hidden="true">
                             ↗
                         </span>
+
                     </a>
+
                 </div>
 
             </section>
@@ -430,6 +450,8 @@ const homeTags = [
 
                 <div class="lightbox-shell">
 
+                    <!-- CLOSE -->
+
                     <button
                         type="button"
                         class="lightbox-close"
@@ -440,7 +462,7 @@ const homeTags = [
                     </button>
 
 
-                    <!-- 左翻图 -->
+                    <!-- PREVIOUS -->
 
                     <button
                         type="button"
@@ -449,14 +471,19 @@ const homeTags = [
                         aria-label="Previous photo"
                     >
                         <svg
+                            class="lightbox-arrow-icon"
                             viewBox="0 0 48 80"
                             aria-hidden="true"
                             focusable="false"
                         >
-                            <path d="M40 6 L6 40 L40 74" />
+                            <path
+                                d="M42 5 L7 40 L42 75 L42 56 L26 40 L42 24 Z"
+                            />
                         </svg>
                     </button>
 
+
+                    <!-- CONTENT -->
 
                     <div class="lightbox-content">
 
@@ -490,7 +517,7 @@ const homeTags = [
                     </div>
 
 
-                    <!-- 右翻图 -->
+                    <!-- NEXT -->
 
                     <button
                         type="button"
@@ -499,11 +526,14 @@ const homeTags = [
                         aria-label="Next photo"
                     >
                         <svg
+                            class="lightbox-arrow-icon"
                             viewBox="0 0 48 80"
                             aria-hidden="true"
                             focusable="false"
                         >
-                            <path d="M8 6 L42 40 L8 74" />
+                            <path
+                                d="M6 5 L41 40 L6 75 L6 56 L22 40 L6 24 Z"
+                            />
                         </svg>
                     </button>
 
@@ -527,13 +557,20 @@ const homeTags = [
                 class="about-decor"
                 aria-hidden="true"
             >
+
                 <div class="about-circle"></div>
-                <div class="about-cross">+</div>
+
+                <div class="about-cross">
+                    +
+                </div>
+
             </div>
+
 
             <div class="about-index">
                 03
             </div>
+
 
             <div class="about-content">
 
@@ -564,12 +601,17 @@ const homeTags = [
         <footer class="footer">
 
             <div class="footer-brand">
-                <span>ROCO</span>
+
+                <span>
+                    ROCO
+                </span>
 
                 <small>
                     GAME PHOTOGRAPHY
                 </small>
+
             </div>
+
 
             <div class="footer-note">
 
@@ -595,8 +637,11 @@ const homeTags = [
         'roco-photo-meta-v1';
 
     let lightboxItems = [];
+
     let lightboxIndex = 0;
+
     let lastFocusedElement = null;
+
     let touchStartX = 0;
 
 
@@ -645,10 +690,13 @@ const homeTags = [
 
         return photoWorks
             .map((work) => ({
+
                 ...work,
+
                 date:
                     store[work.id]?.date ||
                     work.date,
+
             }))
             .sort(
                 (a, b) =>
@@ -676,6 +724,7 @@ const homeTags = [
                 ),
             );
 
+
         homeCards.forEach(
             (card, index) => {
 
@@ -685,6 +734,7 @@ const homeTags = [
                 if (!work) {
                     return;
                 }
+
 
                 const image =
                     card.querySelector('img');
@@ -699,11 +749,13 @@ const homeTags = [
                         '.work-image-link',
                     );
 
+
                 card.dataset.id =
                     work.id;
 
                 card.dataset.date =
                     work.date;
+
 
                 if (image) {
 
@@ -714,6 +766,7 @@ const homeTags = [
                         work.id;
 
                 }
+
 
                 if (date) {
 
@@ -726,6 +779,7 @@ const homeTags = [
                         work.date.slice(0, 4);
 
                 }
+
 
                 if (trigger) {
 
@@ -759,9 +813,11 @@ const homeTags = [
                 ),
             );
 
+
         lightboxItems =
             triggers.map(
                 (trigger) => ({
+
                     src:
                         trigger.dataset.lightboxSrc ||
                         '',
@@ -777,8 +833,10 @@ const homeTags = [
                     date:
                         trigger.dataset.lightboxDate ||
                         '',
+
                 }),
             );
+
 
         return triggers;
 
@@ -1684,8 +1742,10 @@ const homeTags = [
             #171717;
         color:
             #fff9e9;
-        font-size: 8px;
-        font-weight: 900;
+        font-size:
+            8px;
+        font-weight:
+            900;
         letter-spacing:
             0.15em;
         border-radius:
@@ -1697,62 +1757,84 @@ const homeTags = [
     }
 
     .hero h1 {
-        margin: 0;
+        margin:
+            0;
         font-size:
             clamp(
                 48px,
                 6vw,
                 96px
             );
-        font-weight: 950;
-        line-height: 1;
+        font-weight:
+            950;
+        line-height:
+            1;
         letter-spacing:
             -0.075em;
     }
 
     .hero-description {
-        max-width: 440px;
+        max-width:
+            440px;
         margin:
             38px 0 30px;
-        font-size: 14px;
+        font-size:
+            14px;
         line-height:
             1.75;
-        font-weight: 500;
+        font-weight:
+            500;
         color:
             rgba(23, 23, 23, 0.63);
     }
 
     .enter-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 18px;
-        text-decoration: none;
-        font-size: 10px;
-        font-weight: 900;
+        display:
+            inline-flex;
+        align-items:
+            center;
+        gap:
+            18px;
+        text-decoration:
+            none;
+        font-size:
+            10px;
+        font-weight:
+            900;
         letter-spacing:
             0.13em;
     }
 
     .enter-link-label {
-        display: inline-flex;
-        align-items: center;
-        padding-bottom: 8px;
+        display:
+            inline-flex;
+        align-items:
+            center;
+        padding-bottom:
+            8px;
         border-bottom:
             2px solid #171717;
     }
 
     .enter-link-arrow {
-        display: grid;
-        place-items: center;
-        width: 38px;
-        height: 38px;
+        display:
+            grid;
+        place-items:
+            center;
+        width:
+            38px;
+        height:
+            38px;
         background:
             #fff8e7;
         border:
             2px solid #171717;
-        border-radius: 50%;
-        font-size: 17px;
-        font-weight: 400;
+        border-radius:
+            50%;
+        font-size:
+            17px;
+        font-weight:
+            400;
         box-shadow:
             3px 4px 0 rgba(23, 23, 23, 0.14);
         transition:
@@ -1773,25 +1855,37 @@ const homeTags = [
     ============================================================= */
 
     .lightbox-trigger {
-        appearance: none;
-        -webkit-appearance: none;
-        display: block;
-        position: relative;
+        appearance:
+            none;
+        -webkit-appearance:
+            none;
+        display:
+            block;
+        position:
+            relative;
         pointer-events:
             auto !important;
-        font: inherit;
-        color: inherit;
-        text-align: inherit;
-        cursor: zoom-in;
+        font:
+            inherit;
+        color:
+            inherit;
+        text-align:
+            inherit;
+        cursor:
+            zoom-in;
         touch-action:
             manipulation;
     }
 
     .lightbox-trigger-hero {
-        display: block;
-        width: 100%;
-        padding: 0;
-        margin: 0;
+        display:
+            block;
+        width:
+            100%;
+        padding:
+            0;
+        margin:
+            0;
         background:
             transparent;
         border:
@@ -1799,12 +1893,18 @@ const homeTags = [
     }
 
     .work-image-link {
-        position: relative;
-        z-index: 20;
-        display: block;
-        width: 100%;
-        padding: 0;
-        margin: 0;
+        position:
+            relative;
+        z-index:
+            20;
+        display:
+            block;
+        width:
+            100%;
+        padding:
+            0;
+        margin:
+            0;
         background:
             transparent;
         border:
@@ -1821,32 +1921,46 @@ const homeTags = [
     ============================================================= */
 
     body.lightbox-open {
-        overflow: hidden;
+        overflow:
+            hidden;
     }
 
     .lightbox {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        display: grid;
-        place-items: center;
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
+        position:
+            fixed;
+        inset:
+            0;
+        z-index:
+            100;
+        display:
+            grid;
+        place-items:
+            center;
+        visibility:
+            hidden;
+        opacity:
+            0;
+        pointer-events:
+            none;
         transition:
             opacity 0.22s ease,
             visibility 0.22s ease;
     }
 
     .lightbox.is-open {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
+        visibility:
+            visible;
+        opacity:
+            1;
+        pointer-events:
+            auto;
     }
 
     .lightbox-backdrop {
-        position: absolute;
-        inset: 0;
+        position:
+            absolute;
+        inset:
+            0;
         background:
             rgba(23, 23, 23, 0.9);
         backdrop-filter:
@@ -1854,78 +1968,144 @@ const homeTags = [
     }
 
     .lightbox-shell {
-        position: relative;
-        z-index: 2;
-        display: grid;
+        position:
+            relative;
+        z-index:
+            2;
+
+        display:
+            grid;
+
         grid-template-columns:
             68px minmax(0, 1fr) 68px;
-        align-items: center;
-        gap: 10px;
+
+        align-items:
+            center;
+
+        gap:
+            10px;
+
         width:
             min(96vw, 1500px);
-        max-height: 94vh;
+
+        max-height:
+            94vh;
     }
 
     .lightbox-content {
-        min-width: 0;
-        max-height: 94vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        min-width:
+            0;
+
+        max-height:
+            94vh;
+
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
     }
 
     .lightbox-image-wrap {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        max-width: 100%;
+        position:
+            relative;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        max-width:
+            100%;
+
         max-height:
             calc(94vh - 78px);
-        padding: 10px;
+
+        padding:
+            10px;
+
         background:
             #fff8e8;
+
         border:
             2px solid #171717;
+
         border-radius:
             11px 16px 12px 15px;
+
         box-shadow:
             9px 10px 0 rgba(0, 0, 0, 0.16);
     }
 
     .lightbox-image-wrap img {
-        display: block;
-        width: auto;
-        height: auto;
+        display:
+            block;
+
+        width:
+            auto;
+
+        height:
+            auto;
+
         max-width:
             min(82vw, 1280px);
+
         max-height:
             calc(94vh - 104px);
+
         object-fit:
             contain;
     }
 
     .lightbox-caption {
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        gap: 14px;
+        display:
+            flex;
+
+        align-items:
+            baseline;
+
+        justify-content:
+            center;
+
+        gap:
+            14px;
+
         padding-top:
             12px;
+
         color:
             #fff8e8;
-        font-size: 9px;
-        font-weight: 800;
+
+        font-size:
+            9px;
+
+        font-weight:
+            800;
+
         letter-spacing:
             0.12em;
+
         text-align:
             center;
     }
 
     .lightbox-caption strong {
-        font-size: 12px;
-        font-weight: 900;
+        font-size:
+            12px;
+
+        font-weight:
+            900;
+
         letter-spacing:
             -0.01em;
     }
@@ -1938,41 +2118,53 @@ const homeTags = [
 
     /* =============================================================
        LIGHTBOX ARROWS
-
-       参考图风格：
-       - 粗米白色几何箭头
-       - 无圆形背景
-       - 无边框
-       - 不使用字符 ← →
-       - 使用 SVG 保证显示稳定
     ============================================================= */
 
     .lightbox-arrow {
-        appearance: none;
-        -webkit-appearance: none;
+        appearance:
+            none !important;
 
-        position: relative;
+        -webkit-appearance:
+            none !important;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position:
+            relative;
 
-        width: 68px;
-        height: 96px;
+        display:
+            flex;
 
-        padding: 0;
-        margin: 0;
+        align-items:
+            center;
 
-        border: 0 !important;
-        outline: 0;
+        justify-content:
+            center;
+
+        width:
+            68px;
+
+        height:
+            96px;
+
+        padding:
+            0 !important;
+
+        margin:
+            0;
+
+        border:
+            0 !important;
+
+        outline:
+            none;
 
         background:
             transparent !important;
 
         color:
-            #fff8e8;
+            transparent;
 
-        cursor: pointer;
+        cursor:
+            pointer;
 
         box-shadow:
             none !important;
@@ -1980,90 +2172,124 @@ const homeTags = [
         border-radius:
             0 !important;
 
+        overflow:
+            visible;
+
         transition:
             transform 0.18s ease,
             opacity 0.18s ease;
     }
 
-    .lightbox-arrow svg {
-        display: block;
 
-        width: 48px;
-        height: 80px;
+    .lightbox-arrow::before,
+    .lightbox-arrow::after {
+        content:
+            none !important;
 
-        overflow: visible;
-
-        pointer-events: none;
+        display:
+            none !important;
     }
 
-    .lightbox-arrow svg path {
-        fill: none;
+
+    .lightbox-arrow-icon {
+        display:
+            block;
+
+        width:
+            48px;
+
+        height:
+            80px;
+
+        margin:
+            0;
+
+        padding:
+            0;
+
+        overflow:
+            visible;
+
+        pointer-events:
+            none;
+    }
+
+
+    .lightbox-arrow-icon path {
+        fill:
+            #fff8e8 !important;
 
         stroke:
-            #fff8e8;
-
-        stroke-width:
-            10;
-
-        stroke-linecap:
-            square;
-
-        stroke-linejoin:
-            miter;
+            none !important;
     }
 
-    /* 左箭头 Hover */
 
     .lightbox-prev:hover {
         transform:
             translateX(-5px);
     }
 
-    /* 右箭头 Hover */
 
     .lightbox-next:hover {
         transform:
             translateX(5px);
     }
 
+
     .lightbox-arrow:disabled {
         opacity:
-            0.2;
+            0.18;
+
         cursor:
             default;
+
         transform:
             none;
     }
 
+
     .lightbox-arrow:focus-visible {
         outline:
             2px solid #fff8e8;
+
         outline-offset:
             8px;
     }
 
 
-    /* =============================================================
-       LIGHTBOX CLOSE
-    ============================================================= */
-
     .lightbox-close {
-        appearance: none;
-        -webkit-appearance: none;
+        appearance:
+            none;
 
-        position: absolute;
-        right: 0;
-        top: -8px;
+        -webkit-appearance:
+            none;
 
-        z-index: 5;
+        position:
+            absolute;
 
-        display: grid;
-        place-items: center;
+        right:
+            0;
 
-        width: 42px;
-        height: 42px;
+        top:
+            -8px;
 
-        padding: 0;
+        z-index:
+            5;
+
+        display:
+            grid;
+
+        place-items:
+            center;
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+        padding:
+            0;
 
         background:
             #fff8e8;
@@ -2116,28 +2342,39 @@ const homeTags = [
     ============================================================= */
 
     .hero-art {
-        position: relative;
+        position:
+            relative;
+
         width:
             min(150%, 5000px);
+
         justify-self:
             end;
+
         transform:
-            translateY(-120px);
+            translateY(-30px);
     }
 
     .photo-paper {
-        position: relative;
+        position:
+            relative;
+
         padding:
             16px 16px 22px;
+
         background:
             #fff8e8;
+
         border:
             2px solid #171717;
+
         border-radius:
             10px 15px 12px 17px;
+
         box-shadow:
             8px 9px 0 rgba(23, 23, 23, 0.13),
             15px 17px 0 rgba(23, 23, 23, 0.025);
+
         transform:
             rotate(1.15deg);
     }
@@ -2150,12 +2387,16 @@ const homeTags = [
     .photo-placeholder {
         position:
             relative;
+
         width:
             100%;
+
         overflow:
             hidden;
+
         border:
             1.5px solid rgba(23, 23, 23, 0.18);
+
         background:
             #54657b;
     }
@@ -2163,6 +2404,7 @@ const homeTags = [
     .hero-photo {
         aspect-ratio:
             4 / 3;
+
         background:
             linear-gradient(
                 180deg,
@@ -2176,10 +2418,13 @@ const homeTags = [
     .hero-photo img {
         display:
             block;
+
         width:
             100%;
+
         height:
             100%;
+
         object-fit:
             cover;
     }
@@ -2187,12 +2432,16 @@ const homeTags = [
     .photo-note {
         display:
             flex;
+
         align-items:
             flex-end;
+
         justify-content:
             space-between;
+
         gap:
             14px;
+
         padding-top:
             14px;
     }
@@ -2200,8 +2449,10 @@ const homeTags = [
     .photo-note > div {
         display:
             flex;
+
         flex-direction:
             column;
+
         gap:
             4px;
     }
@@ -2209,6 +2460,7 @@ const homeTags = [
     .photo-note strong {
         font-size:
             13px;
+
         font-weight:
             900;
     }
@@ -2216,8 +2468,10 @@ const homeTags = [
     .photo-note span {
         font-size:
             8px;
+
         letter-spacing:
             0.07em;
+
         opacity:
             0.47;
     }
@@ -2225,8 +2479,10 @@ const homeTags = [
     .photo-number {
         font-size:
             8px !important;
+
         font-weight:
             800;
+
         letter-spacing:
             0.13em !important;
     }
@@ -2234,12 +2490,16 @@ const homeTags = [
     .tape {
         position:
             absolute;
+
         z-index:
             4;
+
         background:
             rgba(226, 210, 140, 0.88);
+
         border:
             1px solid rgba(23, 23, 23, 0.09);
+
         box-shadow:
             0 2px 5px rgba(23, 23, 23, 0.05);
     }
@@ -2247,12 +2507,16 @@ const homeTags = [
     .tape-top {
         top:
             -13px;
+
         right:
             30px;
+
         width:
             110px;
+
         height:
             28px;
+
         transform:
             rotate(31deg);
     }
@@ -2260,8 +2524,10 @@ const homeTags = [
     .doodle {
         position:
             absolute;
+
         z-index:
             5;
+
         color:
             #171717;
     }
@@ -2269,10 +2535,13 @@ const homeTags = [
     .doodle-star {
         left:
             -28px;
+
         bottom:
             58px;
+
         font-size:
             39px;
+
         transform:
             rotate(-12deg);
     }
@@ -2280,14 +2549,19 @@ const homeTags = [
     .doodle-circle {
         right:
             -22px;
+
         top:
             56px;
+
         width:
             31px;
+
         height:
             31px;
+
         border:
             2px solid #171717;
+
         border-radius:
             50%;
     }
@@ -2295,16 +2569,22 @@ const homeTags = [
     .doodle-circle::before {
         content:
             "";
+
         position:
             absolute;
+
         left:
             5px;
+
         right:
             5px;
+
         top:
             13px;
+
         border-top:
             2px solid #171717;
+
         transform:
             rotate(-12deg);
     }
@@ -2312,20 +2592,28 @@ const homeTags = [
     .hero-bottomline {
         display:
             flex;
+
         align-items:
             center;
+
         justify-content:
             space-between;
+
         padding-top:
             14px;
+
         border-top:
             1.5px solid rgba(23, 23, 23, 0.22);
+
         font-size:
             8px;
+
         font-weight:
             800;
+
         letter-spacing:
             0.13em;
+
         opacity:
             0.52;
     }
@@ -2338,6 +2626,7 @@ const homeTags = [
     .exhibition {
         position:
             relative;
+
         padding:
             50px 0 170px;
     }
@@ -2345,12 +2634,16 @@ const homeTags = [
     .section-intro {
         display:
             flex;
+
         align-items:
             flex-end;
+
         justify-content:
             space-between;
+
         gap:
             50px;
+
         margin-bottom:
             72px;
     }
@@ -2358,26 +2651,37 @@ const homeTags = [
     .section-index {
         display:
             inline-flex;
+
         align-items:
             center;
+
         justify-content:
             center;
+
         width:
             28px;
+
         height:
             28px;
+
         margin-bottom:
             17px;
+
         background:
             #171717;
+
         color:
             #fff8e7;
+
         border-radius:
             8px 7px 9px 6px;
+
         font-size:
             8px;
+
         font-weight:
             900;
+
         transform:
             rotate(-5deg);
     }
@@ -2385,12 +2689,16 @@ const homeTags = [
     .section-kicker {
         margin:
             0 0 12px;
+
         font-size:
             9px;
+
         font-weight:
             900;
+
         letter-spacing:
             0.18em;
+
         opacity:
             0.48;
     }
@@ -2398,16 +2706,20 @@ const homeTags = [
     .section-intro h2 {
         margin:
             0;
+
         font-size:
             clamp(
                 54px,
                 7.5vw,
                 104px
             );
+
         font-weight:
             950;
+
         line-height:
             0.9;
+
         letter-spacing:
             -0.07em;
     }
@@ -2415,14 +2727,19 @@ const homeTags = [
     .section-description {
         max-width:
             255px;
+
         margin:
             0;
+
         font-size:
             12px;
+
         line-height:
             1.7;
+
         font-weight:
             600;
+
         color:
             rgba(23, 23, 23, 0.55);
     }
@@ -2435,15 +2752,19 @@ const homeTags = [
     .works-grid {
         display:
             grid;
+
         grid-template-columns:
             repeat(
                 2,
                 minmax(0, 1fr)
             );
+
         column-gap:
             72px;
+
         row-gap:
             95px;
+
         align-items:
             start;
     }
@@ -2451,8 +2772,10 @@ const homeTags = [
     .work-card {
         position:
             relative;
+
         min-width:
             0;
+
         width:
             100%;
     }
@@ -2466,6 +2789,7 @@ const homeTags = [
     .work-card-offset {
         justify-self:
             end;
+
         margin-top:
             100px;
     }
@@ -2478,6 +2802,7 @@ const homeTags = [
     .work-card-lower-offset {
         justify-self:
             end;
+
         margin-top:
             -35px;
     }
@@ -2634,6 +2959,7 @@ const homeTags = [
     .work-card:hover .tape-card {
         z-index:
             1;
+
         filter:
             brightness(0.98);
     }
@@ -2641,6 +2967,7 @@ const homeTags = [
     .tape-card-left {
         left:
             34px;
+
         transform:
             rotate(-17deg);
     }
@@ -2648,6 +2975,7 @@ const homeTags = [
     .tape-card-right {
         right:
             34px;
+
         transform:
             rotate(16deg);
     }
@@ -2665,8 +2993,10 @@ const homeTags = [
     .photo-six {
         position:
             relative;
+
         aspect-ratio:
             2388 / 1668;
+
         overflow:
             hidden;
     }
@@ -2679,10 +3009,13 @@ const homeTags = [
     .photo-six img {
         display:
             block;
+
         width:
             100%;
+
         height:
             100%;
+
         object-fit:
             cover;
     }
@@ -2690,18 +3023,25 @@ const homeTags = [
     .photo-index {
         position:
             absolute;
+
         left:
             13px;
+
         top:
             11px;
+
         z-index:
             3;
+
         font-size:
             8px;
+
         font-weight:
             900;
+
         letter-spacing:
             0.12em;
+
         color:
             rgba(255, 250, 231, 0.82);
     }
@@ -2749,16 +3089,22 @@ const homeTags = [
     .work-caption {
         position:
             relative;
+
         z-index:
             3;
+
         display:
             flex;
+
         align-items:
             flex-start;
+
         justify-content:
             space-between;
+
         gap:
             20px;
+
         padding-top:
             14px;
     }
@@ -2766,10 +3112,13 @@ const homeTags = [
     .work-caption h3 {
         margin:
             0 0 5px;
+
         font-size:
             16px;
+
         font-weight:
             950;
+
         letter-spacing:
             -0.025em;
     }
@@ -2777,12 +3126,16 @@ const homeTags = [
     .work-caption p {
         margin:
             0;
+
         font-size:
             8px;
+
         font-weight:
             800;
+
         letter-spacing:
             0.13em;
+
         opacity:
             0.43;
     }
@@ -2791,12 +3144,16 @@ const homeTags = [
     .work-caption > time {
         padding-top:
             4px;
+
         font-size:
             8px;
+
         font-weight:
             800;
+
         letter-spacing:
             0.1em;
+
         opacity:
             0.42;
     }
@@ -2809,8 +3166,10 @@ const homeTags = [
     .works-more {
         display:
             flex;
+
         justify-content:
             center;
+
         margin-top:
             90px;
     }
@@ -2818,30 +3177,43 @@ const homeTags = [
     .works-more a {
         display:
             inline-flex;
+
         align-items:
             center;
+
         gap:
             20px;
+
         padding:
             12px 17px;
+
         background:
             #171717;
+
         color:
             #fff8e8;
+
         border-radius:
             8px 10px 7px 9px;
+
         text-decoration:
             none;
+
         font-size:
             9px;
+
         font-weight:
             900;
+
         letter-spacing:
             0.13em;
+
         box-shadow:
             4px 5px 0 rgba(23, 23, 23, 0.13);
+
         transform:
             rotate(-1deg);
+
         transition:
             transform 0.2s ease,
             box-shadow 0.2s ease;
@@ -2851,6 +3223,7 @@ const homeTags = [
         transform:
             translateY(-2px)
             rotate(-1deg);
+
         box-shadow:
             5px 8px 0 rgba(23, 23, 23, 0.13);
     }
@@ -2858,6 +3231,7 @@ const homeTags = [
     .works-more a span:last-child {
         font-size:
             14px;
+
         font-weight:
             400;
     }
@@ -2870,12 +3244,16 @@ const homeTags = [
     .about {
         position:
             relative;
+
         display:
             grid;
+
         grid-template-columns:
             70px minmax(0, 760px);
+
         padding:
             145px 0 170px;
+
         border-top:
             1.5px solid rgba(23, 23, 23, 0.22);
     }
@@ -2883,10 +3261,13 @@ const homeTags = [
     .about-index {
         font-size:
             9px;
+
         font-weight:
             900;
+
         letter-spacing:
             0.16em;
+
         opacity:
             0.45;
     }
@@ -2894,6 +3275,7 @@ const homeTags = [
     .about-content {
         position:
             relative;
+
         z-index:
             2;
     }
@@ -2901,16 +3283,20 @@ const homeTags = [
     .about-content h2 {
         margin:
             0 0 45px;
+
         font-size:
             clamp(
                 50px,
                 7vw,
                 95px
             );
+
         font-weight:
             950;
+
         line-height:
             0.9;
+
         letter-spacing:
             -0.07em;
     }
@@ -2918,14 +3304,19 @@ const homeTags = [
     .about-copy {
         max-width:
             500px;
+
         margin:
             0;
+
         font-size:
             14px;
+
         line-height:
             1.8;
+
         font-weight:
             600;
+
         color:
             rgba(23, 23, 23, 0.57);
     }
@@ -2933,12 +3324,16 @@ const homeTags = [
     .about-decor {
         position:
             absolute;
+
         right:
             7%;
+
         bottom:
             16%;
+
         width:
             150px;
+
         height:
             150px;
     }
@@ -2946,12 +3341,16 @@ const homeTags = [
     .about-circle {
         position:
             absolute;
+
         inset:
             0;
+
         border:
             3px solid #171717;
+
         border-radius:
             50%;
+
         transform:
             rotate(-9deg);
     }
@@ -2959,20 +3358,28 @@ const homeTags = [
     .about-circle::before {
         content:
             "";
+
         position:
             absolute;
+
         left:
             16%;
+
         top:
             23%;
+
         width:
             68%;
+
         height:
             48%;
+
         border:
             2px solid #171717;
+
         border-radius:
             48% 52% 55% 45%;
+
         transform:
             rotate(17deg);
     }
@@ -2980,14 +3387,19 @@ const homeTags = [
     .about-cross {
         position:
             absolute;
+
         right:
             -8px;
+
         top:
             -18px;
+
         font-size:
             34px;
+
         font-weight:
             300;
+
         transform:
             rotate(12deg);
     }
@@ -3000,14 +3412,19 @@ const homeTags = [
     .footer {
         display:
             flex;
+
         align-items:
             flex-end;
+
         justify-content:
             space-between;
+
         gap:
             30px;
+
         padding:
             25px 0 40px;
+
         border-top:
             1.5px solid rgba(23, 23, 23, 0.22);
     }
@@ -3015,8 +3432,10 @@ const homeTags = [
     .footer-brand {
         display:
             flex;
+
         flex-direction:
             column;
+
         gap:
             5px;
     }
@@ -3024,8 +3443,10 @@ const homeTags = [
     .footer-brand span {
         font-size:
             15px;
+
         font-weight:
             950;
+
         letter-spacing:
             -0.05em;
     }
@@ -3034,10 +3455,13 @@ const homeTags = [
     .footer-note span {
         font-size:
             8px;
+
         font-weight:
             800;
+
         letter-spacing:
             0.14em;
+
         opacity:
             0.44;
     }
@@ -3045,6 +3469,7 @@ const homeTags = [
     .footer-note {
         display:
             flex;
+
         gap:
             25px;
     }
@@ -3065,10 +3490,13 @@ const homeTags = [
             grid-template-columns:
                 minmax(0, 1fr)
                 minmax(320px, 0.8fr);
+
             gap:
                 50px;
+
             padding-left:
                 2vw;
+
             padding-right:
                 2vw;
         }
@@ -3076,6 +3504,7 @@ const homeTags = [
         .works-grid {
             column-gap:
                 45px;
+
             row-gap:
                 80px;
         }
@@ -3118,8 +3547,10 @@ const homeTags = [
         .hero {
             min-height:
                 auto;
+
             padding-top:
                 18px;
+
             padding-bottom:
                 28px;
         }
@@ -3137,8 +3568,10 @@ const homeTags = [
         .hero-layout {
             grid-template-columns:
                 1fr;
+
             gap:
                 48px;
+
             padding:
                 55px 0 58px;
         }
@@ -3160,6 +3593,7 @@ const homeTags = [
         .hero-description {
             max-width:
                 360px;
+
             margin-top:
                 28px;
         }
@@ -3167,19 +3601,24 @@ const homeTags = [
         .hero-art {
             position:
                 relative;
+
             width:
                 min(150%, 5000px);
+
             justify-self:
                 end;
+
             transform:
-                translateY(-120px);
+                translateY(0);
         }
 
         .doodle-star {
             left:
                 -16px;
+
             bottom:
                 43px;
+
             font-size:
                 30px;
         }
@@ -3187,10 +3626,13 @@ const homeTags = [
         .doodle-circle {
             right:
                 -11px;
+
             top:
                 38px;
+
             width:
                 24px;
+
             height:
                 24px;
         }
@@ -3213,8 +3655,10 @@ const homeTags = [
         .lightbox-shell {
             grid-template-columns:
                 46px minmax(0, 1fr) 46px;
+
             gap:
                 3px;
+
             width:
                 98vw;
         }
@@ -3222,6 +3666,7 @@ const homeTags = [
         .lightbox-image-wrap {
             padding:
                 7px;
+
             border-width:
                 1.5px;
         }
@@ -3229,27 +3674,26 @@ const homeTags = [
         .lightbox-image-wrap img {
             max-width:
                 80vw;
+
             max-height:
                 78vh;
         }
 
+
         .lightbox-arrow {
             width:
                 46px;
+
             height:
                 72px;
         }
 
-        .lightbox-arrow svg {
+        .lightbox-arrow-icon {
             width:
                 34px;
+
             height:
                 58px;
-        }
-
-        .lightbox-arrow svg path {
-            stroke-width:
-                8;
         }
 
         .lightbox-prev:hover {
@@ -3265,12 +3709,16 @@ const homeTags = [
         .lightbox-close {
             right:
                 -3px;
+
             top:
                 -12px;
+
             width:
                 36px;
+
             height:
                 36px;
+
             font-size:
                 21px;
         }
@@ -3278,10 +3726,13 @@ const homeTags = [
         .lightbox-caption {
             flex-wrap:
                 wrap;
+
             gap:
                 7px 11px;
+
             max-width:
                 82vw;
+
             font-size:
                 8px;
         }
@@ -3299,6 +3750,7 @@ const homeTags = [
         .exhibition {
             padding-top:
                 105px;
+
             padding-bottom:
                 125px;
         }
@@ -3306,6 +3758,7 @@ const homeTags = [
         .section-intro {
             display:
                 block;
+
             margin-bottom:
                 47px;
         }
@@ -3322,6 +3775,7 @@ const homeTags = [
         .section-description {
             margin-top:
                 25px;
+
             max-width:
                 260px;
         }
@@ -3329,6 +3783,7 @@ const homeTags = [
         .works-grid {
             grid-template-columns:
                 1fr;
+
             row-gap:
                 62px;
         }
@@ -3345,6 +3800,7 @@ const homeTags = [
         .work-card-lower {
             justify-self:
                 auto;
+
             margin-top:
                 0;
         }
@@ -3387,6 +3843,7 @@ const homeTags = [
         .about {
             grid-template-columns:
                 1fr;
+
             padding:
                 100px 0 125px;
         }
@@ -3403,6 +3860,7 @@ const homeTags = [
                     15vw,
                     78px
                 );
+
             margin-bottom:
                 35px;
         }
@@ -3410,6 +3868,7 @@ const homeTags = [
         .about-copy {
             font-size:
                 13px;
+
             max-width:
                 340px;
         }
@@ -3417,12 +3876,16 @@ const homeTags = [
         .about-decor {
             right:
                 -28px;
+
             bottom:
                 17%;
+
             width:
                 115px;
+
             height:
                 115px;
+
             opacity:
                 0.7;
         }
@@ -3430,8 +3893,10 @@ const homeTags = [
         .footer {
             flex-direction:
                 column;
+
             align-items:
                 flex-start;
+
             padding-bottom:
                 28px;
         }
