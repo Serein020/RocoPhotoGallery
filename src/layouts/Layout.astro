@@ -1,0 +1,88 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Roco Photo Gallery',
+	description = 'A ROCOal game photography exhibition.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, viewport-fit=cover"
+		/>
+
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+
+		<title>{title}</title>
+	</head>
+
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style>
+	:global(*) {
+		box-sizing: border-box;
+	}
+
+	:global(html) {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		min-width: 320px;
+		background: #f3ca36;
+		scroll-behavior: smooth;
+	}
+
+	:global(body) {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		min-width: 320px;
+		min-height: 100vh;
+
+		background: #f3ca36;
+		color: #171717;
+
+		font-family:
+			Inter,
+			"Helvetica Neue",
+			Helvetica,
+			Arial,
+			sans-serif;
+
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
+	:global(a) {
+		color: inherit;
+	}
+
+	:global(button),
+	:global(input) {
+		font: inherit;
+	}
+
+	:global(button) {
+		border: 0;
+	}
+
+	:global(img) {
+		display: block;
+		max-width: 100%;
+	}
+</style>

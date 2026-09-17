@@ -1,0 +1,2147 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const photoFiles = [
+    '/photos/pics/20260912-006.png',
+    '/photos/pics/20260912-005.png',
+    '/photos/pics/20260912-013.png',
+    '/photos/pics/20260912-011.png',
+    '/photos/pics/20260912-015.png',
+    '/photos/pics/20260912-010.png',
+    '/photos/pics/20260912-014.png',
+    '/photos/pics/20260912-016.png',
+    '/photos/pics/20260912-008.png',
+    '/photos/pics/20260911-002.png',
+    '/photos/pics/20260912-003.png',
+    '/photos/pics/20260912-009.png',
+    '/photos/pics/20260912-001.png',
+    '/photos/pics/20260912-012.png',
+    '/photos/pics/20260912-007.png',
+    '/photos/pics/20260911-003.png',
+    '/photos/pics/20260912-002.png',
+    '/photos/pics/20260912-017.png',
+    '/photos/pics/20260912-004.png',
+];
+
+const photos = photoFiles.map((image, index) => {
+    const filename =
+        image.split('/').pop()?.replace(/\.[^.]+$/, '') ??
+        `work-${index + 1}`;
+
+    const dateMatch =
+        filename.match(/^(\d{4})(\d{2})(\d{2})-/);
+
+    const date = dateMatch
+        ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`
+        : '';
+
+    return {
+        id: filename,
+        image,
+        date,
+        order: index + 1,
+    };
+});
+---
+
+<Layout
+    title="Admin — Roco Photo Gallery"
+    description="Local photo information editor."
+>
+    <div class="admin-page">
+
+        <!-- ===================================================== -->
+        <!-- HEADER -->
+        <!-- ===================================================== -->
+
+        <header class="admin-header">
+
+            <a
+                href="/"
+                class="brand"
+                aria-label="Roco Photo Gallery"
+            >
+                <span class="brand-name">
+                    ROCO
+                </span>
+
+                <span class="brand-caption">
+                    PHOTO INFO / ADMIN
+                </span>
+            </a>
+
+
+            <div class="header-actions">
+
+                <a
+                    href="/exhibition"
+                    class="header-link"
+                >
+                    EXHIBITION ↗
+                </a>
+
+                <button
+                    type="button"
+                    id="save-draft"
+                    class="header-button"
+                >
+                    SAVE
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ===================================================== -->
+        <!-- INFO BAR -->
+        <!-- ===================================================== -->
+
+        <section class="info-bar">
+
+            <div class="info-left">
+
+                <span class="info-title">
+                    PHOTO INFORMATION
+                </span>
+
+                <span class="info-count">
+                    {photos.length} PHOTOS
+                </span>
+
+                <span
+                    class="draft-status"
+                    id="draft-status"
+                >
+                    SAVED
+                </span>
+
+            </div>
+
+
+            <div class="info-right">
+
+                <div class="progress">
+
+                    <span
+                        class="progress-fill"
+                        id="progress-fill"
+                    ></span>
+
+                </div>
+
+                <strong id="progress-number">
+                    0 / {photos.length}
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================== -->
+        <!-- TOOLBAR -->
+        <!-- ===================================================== -->
+
+        <section class="toolbar">
+
+            <div class="toolbar-hint">
+
+                <span>
+                    1 = 1
+                </span>
+
+                <span>
+                    2 = 2
+                </span>
+
+                <span>
+                    3 = 2+
+                </span>
+
+                <span>
+                    R = RABBIT
+                </span>
+
+                <span>
+                    ← / → = PHOTO
+                </span>
+
+            </div>
+
+
+            <div class="toolbar-actions">
+
+                <button
+                    type="button"
+                    class="tool-button"
+                    id="clear-draft"
+                >
+                    CLEAR
+                </button>
+
+                <button
+                    type="button"
+                    class="tool-button dark"
+                    id="export-data"
+                >
+                    EXPORT JSON
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================== -->
+        <!-- PHOTO GRID -->
+        <!-- ===================================================== -->
+
+        <main class="photo-grid">
+
+            {
+                photos.map((photo) => (
+
+                    <article
+                        class="photo-card"
+                        data-id={photo.id}
+                    >
+
+                        <div class="image-wrap">
+
+                            <img
+                                src={photo.image}
+                                alt={photo.id}
+                                loading="lazy"
+                                decoding="async"
+                            />
+
+                            <span class="image-number">
+                                {
+                                    String(
+                                        photo.order
+                                    ).padStart(
+                                        2,
+                                        '0'
+                                    )
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <div class="photo-content">
+
+                            <div class="filename">
+                                {photo.id}
+                            </div>
+
+
+                            <!-- DATE -->
+
+                            <div class="field">
+
+                                <label>
+                                    DATE
+                                </label>
+
+                                <input
+                                    type="date"
+                                    class="date-input"
+                                    data-field="date"
+                                    value={photo.date}
+                                    aria-label={`Date for ${photo.id}`}
+                                />
+
+                            </div>
+
+
+                            <!-- PEOPLE -->
+
+                            <div class="field">
+
+                                <label>
+                                    PEOPLE
+                                </label>
+
+                                <div class="choice-row people-choice">
+
+                                    <button
+                                        type="button"
+                                        class="choice-button"
+                                        data-field="people"
+                                        data-value="1"
+                                    >
+                                        1
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="choice-button"
+                                        data-field="people"
+                                        data-value="2"
+                                    >
+                                        2
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="choice-button"
+                                        data-field="people"
+                                        data-value="3"
+                                    >
+                                        2+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- RABBIT -->
+
+                            <div class="field">
+
+                                <label>
+                                    RABBIT
+                                </label>
+
+                                <div class="choice-row rabbit-choice">
+
+                                    <button
+                                        type="button"
+                                        class="choice-button"
+                                        data-field="rabbit"
+                                        data-value="no"
+                                    >
+                                        NO
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="choice-button"
+                                        data-field="rabbit"
+                                        data-value="yes"
+                                    >
+                                        YES
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <div class="card-status">
+
+                                <span
+                                    class="status-dot"
+                                    data-status-dot
+                                ></span>
+
+                                <span data-status-text>
+                                    INCOMPLETE
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                ))
+            }
+
+        </main>
+
+
+        <!-- ===================================================== -->
+        <!-- QUICK NAV -->
+        <!-- ===================================================== -->
+
+        <section class="quick-nav">
+
+            <div class="quick-info">
+
+                <span>
+                    QUICK EDIT
+                </span>
+
+                <strong id="current-photo">
+                    01 / {photos.length}
+                </strong>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+                <button
+                    type="button"
+                    id="previous-photo"
+                    class="quick-arrow"
+                    aria-label="Previous photo"
+                >
+                    ←
+                </button>
+
+                <button
+                    type="button"
+                    id="next-photo"
+                    class="quick-arrow"
+                    aria-label="Next photo"
+                >
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================== -->
+        <!-- FOOTER -->
+        <!-- ===================================================== -->
+
+        <footer class="footer">
+
+            <div class="footer-brand">
+
+                <span>
+                    ROCO
+                </span>
+
+                <small>
+                    GAME PHOTOGRAPHY
+                </small>
+
+            </div>
+
+
+            <div class="footer-note">
+
+                <span>
+                    LOCAL ADMIN TOOL
+                </span>
+
+                <span>
+                    AUTO SAVE
+                </span>
+
+            </div>
+
+        </footer>
+
+    </div>
+</Layout>
+
+
+<script>
+
+    const STORAGE_KEY =
+        'roco-photo-admin-draft-v1';
+
+
+    const cards =
+        Array.from(
+            document.querySelectorAll<HTMLElement>(
+                '.photo-card'
+            )
+        );
+
+
+    const progressNumber =
+        document.querySelector<HTMLElement>(
+            '#progress-number'
+        );
+
+
+    const progressFill =
+        document.querySelector<HTMLElement>(
+            '#progress-fill'
+        );
+
+
+    const draftStatus =
+        document.querySelector<HTMLElement>(
+            '#draft-status'
+        );
+
+
+    const saveDraftButton =
+        document.querySelector<HTMLButtonElement>(
+            '#save-draft'
+        );
+
+
+    const clearDraftButton =
+        document.querySelector<HTMLButtonElement>(
+            '#clear-draft'
+        );
+
+
+    const exportButton =
+        document.querySelector<HTMLButtonElement>(
+            '#export-data'
+        );
+
+
+    const previousButton =
+        document.querySelector<HTMLButtonElement>(
+            '#previous-photo'
+        );
+
+
+    const nextButton =
+        document.querySelector<HTMLButtonElement>(
+            '#next-photo'
+        );
+
+
+    const currentPhotoLabel =
+        document.querySelector<HTMLElement>(
+            '#current-photo'
+        );
+
+
+    let currentPhotoIndex =
+        0;
+
+
+    /* -------------------------------------------------------------
+       DATA
+    ------------------------------------------------------------- */
+
+    function getCardData(
+        card: HTMLElement
+    ) {
+
+        const id =
+            card.dataset.id ?? '';
+
+
+        const dateInput =
+            card.querySelector<HTMLInputElement>(
+                '[data-field="date"]'
+            );
+
+
+        const peopleButton =
+            card.querySelector<HTMLButtonElement>(
+                '[data-field="people"].active'
+            );
+
+
+        const rabbitButton =
+            card.querySelector<HTMLButtonElement>(
+                '[data-field="rabbit"].active'
+            );
+
+
+        const peopleValue =
+            peopleButton?.dataset.value ??
+            '';
+
+
+        const rabbitValue =
+            rabbitButton?.dataset.value ??
+            '';
+
+
+        return {
+            id,
+
+            image:
+                `/photos/pics/${id}.png`,
+
+            date:
+                dateInput?.value ?? '',
+
+            /*
+             * Internal mapping:
+             *
+             * 1 = exactly 1 person
+             * 2 = exactly 2 people
+             * 3 = 2+ people on the UI
+             *
+             * We intentionally keep "3" internally
+             * to represent 3 or more people.
+             */
+            people:
+                peopleValue
+                    ? Number(peopleValue)
+                    : null,
+
+            rabbit:
+                rabbitValue === ''
+                    ? null
+                    : rabbitValue === 'yes',
+        };
+
+    }
+
+
+    function getAllData() {
+
+        return cards.map(
+            (card) =>
+                getCardData(card)
+        );
+
+    }
+
+
+    /* -------------------------------------------------------------
+       STATUS
+    ------------------------------------------------------------- */
+
+    function isComplete(
+        card: HTMLElement
+    ) {
+
+        const data =
+            getCardData(card);
+
+
+        return (
+            Boolean(data.date) &&
+            data.people !== null &&
+            data.rabbit !== null
+        );
+
+    }
+
+
+    function updateCardStatus(
+        card: HTMLElement
+    ) {
+
+        const complete =
+            isComplete(card);
+
+
+        const dot =
+            card.querySelector<HTMLElement>(
+                '[data-status-dot]'
+            );
+
+
+        const text =
+            card.querySelector<HTMLElement>(
+                '[data-status-text]'
+            );
+
+
+        card.classList.toggle(
+            'is-complete',
+            complete
+        );
+
+
+        dot?.classList.toggle(
+            'complete',
+            complete
+        );
+
+
+        if (text) {
+
+            text.textContent =
+                complete
+                    ? 'COMPLETE'
+                    : 'INCOMPLETE';
+
+        }
+
+    }
+
+
+    function updateProgress() {
+
+        const completeCount =
+            cards.filter(
+                isComplete
+            ).length;
+
+
+        const total =
+            cards.length;
+
+
+        const percent =
+            total === 0
+                ? 0
+                : Math.round(
+                    (
+                        completeCount /
+                        total
+                    ) * 100
+                );
+
+
+        if (progressNumber) {
+
+            progressNumber.textContent =
+                `${completeCount} / ${total}`;
+
+        }
+
+
+        if (progressFill) {
+
+            progressFill.style.width =
+                `${percent}%`;
+
+        }
+
+
+        cards.forEach(
+            updateCardStatus
+        );
+
+    }
+
+
+    /* -------------------------------------------------------------
+       STATUS MESSAGE
+    ------------------------------------------------------------- */
+
+    let statusTimer: number | undefined;
+
+
+    function showStatus(
+        text: string
+    ) {
+
+        if (!draftStatus) {
+            return;
+        }
+
+
+        draftStatus.textContent =
+            text;
+
+
+        draftStatus.classList.add(
+            'visible'
+        );
+
+
+        if (statusTimer) {
+
+            window.clearTimeout(
+                statusTimer
+            );
+
+        }
+
+
+        statusTimer =
+            window.setTimeout(() => {
+
+                draftStatus.classList.remove(
+                    'visible'
+                );
+
+            }, 1600);
+
+    }
+
+
+    /* -------------------------------------------------------------
+       SAVE
+    ------------------------------------------------------------- */
+
+    function saveDraft(
+        message = 'SAVED'
+    ) {
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(
+                    getAllData()
+                )
+            );
+
+
+            showStatus(
+                message
+            );
+
+        } catch {
+
+            showStatus(
+                'SAVE ERROR'
+            );
+
+        }
+
+    }
+
+
+    /* -------------------------------------------------------------
+       LOAD
+    ------------------------------------------------------------- */
+
+    function loadDraft() {
+
+        const raw =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+
+        if (!raw) {
+            return;
+        }
+
+
+        try {
+
+            const saved =
+                JSON.parse(raw);
+
+
+            if (!Array.isArray(saved)) {
+                return;
+            }
+
+
+            saved.forEach(
+                (
+                    item: {
+                        id?: string;
+                        date?: string;
+                        people?: number | null;
+                        rabbit?: boolean | null;
+                    }
+                ) => {
+
+                    if (!item?.id) {
+                        return;
+                    }
+
+
+                    const card =
+                        cards.find(
+                            (candidate) =>
+                                candidate.dataset.id ===
+                                item.id
+                        );
+
+
+                    if (!card) {
+                        return;
+                    }
+
+
+                    const dateInput =
+                        card.querySelector<HTMLInputElement>(
+                            '[data-field="date"]'
+                        );
+
+
+                    if (
+                        dateInput &&
+                        typeof item.date ===
+                            'string'
+                    ) {
+
+                        dateInput.value =
+                            item.date;
+
+                    }
+
+
+                    if (
+                        typeof item.people ===
+                            'number'
+                    ) {
+
+                        setChoice(
+                            card,
+                            'people',
+                            String(
+                                item.people
+                            ),
+                            false
+                        );
+
+                    }
+
+
+                    if (
+                        typeof item.rabbit ===
+                            'boolean'
+                    ) {
+
+                        setChoice(
+                            card,
+                            'rabbit',
+                            item.rabbit
+                                ? 'yes'
+                                : 'no',
+                            false
+                        );
+
+                    }
+
+                }
+            );
+
+
+            updateProgress();
+
+
+            showStatus(
+                'DRAFT RESTORED'
+            );
+
+        } catch {
+
+            showStatus(
+                'DRAFT ERROR'
+            );
+
+        }
+
+    }
+
+
+    /* -------------------------------------------------------------
+       CHOICES
+    ------------------------------------------------------------- */
+
+    function setChoice(
+        card: HTMLElement,
+        field: string,
+        value: string,
+        save = true
+    ) {
+
+        const buttons =
+            Array.from(
+                card.querySelectorAll<HTMLButtonElement>(
+                    `[data-field="${field}"]`
+                )
+            );
+
+
+        buttons.forEach(
+            (button) => {
+
+                button.classList.toggle(
+                    'active',
+                    button.dataset.value ===
+                    value
+                );
+
+            }
+        );
+
+
+        updateProgress();
+
+
+        if (save) {
+
+            saveDraft(
+                'SYNCED'
+            );
+
+        }
+
+    }
+
+
+    cards.forEach(
+        (card) => {
+
+            const choiceButtons =
+                Array.from(
+                    card.querySelectorAll<HTMLButtonElement>(
+                        '.choice-button'
+                    )
+                );
+
+
+            choiceButtons.forEach(
+                (button) => {
+
+                    button.addEventListener(
+                        'click',
+                        () => {
+
+                            const field =
+                                button.dataset.field;
+
+
+                            const value =
+                                button.dataset.value;
+
+
+                            if (
+                                !field ||
+                                !value
+                            ) {
+                                return;
+                            }
+
+
+                            currentPhotoIndex =
+                                cards.indexOf(
+                                    card
+                                );
+
+
+                            updateCurrentPhoto();
+
+
+                            setChoice(
+                                card,
+                                field,
+                                value
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            const dateInput =
+                card.querySelector<HTMLInputElement>(
+                    '.date-input'
+                );
+
+
+            dateInput?.addEventListener(
+                'change',
+                () => {
+
+                    currentPhotoIndex =
+                        cards.indexOf(
+                            card
+                        );
+
+
+                    updateCurrentPhoto();
+
+
+                    updateProgress();
+
+
+                    saveDraft(
+                        'SYNCED'
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* -------------------------------------------------------------
+       EXPORT
+    ------------------------------------------------------------- */
+
+    function exportData() {
+
+        const data =
+            getAllData();
+
+
+        const completeData =
+            data.filter(
+                (item) =>
+                    Boolean(item.date) &&
+                    item.people !== null &&
+                    item.rabbit !== null
+            );
+
+
+        const output =
+            JSON.stringify(
+                completeData,
+                null,
+                2
+            );
+
+
+        const blob =
+            new Blob(
+                [output],
+                {
+                    type:
+                        'application/json;charset=utf-8',
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                'a'
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            'works.json';
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+
+        showStatus(
+            `${completeData.length} EXPORTED`
+        );
+
+    }
+
+
+    /* -------------------------------------------------------------
+       CLEAR
+    ------------------------------------------------------------- */
+
+    function clearDraft() {
+
+        const confirmed =
+            window.confirm(
+                'Clear all saved photo information?'
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        localStorage.removeItem(
+            STORAGE_KEY
+        );
+
+
+        cards.forEach(
+            (card) => {
+
+                const input =
+                    card.querySelector<HTMLInputElement>(
+                        '.date-input'
+                    );
+
+
+                if (input) {
+
+                    input.value =
+                        input.dataset.originalDate ??
+                        '';
+
+                }
+
+
+                card.querySelectorAll<HTMLButtonElement>(
+                    '.choice-button'
+                ).forEach(
+                    (button) => {
+
+                        button.classList.remove(
+                            'active'
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        updateProgress();
+
+
+        showStatus(
+            'DRAFT CLEARED'
+        );
+
+    }
+
+
+    /* -------------------------------------------------------------
+       QUICK NAV
+    ------------------------------------------------------------- */
+
+    function updateCurrentPhoto() {
+
+        if (!currentPhotoLabel) {
+            return;
+        }
+
+
+        currentPhotoLabel.textContent =
+            `${String(
+                currentPhotoIndex + 1
+            ).padStart(
+                2,
+                '0'
+            )} / ${cards.length}`;
+
+    }
+
+
+    function focusPhoto(
+        index: number
+    ) {
+
+        if (
+            index < 0 ||
+            index >= cards.length
+        ) {
+            return;
+        }
+
+
+        currentPhotoIndex =
+            index;
+
+
+        const card =
+            cards[
+                currentPhotoIndex
+            ];
+
+
+        card?.scrollIntoView({
+            behavior:
+                'smooth',
+            block:
+                'center',
+        });
+
+
+        card?.classList.add(
+            'is-focused'
+        );
+
+
+        window.setTimeout(() => {
+
+            card?.classList.remove(
+                'is-focused'
+            );
+
+        }, 700);
+
+
+        updateCurrentPhoto();
+
+    }
+
+
+    previousButton?.addEventListener(
+        'click',
+        () => {
+
+            focusPhoto(
+                currentPhotoIndex - 1
+            );
+
+        }
+    );
+
+
+    nextButton?.addEventListener(
+        'click',
+        () => {
+
+            focusPhoto(
+                currentPhotoIndex + 1
+            );
+
+        }
+    );
+
+
+    /* -------------------------------------------------------------
+       KEYBOARD
+    ------------------------------------------------------------- */
+
+    document.addEventListener(
+        'keydown',
+        (event) => {
+
+            const target =
+                event.target as HTMLElement;
+
+
+            const isTyping =
+                target instanceof
+                    HTMLInputElement ||
+                target instanceof
+                    HTMLTextAreaElement ||
+                target instanceof
+                    HTMLSelectElement;
+
+
+            if (isTyping) {
+                return;
+            }
+
+
+            const card =
+                cards[
+                    currentPhotoIndex
+                ];
+
+
+            if (!card) {
+                return;
+            }
+
+
+            /*
+             * 1 = exactly 1 person
+             * 2 = exactly 2 people
+             * 3 = 2+ people
+             */
+
+            if (
+                event.key === '1' ||
+                event.key === '2' ||
+                event.key === '3'
+            ) {
+
+                setChoice(
+                    card,
+                    'people',
+                    event.key
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                event.key.toLowerCase() ===
+                'r'
+            ) {
+
+                const active =
+                    card.querySelector<HTMLButtonElement>(
+                        '[data-field="rabbit"].active'
+                    );
+
+
+                setChoice(
+                    card,
+                    'rabbit',
+                    active?.dataset.value ===
+                        'yes'
+                        ? 'no'
+                        : 'yes'
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                event.key ===
+                'ArrowLeft'
+            ) {
+
+                event.preventDefault();
+
+
+                focusPhoto(
+                    currentPhotoIndex - 1
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                event.key ===
+                'ArrowRight'
+            ) {
+
+                event.preventDefault();
+
+
+                focusPhoto(
+                    currentPhotoIndex + 1
+                );
+
+            }
+
+        }
+    );
+
+
+    /* -------------------------------------------------------------
+       BUTTON EVENTS
+    ------------------------------------------------------------- */
+
+    saveDraftButton?.addEventListener(
+        'click',
+        () => {
+
+            saveDraft(
+                'SAVED'
+            );
+
+        }
+    );
+
+
+    clearDraftButton?.addEventListener(
+        'click',
+        clearDraft
+    );
+
+
+    exportButton?.addEventListener(
+        'click',
+        exportData
+    );
+
+
+    /* -------------------------------------------------------------
+       ORIGINAL DATES
+    ------------------------------------------------------------- */
+
+    cards.forEach(
+        (card) => {
+
+            const input =
+                card.querySelector<HTMLInputElement>(
+                    '.date-input'
+                );
+
+
+            if (input) {
+
+                input.dataset.originalDate =
+                    input.value;
+
+            }
+
+        }
+    );
+
+
+    /* -------------------------------------------------------------
+       INIT
+    ------------------------------------------------------------- */
+
+    loadDraft();
+
+    updateProgress();
+
+    updateCurrentPhoto();
+
+</script>
+
+
+<style>
+
+    .admin-page {
+        position: relative;
+        width: min(100%, 1500px);
+        margin: 0 auto;
+        padding: 0 42px 70px;
+        color: #171717;
+        overflow: hidden;
+    }
+
+
+    .admin-page::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 50;
+        background-image:
+            radial-gradient(
+                rgba(32,28,16,.04) .55px,
+                transparent .55px
+            );
+        background-size: 7px 7px;
+        mix-blend-mode: multiply;
+        opacity: .45;
+    }
+
+
+    .admin-page::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 49;
+        background:
+            radial-gradient(
+                circle at 12% 12%,
+                rgba(255,255,255,.12),
+                transparent 27%
+            ),
+            radial-gradient(
+                circle at 86% 72%,
+                rgba(255,255,255,.08),
+                transparent 26%
+            );
+    }
+
+
+    .admin-header {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 24px 0 28px;
+    }
+
+
+    .brand {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 5px;
+        color: #171717;
+        text-decoration: none;
+    }
+
+
+    .brand-name {
+        font-size: 24px;
+        font-weight: 950;
+        line-height: .9;
+        letter-spacing: -.07em;
+    }
+
+
+    .brand-caption {
+        font-size: 7px;
+        font-weight: 800;
+        letter-spacing: .19em;
+        opacity: .45;
+    }
+
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+
+    .header-link,
+    .header-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1.5px solid #171717;
+        border-radius: 7px 9px 6px 8px;
+        font-size: 8px;
+        font-weight: 900;
+        letter-spacing: .1em;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+    .header-link {
+        background: #fff8e8;
+        color: #171717;
+    }
+
+
+    .header-button {
+        background: #171717;
+        color: #fff8e8;
+    }
+
+
+    .info-bar {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 25px;
+        padding: 14px 0;
+        border-top: 1.5px solid rgba(23,23,23,.22);
+        border-bottom: 1.5px solid rgba(23,23,23,.22);
+    }
+
+
+    .info-left,
+    .info-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+
+    .info-title,
+    .info-count,
+    .draft-status,
+    .info-right strong {
+        font-size: 8px;
+        font-weight: 900;
+        letter-spacing: .12em;
+    }
+
+
+    .info-title {
+        opacity: .8;
+    }
+
+
+    .info-count {
+        opacity: .38;
+    }
+
+
+    .draft-status {
+        opacity: 0;
+        transition: opacity .18s ease;
+    }
+
+
+    .draft-status.visible {
+        opacity: .72;
+    }
+
+
+    .progress {
+        position: relative;
+        width: 180px;
+        height: 7px;
+        overflow: hidden;
+        background: #dfd4b8;
+        border: 1px solid #171717;
+        border-radius: 999px;
+    }
+
+
+    .progress-fill {
+        display: block;
+        width: 0;
+        height: 100%;
+        background: #f3ca36;
+        transition: width .25s ease;
+    }
+
+
+    .toolbar {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 14px 0;
+    }
+
+
+    .toolbar-hint {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        font-size: 7px;
+        font-weight: 900;
+        letter-spacing: .11em;
+        opacity: .35;
+    }
+
+
+    .toolbar-actions {
+        display: flex;
+        gap: 7px;
+        flex-shrink: 0;
+    }
+
+
+    .tool-button {
+        height: 32px;
+        padding: 0 11px;
+        border: 1.5px solid #171717;
+        border-radius: 6px 8px 5px 7px;
+        background: #fff8e8;
+        color: #171717;
+        font-size: 7px;
+        font-weight: 900;
+        letter-spacing: .11em;
+        cursor: pointer;
+    }
+
+
+    .tool-button.dark {
+        background: #171717;
+        color: #fff8e8;
+    }
+
+
+    .photo-grid {
+        position: relative;
+        z-index: 10;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        column-gap: 22px;
+        row-gap: 30px;
+        padding-top: 15px;
+    }
+
+
+    .photo-card {
+        min-width: 0;
+        padding: 9px;
+        background: #fff8e8;
+        border: 2px solid #171717;
+        border-radius: 9px 12px 10px 13px;
+        box-shadow: 4px 5px 0 rgba(23,23,23,.09);
+        transform: rotate(-.35deg);
+        transition:
+            transform .2s ease,
+            box-shadow .2s ease;
+    }
+
+
+    .photo-card:nth-child(4n + 2) {
+        transform: rotate(.45deg);
+    }
+
+
+    .photo-card:nth-child(4n + 3) {
+        transform: rotate(-.55deg);
+    }
+
+
+    .photo-card:nth-child(4n) {
+        transform: rotate(.65deg);
+    }
+
+
+    .photo-card:hover,
+    .photo-card.is-focused {
+        transform:
+            translateY(-4px)
+            rotate(0);
+        box-shadow:
+            7px 9px 0
+            rgba(23,23,23,.12);
+    }
+
+
+    .photo-card.is-complete {
+        box-shadow:
+            4px 5px 0
+            rgba(23,23,23,.07);
+    }
+
+
+    .image-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 2388 / 1668;
+        overflow: hidden;
+        border: 1.5px solid rgba(23,23,23,.18);
+        background: #d7caa7;
+    }
+
+
+    .image-wrap img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+    .image-number {
+        position: absolute;
+        left: 7px;
+        top: 7px;
+        padding: 3px 5px;
+        background: rgba(23,23,23,.78);
+        color: #fff8e8;
+        font-size: 6px;
+        font-weight: 900;
+        letter-spacing: .11em;
+    }
+
+
+    .photo-content {
+        padding: 9px 1px 1px;
+    }
+
+
+    .filename {
+        margin-bottom: 9px;
+        font-size: 9px;
+        font-weight: 950;
+        letter-spacing: -.02em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    .field {
+        margin-top: 9px;
+    }
+
+
+    .field > label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 6px;
+        font-weight: 900;
+        letter-spacing: .15em;
+        opacity: .38;
+    }
+
+
+    .date-input {
+        width: 100%;
+        height: 31px;
+        padding: 0 8px;
+        border: 1.5px solid #171717;
+        border-radius: 5px 7px 4px 6px;
+        outline: none;
+        background: #f3ca36;
+        color: #171717;
+        font-size: 8px;
+        font-weight: 900;
+        letter-spacing: .03em;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+
+    .choice-row {
+        display: grid;
+        gap: 5px;
+    }
+
+
+    .people-choice {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+
+    .rabbit-choice {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+
+    .choice-button {
+        height: 29px;
+        padding: 0;
+        border: 1.5px solid #171717;
+        border-radius: 5px 7px 4px 6px;
+        background: transparent;
+        color: #171717;
+        font-size: 8px;
+        font-weight: 950;
+        cursor: pointer;
+        transition:
+            background .15s ease,
+            color .15s ease,
+            transform .15s ease;
+    }
+
+
+    .choice-button:hover {
+        transform: translateY(-1px);
+    }
+
+
+    .choice-button.active {
+        background: #171717;
+        color: #fff8e8;
+    }
+
+
+    .card-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 9px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(23,23,23,.12);
+        font-size: 6px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        opacity: .38;
+    }
+
+
+    .status-dot {
+        width: 6px;
+        height: 6px;
+        flex: 0 0 6px;
+        border: 1.5px solid #171717;
+        border-radius: 50%;
+    }
+
+
+    .status-dot.complete {
+        background: #171717;
+    }
+
+
+    .quick-nav {
+        position: sticky;
+        bottom: 15px;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(100%, 360px);
+        margin: 55px auto 0;
+        padding: 7px;
+        background: rgba(255,248,232,.95);
+        border: 2px solid #171717;
+        border-radius: 999px;
+        box-shadow: 4px 5px 0 rgba(23,23,23,.1);
+        backdrop-filter: blur(10px);
+    }
+
+
+    .quick-info {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding-left: 9px;
+    }
+
+
+    .quick-info span {
+        font-size: 6px;
+        font-weight: 900;
+        letter-spacing: .14em;
+        opacity: .4;
+    }
+
+
+    .quick-info strong {
+        font-size: 9px;
+        font-weight: 950;
+    }
+
+
+    .quick-actions {
+        display: flex;
+        gap: 5px;
+    }
+
+
+    .quick-arrow {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border: 1.5px solid #171717;
+        border-radius: 50%;
+        background: #171717;
+        color: #fff8e8;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+
+    .footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 30px;
+        margin-top: 90px;
+        padding: 22px 0 18px;
+        border-top: 1.5px solid rgba(23,23,23,.22);
+    }
+
+
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+
+    .footer-brand span {
+        font-size: 14px;
+        font-weight: 950;
+        letter-spacing: -.05em;
+    }
+
+
+    .footer-brand small,
+    .footer-note span {
+        font-size: 7px;
+        font-weight: 800;
+        letter-spacing: .13em;
+        opacity: .4;
+    }
+
+
+    .footer-note {
+        display: flex;
+        gap: 20px;
+    }
+
+
+    @media (max-width: 1100px) {
+
+        .admin-page {
+            padding-left: 28px;
+            padding-right: 28px;
+        }
+
+        .photo-grid {
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+            column-gap: 18px;
+        }
+
+    }
+
+
+    @media (max-width: 760px) {
+
+        .admin-page {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .admin-header {
+            padding-top: 18px;
+            padding-bottom: 20px;
+        }
+
+        .brand-name {
+            font-size: 21px;
+        }
+
+        .brand-caption {
+            font-size: 6px;
+        }
+
+        .header-link,
+        .header-button {
+            min-height: 31px;
+            padding: 0 9px;
+            font-size: 7px;
+        }
+
+        .info-bar {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .info-left {
+            flex-wrap: wrap;
+        }
+
+        .info-right {
+            width: 100%;
+        }
+
+        .progress {
+            flex: 1;
+        }
+
+        .toolbar {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .toolbar-hint {
+            gap: 7px 11px;
+        }
+
+        .toolbar-actions {
+            width: 100%;
+        }
+
+        .tool-button {
+            flex: 1;
+        }
+
+        .photo-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+            padding-top: 8px;
+        }
+
+        .photo-card,
+        .photo-card:nth-child(4n + 2),
+        .photo-card:nth-child(4n + 3),
+        .photo-card:nth-child(4n) {
+            transform: rotate(-.25deg);
+        }
+
+        .photo-card:nth-child(2n) {
+            transform: rotate(.35deg);
+        }
+
+        .quick-nav {
+            bottom: 12px;
+            width: calc(100% - 10px);
+            margin-top: 60px;
+        }
+
+        .footer {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 70px;
+        }
+
+    }
+
+</style>
