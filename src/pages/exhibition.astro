@@ -1,63 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { photoWorks } from '../data/photo';
 
-/* =============================================================
-   PHOTO SOURCE
-============================================================= */
-
-const photoFiles = [
-	'/photos/pics/20260912-006.png',
-	'/photos/pics/20260912-005.png',
-	'/photos/pics/20260912-013.png',
-	'/photos/pics/20260912-011.png',
-	'/photos/pics/20260912-015.png',
-	'/photos/pics/20260912-010.png',
-	'/photos/pics/20260912-014.png',
-	'/photos/pics/20260912-016.png',
-	'/photos/pics/20260912-008.png',
-	'/photos/pics/20260911-002.png',
-	'/photos/pics/20260912-003.png',
-	'/photos/pics/20260912-009.png',
-	'/photos/pics/20260912-001.png',
-	'/photos/pics/20260912-012.png',
-	'/photos/pics/20260912-007.png',
-	'/photos/pics/20260911-003.png',
-	'/photos/pics/20260912-002.png',
-	'/photos/pics/20260912-017.png',
-	'/photos/pics/20260912-004.png',
-];
-
-const photoWorks = photoFiles
-	.map((image, index) => {
-		const id =
-			image
-				.split('/')
-				.pop()
-				?.replace(/\.[^.]+$/, '') ??
-			`work-${index + 1}`;
-
-		const match =
-			id.match(/^(\d{4})(\d{2})(\d{2})-/);
-
-		const date = match
-			? `${match[1]}-${match[2]}-${match[3]}`
-			: '';
-
-		return {
-			id,
-			image,
-			date,
-			order: index + 1,
-		};
-	})
-	.sort(
-		(a, b) =>
-			b.date.localeCompare(a.date) ||
-			b.id.localeCompare(a.id),
-	);
-
-const defaultDate =
-	photoWorks[0]?.date ?? '';
+const defaultDate = photoWorks[0]?.date ?? '';
 
 const [
 	defaultYear = '',
@@ -65,7 +10,6 @@ const [
 	defaultDay = '',
 ] = defaultDate.split('-');
 ---
-
 
 <Layout
 	title="Exhibition — Roco Photo Gallery"
@@ -242,7 +186,7 @@ const [
 
 			<div class="filter-item">
 
-				<label for="rabbit-filter">
+				<label for="JINIES-filter">
 					JINIES
 				</label>
 
@@ -250,7 +194,7 @@ const [
 				<div class="filter-control">
 
 					<select
-						id="rabbit-filter"
+						id="JINIES-filter"
 						aria-label="Filter by Jinies"
 					>
 
@@ -605,7 +549,7 @@ const [
 	============================================================= */
 
 	const STORAGE_KEY =
-		'roco-photo-meta-v1';
+		'roco-photo-admin-draft-v1';
 
 	const PAGE_SIZE =
 		20;
@@ -621,6 +565,26 @@ const [
 				'.work-card'
 			)
 		);
+
+
+	/*
+	 * 始终获取当前 DOM 中的实际作品顺序。
+	 *
+	 * 重要：
+	 * Admin 修改 DATE 后，作品会重新排序。
+	 * 因此后续筛选、分页、Lightbox 都不能继续依赖
+	 * 最初的 cards 数组顺序。
+	 */
+
+	function getCardsInDomOrder() {
+
+		return Array.from(
+			document.querySelectorAll<HTMLElement>(
+				'.work-card'
+			)
+		);
+
+	}
 
 
 	const dateControl =
@@ -653,9 +617,9 @@ const [
 		);
 
 
-	const rabbitSelect =
+	const JINIESSelect =
 		document.querySelector<HTMLSelectElement>(
-			'#rabbit-filter'
+			'#JINIES-filter'
 		);
 
 
@@ -782,8 +746,8 @@ const [
 	/*
 	 * 初始状态：
 	 *
-	 * DATE 显示最新日期，
-	 * 但不立即执行日期筛选。
+	 * DATE 显示最新 DATE，
+	 * 但不立即执行 DATE 筛选。
 	 */
 
 	let filtersActivated =
@@ -825,7 +789,7 @@ const [
 		{
 			date?: string;
 			people?: number | null;
-			rabbit?: boolean | null;
+			JINIES?: boolean | null;
 		}
 	> {
 
@@ -838,7 +802,9 @@ const [
 
 
 			if (!raw) {
+
 				return {};
+
 			}
 
 
@@ -856,6 +822,21 @@ const [
 			return {};
 
 		}
+
+	}
+
+
+	/* =============================================================
+	   DATE VALIDATION
+	============================================================= */
+
+	function isValidDateString(
+		value: string
+	) {
+
+		return /^\d{4}-\d{2}-\d{2}$/.test(
+			value
+		);
 
 	}
 
@@ -894,13 +875,19 @@ const [
 					);
 
 
+				const trigger =
+					card.querySelector<HTMLButtonElement>(
+						'.lightbox-trigger'
+					);
+
+
 				const people =
 					saved?.people ??
 					null;
 
 
-				const rabbit =
-					saved?.rabbit ??
+				const JINIES =
+					saved?.JINIES ??
 					null;
 
 
@@ -913,18 +900,22 @@ const [
 							: 'ROCO —';
 
 
-				const rabbitText =
-					rabbit === true
+				const JINIESText =
+					JINIES === true
 						? 'JINIES'
-						: rabbit === false
+						: JINIES === false
 							? 'NO JINIES'
 							: 'JINIES —';
 
 
+				/*
+				 * 更新 ROCO / JINIES 信息。
+				 */
+
 				if (meta) {
 
 					meta.textContent =
-						`${peopleText} / ${rabbitText}`;
+						`${peopleText} / ${JINIESText}`;
 
 				}
 
@@ -938,19 +929,32 @@ const [
 							: '';
 
 
-				card.dataset.rabbit =
-					rabbit === true
+				card.dataset.JINIES =
+					JINIES === true
 						? 'yes'
-						: rabbit === false
+						: JINIES === false
 							? 'no'
 							: '';
 
 
 				/*
-				 * Admin 可以修改作品日期。
+				 * =================================================
+				 * DATE
+				 * =================================================
+				 *
+				 * Admin 修改过：
+				 * 使用 Admin DATE。
+				 *
+				 * 没有修改：
+				 * 使用 photo.ts 原始 DATE。
 				 */
 
-				if (saved?.date) {
+				if (
+					saved?.date &&
+					isValidDateString(
+						saved.date
+					)
+				) {
 
 					card.dataset.date =
 						saved.date;
@@ -966,7 +970,179 @@ const [
 
 					}
 
+
+					/*
+					 * 同步 Lightbox DATE。
+					 */
+
+					if (trigger) {
+
+						trigger.dataset.lightboxDate =
+							saved.date;
+
+					}
+
+				} else {
+
+					/*
+					 * 没有 Admin DATE 覆盖时，
+					 * 使用卡片当前 DATE。
+					 */
+
+					if (trigger) {
+
+						trigger.dataset.lightboxDate =
+							card.dataset.date ??
+							'';
+
+					}
+
 				}
+
+			}
+		);
+
+
+		/* =========================================================
+		   REORDER WORKS
+		========================================================= */
+
+		const grid =
+			document.querySelector<HTMLElement>(
+				'#works-grid'
+			);
+
+
+		if (!grid) {
+
+			return;
+
+		}
+
+
+		/*
+		 * 保存 photo.ts 原始顺序。
+		 *
+		 * 日期相同时，
+		 * 保持原始作品顺序。
+		 */
+
+		const originalOrder =
+			new Map(
+				cards.map(
+					(card, index) => [
+						card,
+						index,
+					]
+				)
+			);
+
+
+		const sortedCards =
+			[...cards].sort(
+				(a, b) => {
+
+					const dateA =
+						a.dataset.date ??
+						'';
+
+
+					const dateB =
+						b.dataset.date ??
+						'';
+
+
+					const validA =
+						isValidDateString(
+							dateA
+						);
+
+
+					const validB =
+						isValidDateString(
+							dateB
+						);
+
+
+					/*
+					 * 两个都没有有效日期：
+					 * 保持原始顺序。
+					 */
+
+					if (
+						!validA &&
+						!validB
+					) {
+
+						return (
+							(originalOrder.get(a) ?? 0) -
+							(originalOrder.get(b) ?? 0)
+						);
+
+					}
+
+
+					/*
+					 * 无效日期放最后。
+					 */
+
+					if (!validA) {
+
+						return 1;
+
+					}
+
+
+					if (!validB) {
+
+						return -1;
+
+					}
+
+
+					/*
+					 * 日期新的在前。
+					 */
+
+					const dateCompare =
+						dateB.localeCompare(
+							dateA
+						);
+
+
+					if (
+						dateCompare !== 0
+					) {
+
+						return dateCompare;
+
+					}
+
+
+					/*
+					 * 日期相同：
+					 * 保持原始顺序。
+					 */
+
+					return (
+						(originalOrder.get(a) ?? 0) -
+						(originalOrder.get(b) ?? 0)
+					);
+
+				}
+			);
+
+
+		/*
+		 * 将排序后的作品重新插入 Grid。
+		 */
+
+		sortedCards.forEach(
+			(card) => {
+
+				grid.appendChild(
+					card
+				);
 
 			}
 		);
@@ -1086,17 +1262,26 @@ const [
 	function clearDateValue() {
 
 		if (dateYear) {
-			dateYear.value = '';
+
+			dateYear.value =
+				'';
+
 		}
 
 
 		if (dateMonth) {
-			dateMonth.value = '';
+
+			dateMonth.value =
+				'';
+
 		}
 
 
 		if (dateDay) {
-			dateDay.value = '';
+
+			dateDay.value =
+				'';
+
 		}
 
 	}
@@ -1193,7 +1378,9 @@ const [
 	) {
 
 		if (!input) {
+
 			return;
+
 		}
 
 
@@ -1235,6 +1422,7 @@ const [
 				currentPage =
 					1;
 
+
 				render();
 
 			}
@@ -1248,10 +1436,13 @@ const [
 				filtersActivated =
 					true;
 
+
 				normalizeDateFields();
+
 
 				currentPage =
 					1;
+
 
 				render();
 
@@ -1310,7 +1501,8 @@ const [
 		(event) => {
 
 			if (
-				event.key === 'ArrowLeft'
+				event.key ===
+				'ArrowLeft'
 			) {
 
 				event.preventDefault();
@@ -1328,7 +1520,8 @@ const [
 		(event) => {
 
 			if (
-				event.key === 'ArrowLeft'
+				event.key ===
+				'ArrowLeft'
 			) {
 
 				event.preventDefault();
@@ -1342,7 +1535,7 @@ const [
 
 
 	/*
-	 * 点击日期区域的空白处：
+	 * 点击 DATE 区域的空白处：
 	 * 从 DD 开始编辑。
 	 */
 
@@ -1381,11 +1574,13 @@ const [
 		/*
 		 * 初始状态：
 		 * 显示全部作品。
+		 *
+		 * 这里必须使用当前 DOM 顺序。
 		 */
 
 		if (!filtersActivated) {
 
-			return cards;
+			return getCardsInDomOrder();
 
 		}
 
@@ -1399,12 +1594,12 @@ const [
 			'all';
 
 
-		const rabbit =
-			rabbitSelect?.value ??
+		const JINIES =
+			JINIESSelect?.value ??
 			'all';
 
 
-		return cards.filter(
+		return getCardsInDomOrder().filter(
 			(card) => {
 
 				const dateMatch =
@@ -1419,16 +1614,16 @@ const [
 						people;
 
 
-				const rabbitMatch =
-					rabbit === 'all' ||
-					card.dataset.rabbit ===
-						rabbit;
+				const JINIESMatch =
+					JINIES === 'all' ||
+					card.dataset.JINIES ===
+						JINIES;
 
 
 				return (
 					dateMatch &&
 					peopleMatch &&
-					rabbitMatch
+					JINIESMatch
 				);
 
 			}
@@ -1459,14 +1654,16 @@ const [
 			'all';
 
 
-		const rabbit =
-			rabbitSelect?.value ??
+		const JINIES =
+			JINIESSelect?.value ??
 			'all';
 
 
 		if (date) {
 
-			parts.push(date);
+			parts.push(
+				date
+			);
 
 		}
 
@@ -1485,11 +1682,11 @@ const [
 
 
 		if (
-			rabbit !== 'all'
+			JINIES !== 'all'
 		) {
 
 			parts.push(
-				rabbit === 'yes'
+				JINIES === 'yes'
 					? 'WITH JINIES'
 					: 'WITHOUT JINIES'
 			);
@@ -1556,7 +1753,9 @@ const [
 				currentPage =
 					page;
 
+
 				render();
+
 
 				scrollToGrid();
 
@@ -1574,7 +1773,9 @@ const [
 	) {
 
 		if (!pageNumbers) {
+
 			return;
+
 		}
 
 
@@ -1746,7 +1947,11 @@ const [
 			);
 
 
-		cards.forEach(
+		/*
+		 * 按当前 DOM 顺序处理显示状态。
+		 */
+
+		getCardsInDomOrder().forEach(
 			(card) => {
 
 				card.style.display =
@@ -1856,9 +2061,9 @@ const [
 		}
 
 
-		if (rabbitSelect) {
+		if (JINIESSelect) {
 
-			rabbitSelect.value =
+			JINIESSelect.value =
 				'all';
 
 		}
@@ -1888,8 +2093,10 @@ const [
 			filtersActivated =
 				true;
 
+
 			currentPage =
 				1;
+
 
 			render();
 
@@ -1897,15 +2104,17 @@ const [
 	);
 
 
-	rabbitSelect?.addEventListener(
+	JINIESSelect?.addEventListener(
 		'change',
 		() => {
 
 			filtersActivated =
 				true;
 
+
 			currentPage =
 				1;
+
 
 			render();
 
@@ -1919,13 +2128,17 @@ const [
 
 			event.stopPropagation();
 
+
 			clearDateValue();
+
 
 			filtersActivated =
 				true;
 
+
 			currentPage =
 				1;
+
 
 			render();
 
@@ -1958,9 +2171,12 @@ const [
 			}
 
 
-			currentPage -= 1;
+			currentPage -=
+				1;
+
 
 			render();
+
 
 			scrollToGrid();
 
@@ -1993,9 +2209,12 @@ const [
 			}
 
 
-			currentPage += 1;
+			currentPage +=
+				1;
+
 
 			render();
+
 
 			scrollToGrid();
 
@@ -2009,8 +2228,15 @@ const [
 
 	function collectLightboxItems() {
 
+		/*
+		 * 必须按照当前 DOM 顺序收集。
+		 *
+		 * 这样 Lightbox 的上一张 / 下一张
+		 * 才会与 Exhibition 当前排序一致。
+		 */
+
 		const visibleCards =
-			cards.filter(
+			getCardsInDomOrder().filter(
 				(card) =>
 					card.style.display !==
 					'none'
@@ -2029,7 +2255,9 @@ const [
 
 
 						if (!trigger) {
+
 							return null;
+
 						}
 
 
@@ -2049,9 +2277,15 @@ const [
 									.lightboxTitle ??
 								'',
 
+							/*
+							 * 直接读取 card 当前 DATE。
+							 *
+							 * Admin 修改 DATE 后，
+							 * 这里一定是最终 DATE。
+							 */
+
 							date:
-								trigger.dataset
-									.lightboxDate ??
+								card.dataset.date ??
 								'',
 						};
 
@@ -2140,6 +2374,7 @@ const [
 			lightboxPrevious.hidden =
 				!hasMultiple;
 
+
 			lightboxPrevious.disabled =
 				!hasMultiple;
 
@@ -2150,6 +2385,7 @@ const [
 
 			lightboxNext.hidden =
 				!hasMultiple;
+
 
 			lightboxNext.disabled =
 				!hasMultiple;
@@ -2217,7 +2453,9 @@ const [
 	function closeLightbox() {
 
 		if (!lightbox) {
+
 			return;
+
 		}
 
 
@@ -2243,6 +2481,7 @@ const [
 				'src'
 			);
 
+
 			lightboxImage.alt =
 				'';
 
@@ -2250,6 +2489,7 @@ const [
 
 
 		lastFocusedElement?.focus();
+
 
 		lastFocusedElement =
 			null;
@@ -2319,8 +2559,12 @@ const [
 		collectLightboxItems();
 
 
+		/*
+		 * 使用当前 DOM 顺序。
+		 */
+
 		const visibleTriggers =
-			cards
+			getCardsInDomOrder()
 				.filter(
 					(card) =>
 						card.style.display !==
@@ -2391,9 +2635,11 @@ const [
 
 				event.preventDefault();
 
+
 				openFromTrigger(
 					trigger
 				);
+
 
 				return;
 
@@ -2412,6 +2658,7 @@ const [
 
 				closeLightbox();
 
+
 				return;
 
 			}
@@ -2429,6 +2676,7 @@ const [
 
 				showPrevious();
 
+
 				return;
 
 			}
@@ -2445,6 +2693,7 @@ const [
 			) {
 
 				showNext();
+
 
 				return;
 
@@ -2495,7 +2744,9 @@ const [
 
 				event.preventDefault();
 
+
 				closeLightbox();
+
 
 				return;
 
@@ -2509,7 +2760,9 @@ const [
 
 				event.preventDefault();
 
+
 				showPrevious();
+
 
 				return;
 
@@ -2522,6 +2775,7 @@ const [
 			) {
 
 				event.preventDefault();
+
 
 				showNext();
 
@@ -2601,10 +2855,24 @@ const [
 
 	function refreshFromStorage() {
 
+		/*
+		 * 重新读取 Admin 数据。
+		 *
+		 * applyMetadata() 会同时：
+		 *
+		 * 1. 更新 ROCO
+		 * 2. 更新 JINIES
+		 * 3. 更新 DATE
+		 * 4. 按最终 DATE 重新排序
+		 * 5. 同步 Lightbox DATE
+		 */
+
 		applyMetadata();
+
 
 		currentPage =
 			1;
+
 
 		render();
 
@@ -2649,6 +2917,7 @@ const [
 	============================================================= */
 
 	applyMetadata();
+
 
 	render();
 </script>

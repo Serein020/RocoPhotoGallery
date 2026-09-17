@@ -1,47 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const photoFiles = [
-    '/photos/pics/20260912-006.png',
-    '/photos/pics/20260912-005.png',
-    '/photos/pics/20260912-013.png',
-    '/photos/pics/20260912-011.png',
-    '/photos/pics/20260912-015.png',
-    '/photos/pics/20260912-010.png',
-    '/photos/pics/20260912-014.png',
-    '/photos/pics/20260912-016.png',
-    '/photos/pics/20260912-008.png',
-    '/photos/pics/20260911-002.png',
-    '/photos/pics/20260912-003.png',
-    '/photos/pics/20260912-009.png',
-    '/photos/pics/20260912-001.png',
-    '/photos/pics/20260912-012.png',
-    '/photos/pics/20260912-007.png',
-    '/photos/pics/20260911-003.png',
-    '/photos/pics/20260912-002.png',
-    '/photos/pics/20260912-017.png',
-    '/photos/pics/20260912-004.png',
-];
+import { photoWorks } from '../data/photo';
 
-const photos = photoFiles.map((image, index) => {
-    const filename =
-        image.split('/').pop()?.replace(/\.[^.]+$/, '') ??
-        `work-${index + 1}`;
-
-    const dateMatch =
-        filename.match(/^(\d{4})(\d{2})(\d{2})-/);
-
-    const date = dateMatch
-        ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`
-        : '';
-
-    return {
-        id: filename,
-        image,
-        date,
-        order: index + 1,
-    };
-});
+const photos = photoWorks.map((photo, index) => ({
+    ...photo,
+    order: index + 1,
+}));
 ---
 
 <Layout
@@ -160,7 +125,7 @@ const photos = photoFiles.map((image, index) => {
                 </span>
 
                 <span>
-                    R = RABBIT
+                    R = JINIES
                 </span>
 
                 <span>
@@ -298,20 +263,20 @@ const photos = photoFiles.map((image, index) => {
                             </div>
 
 
-                            <!-- RABBIT -->
+                            <!-- JINIES -->
 
                             <div class="field">
 
                                 <label>
-                                    RABBIT
+                                    JINIES
                                 </label>
 
-                                <div class="choice-row rabbit-choice">
+                                <div class="choice-row JINIES-choice">
 
                                     <button
                                         type="button"
                                         class="choice-button"
-                                        data-field="rabbit"
+                                        data-field="JINIES"
                                         data-value="no"
                                     >
                                         NO
@@ -320,7 +285,7 @@ const photos = photoFiles.map((image, index) => {
                                     <button
                                         type="button"
                                         class="choice-button"
-                                        data-field="rabbit"
+                                        data-field="JINIES"
                                         data-value="yes"
                                     >
                                         YES
@@ -533,9 +498,9 @@ const photos = photoFiles.map((image, index) => {
             );
 
 
-        const rabbitButton =
+        const JINIESButton =
             card.querySelector<HTMLButtonElement>(
-                '[data-field="rabbit"].active'
+                '[data-field="JINIES"].active'
             );
 
 
@@ -544,8 +509,8 @@ const photos = photoFiles.map((image, index) => {
             '';
 
 
-        const rabbitValue =
-            rabbitButton?.dataset.value ??
+        const JINIESValue =
+            JINIESButton?.dataset.value ??
             '';
 
 
@@ -573,10 +538,10 @@ const photos = photoFiles.map((image, index) => {
                     ? Number(peopleValue)
                     : null,
 
-            rabbit:
-                rabbitValue === ''
+            JINIES:
+                JINIESValue === ''
                     ? null
-                    : rabbitValue === 'yes',
+                    : JINIESValue === 'yes',
         };
 
     }
@@ -607,7 +572,7 @@ const photos = photoFiles.map((image, index) => {
         return (
             Boolean(data.date) &&
             data.people !== null &&
-            data.rabbit !== null
+            data.JINIES !== null
         );
 
     }
@@ -816,7 +781,7 @@ const photos = photoFiles.map((image, index) => {
                         id?: string;
                         date?: string;
                         people?: number | null;
-                        rabbit?: boolean | null;
+                        JINIES?: boolean | null;
                     }
                 ) => {
 
@@ -874,14 +839,14 @@ const photos = photoFiles.map((image, index) => {
 
 
                     if (
-                        typeof item.rabbit ===
+                        typeof item.JINIES ===
                             'boolean'
                     ) {
 
                         setChoice(
                             card,
-                            'rabbit',
-                            item.rabbit
+                            'JINIES',
+                            item.JINIES
                                 ? 'yes'
                                 : 'no',
                             false
@@ -1061,7 +1026,7 @@ const photos = photoFiles.map((image, index) => {
                 (item) =>
                     Boolean(item.date) &&
                     item.people !== null &&
-                    item.rabbit !== null
+                    item.JINIES !== null
             );
 
 
@@ -1355,13 +1320,13 @@ const photos = photoFiles.map((image, index) => {
 
                 const active =
                     card.querySelector<HTMLButtonElement>(
-                        '[data-field="rabbit"].active'
+                        '[data-field="JINIES"].active'
                     );
 
 
                 setChoice(
                     card,
-                    'rabbit',
+                    'JINIES',
                     active?.dataset.value ===
                         'yes'
                         ? 'no'
@@ -1865,7 +1830,7 @@ const photos = photoFiles.map((image, index) => {
     }
 
 
-    .rabbit-choice {
+    .JINIES-choice {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 

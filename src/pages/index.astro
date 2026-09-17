@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { photoWorks } from '../data/photo';
 
 /* =============================================================
    HOME IMAGE SOURCES
@@ -24,56 +25,8 @@ const heroDate = heroMatch
 /* =============================================================
    02 / EXHIBITION：沿用 Exhibition 的完整作品列表。
 
-   首页默认取最新 6 张；Admin 修改日期后，前端也会同步最新排序。
+   首页默认取最新 6 张；Admin 修改DATE后，前端也会同步最新排序。
 ============================================================= */
-
-const photoFiles = [
-    '/photos/pics/20260912-006.png',
-    '/photos/pics/20260912-005.png',
-    '/photos/pics/20260912-013.png',
-    '/photos/pics/20260912-011.png',
-    '/photos/pics/20260912-015.png',
-    '/photos/pics/20260912-010.png',
-    '/photos/pics/20260912-014.png',
-    '/photos/pics/20260912-016.png',
-    '/photos/pics/20260912-008.png',
-    '/photos/pics/20260911-002.png',
-    '/photos/pics/20260912-003.png',
-    '/photos/pics/20260912-009.png',
-    '/photos/pics/20260912-001.png',
-    '/photos/pics/20260912-012.png',
-    '/photos/pics/20260912-007.png',
-    '/photos/pics/20260911-003.png',
-    '/photos/pics/20260912-002.png',
-    '/photos/pics/20260912-017.png',
-    '/photos/pics/20260912-004.png',
-];
-
-const photoWorks = photoFiles
-    .map((image, index) => {
-        const id =
-            image.split('/').pop()?.replace(/\.[^.]+$/, '') ??
-            `work-${index + 1}`;
-
-        const match =
-            id.match(/^(\d{4})(\d{2})(\d{2})-/);
-
-        const date = match
-            ? `${match[1]}-${match[2]}-${match[3]}`
-            : '';
-
-        return {
-            id,
-            image,
-            date,
-            order: index + 1,
-        };
-    })
-    .sort(
-        (a, b) =>
-            b.date.localeCompare(a.date) ||
-            b.id.localeCompare(a.id),
-    );
 
 const latestSixWorks = photoWorks.slice(0, 6);
 
@@ -104,23 +57,7 @@ const homeTapeClasses = [
     '',
 ];
 
-const homeTitles = [
-    'First Light',
-    'Passing By',
-    'Quiet Street',
-    'Blue Hour',
-    'Still Here',
-    'Between Worlds',
-];
 
-const homeTags = [
-    'SCENE / MORNING',
-    'CHARACTER / NIGHT',
-    'SCENE / RAIN',
-    'MOOD / EVENING',
-    'CHARACTER / DUSK',
-    'SCENE / DUSK',
-];
 ---
 
 <Layout
@@ -346,7 +283,6 @@ const homeTags = [
                                 data-lightbox-index={index}
                                 data-lightbox-src={work.image}
                                 data-lightbox-alt={work.id}
-                                data-lightbox-title={homeTitles[index]}
                                 data-lightbox-date={work.date}
                                 aria-label={`View ${work.id}`}
                             >
@@ -383,14 +319,6 @@ const homeTags = [
                             <div class="work-caption">
 
                                 <div>
-
-                                    <h3>
-                                        {homeTitles[index]}
-                                    </h3>
-
-                                    <p>
-                                        {homeTags[index]}
-                                    </p>
 
                                 </div>
 
@@ -579,9 +507,9 @@ const homeTags = [
                 </p>
 
                 <h2>
-                    MOMENTS,
+                    RocoKingdom
                     <br />
-                    in RocoKingdom.
+                    Moments
                 </h2>
 
                 <p class="about-copy">
@@ -633,7 +561,7 @@ const homeTags = [
 <script define:vars={{ photoWorks }}>
 
     const STORAGE_KEY =
-        'roco-photo-meta-v1';
+        'roco-photo-admin-draft-v1';
 
     let lightboxItems = [];
 
