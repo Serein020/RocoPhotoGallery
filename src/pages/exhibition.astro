@@ -163,6 +163,10 @@ const [
 							ALL
 						</option>
 
+						<option value="0">
+							0 PEOPLE
+						</option>
+
 						<option value="1">
 							1 PERSON
 						</option>
@@ -987,6 +991,10 @@ const originalOrder = new Map(
     }
 
     const people = card.dataset.people ?? '';
+
+    if (value === '0') {
+      return people === '0';
+    }
 
     if (value === '1') {
       return people === '1';
