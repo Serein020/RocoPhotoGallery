@@ -3,2110 +3,2255 @@ import Layout from '../layouts/Layout.astro';
 
 import { photoWorks } from '../data/photo';
 
-const photos = photoWorks.map((photo, index) => ({
-    ...photo,
-    order: index + 1,
-}));
+const photos = photoWorks;
 ---
 
-<Layout
-    title="Admin — Roco Photo Gallery"
-    description="Local photo information editor."
->
-    <div class="admin-page">
+<Layout title="ADMIN — ROCO PHOTO GALLERY">
+	<main class="admin-page">
 
-        <!-- ===================================================== -->
-        <!-- HEADER -->
-        <!-- ===================================================== -->
+		<header class="admin-header">
 
-        <header class="admin-header">
+			<div class="admin-brand">
 
-            <a
-                href="/"
-                class="brand"
-                aria-label="Roco Photo Gallery"
-            >
-                <span class="brand-name">
-                    ROCO
-                </span>
+				<a
+					href="/"
+					class="brand-name"
+				>
+					ROCO
+				</a>
 
-                <span class="brand-caption">
-                    PHOTO INFO / ADMIN
-                </span>
-            </a>
+				<span class="brand-caption">
+					PHOTO GALLERY / ADMIN
+				</span>
 
+			</div>
 
-            <div class="header-actions">
 
-                <a
-                    href="/exhibition"
-                    class="header-link"
-                >
-                    EXHIBITION ↗
-                </a>
+			<div class="admin-header-actions">
 
-                <button
-                    type="button"
-                    id="save-draft"
-                    class="header-button"
-                >
-                    SAVE
-                </button>
+				<a
+					href="/exhibition/"
+					class="header-link"
+				>
+					EXHIBITION
+				</a>
 
-            </div>
+				<button
+					type="button"
+					class="save-button"
+					id="save-draft"
+				>
+					SAVE
+				</button>
 
-        </header>
+			</div>
 
+		</header>
 
-        <!-- ===================================================== -->
-        <!-- INFO BAR -->
-        <!-- ===================================================== -->
 
-        <section class="info-bar">
+		<section class="admin-intro">
 
-            <div class="info-left">
+			<div class="intro-copy">
 
-                <span class="info-title">
-                    PHOTO INFORMATION
-                </span>
+				<p class="eyebrow">
+					PHOTO METADATA
+				</p>
 
-                <span class="info-count">
-                    {photos.length} PHOTOS
-                </span>
+				<h1>
+					ADMIN
+				</h1>
 
-                <span
-                    class="draft-status"
-                    id="draft-status"
-                >
-                    SAVED
-                </span>
+				<p class="intro-description">
+					Edit photo date, people count and JINIES status.
+				</p>
 
-            </div>
+			</div>
 
 
-            <div class="info-right">
+			<div class="admin-meta">
 
-                <div class="progress">
+				<div class="meta-item">
 
-                    <span
-                        class="progress-fill"
-                        id="progress-fill"
-                    ></span>
+					<span class="meta-label">
+						PHOTOS
+					</span>
 
-                </div>
+					<strong>
+						{photos.length}
+					</strong>
 
-                <strong id="progress-number">
-                    0 / {photos.length}
-                </strong>
+				</div>
 
-            </div>
 
-        </section>
+				<div class="meta-item">
 
+					<span class="meta-label">
+						STATUS
+					</span>
 
-        <!-- ===================================================== -->
-        <!-- TOOLBAR -->
-        <!-- ===================================================== -->
+					<strong id="draft-status">
+						READY
+					</strong>
 
-        <section class="toolbar">
+				</div>
 
-            <div class="toolbar-hint">
+			</div>
 
-                <span>
-                    1 = 1
-                </span>
+		</section>
 
-                <span>
-                    2 = 2
-                </span>
 
-                <span>
-                    3 = 2+
-                </span>
+		<section class="progress-section">
 
-                <span>
-                    R = JINIES
-                </span>
+			<div class="progress-top">
 
-                <span>
-                    ← / → = PHOTO
-                </span>
+				<span>
+					COMPLETION
+				</span>
 
-            </div>
+				<strong id="progress-number">
+					0%
+				</strong>
 
+			</div>
 
-            <div class="toolbar-actions">
 
-                <button
-                    type="button"
-                    class="tool-button"
-                    id="clear-draft"
-                >
-                    CLEAR
-                </button>
+			<div class="progress-track">
 
-                <button
-                    type="button"
-                    class="tool-button dark"
-                    id="export-data"
-                >
-                    EXPORT JSON
-                </button>
+				<div
+					class="progress-fill"
+					id="progress-fill"
+				></div>
 
-            </div>
+			</div>
 
-        </section>
+		</section>
 
 
-        <!-- ===================================================== -->
-        <!-- PHOTO GRID -->
-        <!-- ===================================================== -->
+		<section class="toolbar">
 
-        <main class="photo-grid">
+			<div class="keyboard-hints">
 
-            {
-                photos.map((photo) => (
+				<span>
+					1 = 1
+				</span>
 
-                    <article
-                        class="photo-card"
-                        data-id={photo.id}
-                    >
+				<span>
+					2 = 2
+				</span>
 
-                        <div class="image-wrap">
+				<span>
+					3 = 2+
+				</span>
 
-                            <img
-                                src={photo.image}
-                                alt={photo.id}
-                                loading="lazy"
-                                decoding="async"
-                            />
+				<span>
+					R = JINIES
+				</span>
 
-                            <span class="image-number">
-                                {
-                                    String(
-                                        photo.order
-                                    ).padStart(
-                                        2,
-                                        '0'
-                                    )
-                                }
-                            </span>
+				<span>
+					← →
+				</span>
 
-                        </div>
+			</div>
 
 
-                        <div class="photo-content">
+			<div class="toolbar-actions">
 
-                            <div class="filename">
-                                {photo.id}
-                            </div>
+				<button
+					type="button"
+					class="toolbar-button"
+					id="clear-draft"
+				>
+					CLEAR
+				</button>
 
+				<button
+					type="button"
+					class="toolbar-button"
+					id="export-json"
+				>
+					EXPORT JSON
+				</button>
 
-                            <!-- DATE -->
+			</div>
 
-                            <div class="field">
+		</section>
 
-                                <label>
-                                    DATE
-                                </label>
 
-                                <input
-                                    type="date"
-                                    class="date-input"
-                                    data-field="date"
-                                    value={photo.date}
-                                    aria-label={`Date for ${photo.id}`}
-                                />
+		<section class="photo-grid">
 
-                            </div>
+			{photos.map((photo) => (
 
+				<article
+					class="photo-card"
+					data-id={photo.id}
+				>
 
-                            <!-- PEOPLE -->
+					<div class="photo-card-image">
 
-                            <div class="field">
+						<img
+							src={photo.image}
+							alt={photo.id}
+							loading="lazy"
+							decoding="async"
+						/>
 
-                                <label>
-                                    PEOPLE
-                                </label>
+						<span class="photo-card-index">
+							{String(photo.order).padStart(3, '0')}
+						</span>
 
-                                <div class="choice-row people-choice">
+					</div>
 
-                                    <button
-                                        type="button"
-                                        class="choice-button"
-                                        data-field="people"
-                                        data-value="1"
-                                    >
-                                        1
-                                    </button>
 
-                                    <button
-                                        type="button"
-                                        class="choice-button"
-                                        data-field="people"
-                                        data-value="2"
-                                    >
-                                        2
-                                    </button>
+					<div class="photo-card-body">
 
-                                    <button
-                                        type="button"
-                                        class="choice-button"
-                                        data-field="people"
-                                        data-value="3"
-                                    >
-                                        2+
-                                    </button>
+						<div class="photo-card-heading">
 
-                                </div>
+							<strong>
+								{photo.id}
+							</strong>
 
-                            </div>
+							<span class="card-status">
+								<span class="status-dot"></span>
+								<span class="status-text">
+									READY
+								</span>
+							</span>
 
+						</div>
 
-                            <!-- JINIES -->
 
-                            <div class="field">
+						<div class="field-group">
 
-                                <label>
-                                    JINIES
-                                </label>
+							<label
+								for={`date-${photo.id}`}
+							>
+								DATE
+							</label>
 
-                                <div class="choice-row JINIES-choice">
+							<input
+								id={`date-${photo.id}`}
+								class="date-input"
+								type="date"
+								data-field="date"
+								data-original-date={photo.date}
+								value={photo.date}
+							/>
 
-                                    <button
-                                        type="button"
-                                        class="choice-button"
-                                        data-field="JINIES"
-                                        data-value="no"
-                                    >
-                                        NO
-                                    </button>
+						</div>
 
-                                    <button
-                                        type="button"
-                                        class="choice-button"
-                                        data-field="JINIES"
-                                        data-value="yes"
-                                    >
-                                        YES
-                                    </button>
 
-                                </div>
+						<div class="field-group">
 
-                            </div>
+							<span class="field-label">
+								PEOPLE
+							</span>
 
+							<div class="choice-row">
 
-                            <!-- STATUS -->
+								<button
+									type="button"
+									class="choice-button"
+									data-field="people"
+									data-value="1"
+								>
+									1
+								</button>
 
-                            <div class="card-status">
+								<button
+									type="button"
+									class="choice-button"
+									data-field="people"
+									data-value="2"
+								>
+									2
+								</button>
 
-                                <span
-                                    class="status-dot"
-                                    data-status-dot
-                                ></span>
+								<button
+									type="button"
+									class="choice-button"
+									data-field="people"
+									data-value="3"
+								>
+									2+
+								</button>
 
-                                <span data-status-text>
-                                    INCOMPLETE
-                                </span>
+							</div>
 
-                            </div>
+						</div>
 
-                        </div>
 
-                    </article>
+						<div class="field-group">
 
-                ))
-            }
+							<span class="field-label">
+								JINIES
+							</span>
 
-        </main>
+							<div class="choice-row">
 
+								<button
+									type="button"
+									class="choice-button"
+									data-field="JINIES"
+									data-value="no"
+								>
+									NO
+								</button>
 
-        <!-- ===================================================== -->
-        <!-- QUICK NAV -->
-        <!-- ===================================================== -->
+								<button
+									type="button"
+									class="choice-button"
+									data-field="JINIES"
+									data-value="yes"
+								>
+									YES
+								</button>
 
-        <section class="quick-nav">
+							</div>
 
-            <div class="quick-info">
+						</div>
 
-                <span>
-                    QUICK EDIT
-                </span>
+					</div>
 
-                <strong id="current-photo">
-                    01 / {photos.length}
-                </strong>
+				</article>
 
-            </div>
+			))}
 
+		</section>
 
-            <div class="quick-actions">
 
-                <button
-                    type="button"
-                    id="previous-photo"
-                    class="quick-arrow"
-                    aria-label="Previous photo"
-                >
-                    ←
-                </button>
+		<nav class="quick-nav">
 
-                <button
-                    type="button"
-                    id="next-photo"
-                    class="quick-arrow"
-                    aria-label="Next photo"
-                >
-                    →
-                </button>
+			<button
+				type="button"
+				class="nav-button"
+				id="prev-card"
+			>
+				← PREV
+			</button>
 
-            </div>
+			<button
+				type="button"
+				class="nav-button"
+				id="next-card"
+			>
+				NEXT →
+			</button>
 
-        </section>
+		</nav>
 
 
-        <!-- ===================================================== -->
-        <!-- FOOTER -->
-        <!-- ===================================================== -->
+		<footer class="admin-footer">
 
-        <footer class="footer">
+			<span>
+				ROCO PHOTO GALLERY
+			</span>
 
-            <div class="footer-brand">
+			<span>
+				LOCAL METADATA / V1
+			</span>
 
-                <span>
-                    ROCO
-                </span>
+		</footer>
 
-                <small>
-                    GAME PHOTOGRAPHY
-                </small>
-
-            </div>
-
-
-            <div class="footer-note">
-
-                <span>
-                    LOCAL ADMIN TOOL
-                </span>
-
-                <span>
-                    AUTO SAVE
-                </span>
-
-            </div>
-
-        </footer>
-
-    </div>
+	</main>
 </Layout>
 
 
-<script>
+<script is:inline>
+  const STORAGE_KEY = 'roco-photo-admin-draft-v1';
 
-    const STORAGE_KEY =
-        'roco-photo-admin-draft-v1';
+  const cards = Array.from(
+    document.querySelectorAll('.photo-card')
+  );
 
+  const dirtyCards = new Set();
 
-    const cards =
-        Array.from(
-            document.querySelectorAll<HTMLElement>(
-                '.photo-card'
-            )
-        );
+  let statusTimer = null;
+  let focusedCardIndex = 0;
 
+  function readStore() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
 
+      if (!raw) return {};
+
+      const parsed = JSON.parse(raw);
+
+      if (
+        parsed &&
+        typeof parsed === 'object' &&
+        !Array.isArray(parsed)
+      ) {
+        return parsed;
+      }
+
+      /*
+       * 兼容旧版本：
+       * 如果 localStorage 里还是数组，
+       * 这里自动转换成 object。
+       */
+      if (Array.isArray(parsed)) {
+        const store = {};
+
+        for (const item of parsed) {
+          if (item && typeof item.id === 'string') {
+            store[item.id] = item;
+          }
+        }
+
+        return store;
+      }
+    } catch (error) {
+      console.warn(
+        '[ROCO ADMIN] Failed to read localStorage:',
+        error
+      );
+    }
+
+    return {};
+  }
+
+  function getImageSource(card) {
+    const image = card.querySelector('img');
+
+    if (image) {
+      const src = image.getAttribute('src');
+
+      if (src) {
+        return src;
+      }
+    }
+
+    const id = card.dataset.id || '';
+
+    return `/photos/pics/${id}.png`;
+  }
+
+  function getCardData(card) {
+    const id = card.dataset.id || '';
+
+    if (!id) {
+      return null;
+    }
+
+    const dateInput = card.querySelector('.date-input');
+
+    const activePeople = card.querySelector(
+      '.choice-button[data-field="people"].active'
+    );
+
+    const activeJINIES = card.querySelector(
+      '.choice-button[data-field="JINIES"].active'
+    );
+
+    let people = null;
+
+    if (activePeople) {
+      const value = activePeople.dataset.value;
+
+      if (value === '1') {
+        people = 1;
+      } else if (value === '2') {
+        people = 2;
+      } else if (value === '3') {
+        people = 3;
+      }
+    }
+
+    let JINIES = null;
+
+    if (activeJINIES) {
+      const value = activeJINIES.dataset.value;
+
+      if (value === 'yes') {
+        JINIES = true;
+      } else if (value === 'no') {
+        JINIES = false;
+      }
+    }
+
+    return {
+      id,
+      image: getImageSource(card),
+      date: dateInput ? dateInput.value : '',
+      people,
+      JINIES
+    };
+  }
+
+  function updateProgress() {
     const progressNumber =
-        document.querySelector<HTMLElement>(
-            '#progress-number'
-        );
-
+      document.querySelector('#progress-number');
 
     const progressFill =
-        document.querySelector<HTMLElement>(
-            '#progress-fill'
-        );
+      document.querySelector('#progress-fill');
 
+    let complete = 0;
 
-    const draftStatus =
-        document.querySelector<HTMLElement>(
-            '#draft-status'
-        );
+    for (const card of cards) {
+      const data = getCardData(card);
 
-
-    const saveDraftButton =
-        document.querySelector<HTMLButtonElement>(
-            '#save-draft'
-        );
-
-
-    const clearDraftButton =
-        document.querySelector<HTMLButtonElement>(
-            '#clear-draft'
-        );
-
-
-    const exportButton =
-        document.querySelector<HTMLButtonElement>(
-            '#export-data'
-        );
-
-
-    const previousButton =
-        document.querySelector<HTMLButtonElement>(
-            '#previous-photo'
-        );
-
-
-    const nextButton =
-        document.querySelector<HTMLButtonElement>(
-            '#next-photo'
-        );
-
-
-    const currentPhotoLabel =
-        document.querySelector<HTMLElement>(
-            '#current-photo'
-        );
-
-
-    let currentPhotoIndex =
-        0;
-
-
-    /* -------------------------------------------------------------
-       DATA
-    ------------------------------------------------------------- */
-
-    function getCardData(
-        card: HTMLElement
-    ) {
-
-        const id =
-            card.dataset.id ?? '';
-
-
-        const dateInput =
-            card.querySelector<HTMLInputElement>(
-                '[data-field="date"]'
-            );
-
-
-        const peopleButton =
-            card.querySelector<HTMLButtonElement>(
-                '[data-field="people"].active'
-            );
-
-
-        const JINIESButton =
-            card.querySelector<HTMLButtonElement>(
-                '[data-field="JINIES"].active'
-            );
-
-
-        const peopleValue =
-            peopleButton?.dataset.value ??
-            '';
-
-
-        const JINIESValue =
-            JINIESButton?.dataset.value ??
-            '';
-
-
-        return {
-            id,
-
-            image:
-                `/photos/pics/${id}.png`,
-
-            date:
-                dateInput?.value ?? '',
-
-            /*
-             * Internal mapping:
-             *
-             * 1 = exactly 1 person
-             * 2 = exactly 2 people
-             * 3 = 2+ people on the UI
-             *
-             * We intentionally keep "3" internally
-             * to represent 3 or more people.
-             */
-            people:
-                peopleValue
-                    ? Number(peopleValue)
-                    : null,
-
-            JINIES:
-                JINIESValue === ''
-                    ? null
-                    : JINIESValue === 'yes',
-        };
-
+      if (
+        data &&
+        data.date &&
+        data.people !== null &&
+        data.JINIES !== null
+      ) {
+        complete += 1;
+      }
     }
 
+    const total = cards.length;
 
-    function getAllData() {
+    const percent =
+      total > 0
+        ? Math.round((complete / total) * 100)
+        : 0;
 
-        return cards.map(
-            (card) =>
-                getCardData(card)
+    if (progressNumber) {
+      progressNumber.textContent = `${percent}%`;
+    }
+
+    if (progressFill) {
+      progressFill.style.width = `${percent}%`;
+    }
+
+    for (const card of cards) {
+      const data = getCardData(card);
+
+      const completeCard = Boolean(
+        data &&
+        data.date &&
+        data.people !== null &&
+        data.JINIES !== null
+      );
+
+      const dot = card.querySelector('.status-dot');
+      const text = card.querySelector('.status-text');
+
+      if (dot) {
+        dot.classList.toggle(
+          'complete',
+          completeCard
         );
+      }
 
+      if (text) {
+        text.textContent =
+          completeCard ? 'DONE' : 'READY';
+      }
+    }
+  }
+
+  function showStatus(message) {
+    const status =
+      document.querySelector('#draft-status');
+
+    if (!status) {
+      return;
     }
 
+    status.textContent = message;
 
-    /* -------------------------------------------------------------
-       STATUS
-    ------------------------------------------------------------- */
-
-    function isComplete(
-        card: HTMLElement
-    ) {
-
-        const data =
-            getCardData(card);
-
-
-        return (
-            Boolean(data.date) &&
-            data.people !== null &&
-            data.JINIES !== null
-        );
-
+    if (statusTimer) {
+      clearTimeout(statusTimer);
     }
 
+    statusTimer = setTimeout(function () {
+      status.textContent = 'READY';
+    }, 1800);
+  }
 
-    function updateCardStatus(
-        card: HTMLElement
-    ) {
-
-        const complete =
-            isComplete(card);
-
-
-        const dot =
-            card.querySelector<HTMLElement>(
-                '[data-status-dot]'
-            );
-
-
-        const text =
-            card.querySelector<HTMLElement>(
-                '[data-status-text]'
-            );
-
-
-        card.classList.toggle(
-            'is-complete',
-            complete
-        );
-
-
-        dot?.classList.toggle(
-            'complete',
-            complete
-        );
-
-
-        if (text) {
-
-            text.textContent =
-                complete
-                    ? 'COMPLETE'
-                    : 'INCOMPLETE';
-
-        }
-
+  function saveDraft(message) {
+    if (!message) {
+      message = 'SAVED';
     }
 
+    const existingStore = readStore();
 
-    function updateProgress() {
+    for (const id of dirtyCards) {
+      const card = cards.find(function (item) {
+        return item.dataset.id === id;
+      });
 
-        const completeCount =
-            cards.filter(
-                isComplete
-            ).length;
+      if (!card) {
+        continue;
+      }
 
+      const data = getCardData(card);
 
-        const total =
-            cards.length;
+      if (!data) {
+        continue;
+      }
 
-
-        const percent =
-            total === 0
-                ? 0
-                : Math.round(
-                    (
-                        completeCount /
-                        total
-                    ) * 100
-                );
-
-
-        if (progressNumber) {
-
-            progressNumber.textContent =
-                `${completeCount} / ${total}`;
-
-        }
-
-
-        if (progressFill) {
-
-            progressFill.style.width =
-                `${percent}%`;
-
-        }
-
-
-        cards.forEach(
-            updateCardStatus
-        );
-
+      existingStore[id] = data;
     }
 
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(existingStore)
+      );
 
-    /* -------------------------------------------------------------
-       STATUS MESSAGE
-    ------------------------------------------------------------- */
+      dirtyCards.clear();
 
-    let statusTimer: number | undefined;
+      showStatus(message);
+      updateProgress();
 
+      console.log(
+        '[ROCO ADMIN] Saved:',
+        existingStore
+      );
+    } catch (error) {
+      console.error(
+        '[ROCO ADMIN] Failed to save:',
+        error
+      );
 
-    function showStatus(
-        text: string
-    ) {
+      showStatus('ERROR');
+    }
+  }
 
-        if (!draftStatus) {
-            return;
-        }
+  function markCardDirty(card) {
+    const id = card.dataset.id || '';
 
-
-        draftStatus.textContent =
-            text;
-
-
-        draftStatus.classList.add(
-            'visible'
-        );
-
-
-        if (statusTimer) {
-
-            window.clearTimeout(
-                statusTimer
-            );
-
-        }
-
-
-        statusTimer =
-            window.setTimeout(() => {
-
-                draftStatus.classList.remove(
-                    'visible'
-                );
-
-            }, 1600);
-
+    if (!id) {
+      return;
     }
 
+    dirtyCards.add(id);
 
-    /* -------------------------------------------------------------
-       SAVE
-    ------------------------------------------------------------- */
+    updateProgress();
+  }
 
-    function saveDraft(
-        message = 'SAVED'
-    ) {
-
-        try {
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(
-                    getAllData()
-                )
-            );
-
-
-            showStatus(
-                message
-            );
-
-        } catch {
-
-            showStatus(
-                'SAVE ERROR'
-            );
-
-        }
-
-    }
-
-
-    /* -------------------------------------------------------------
-       LOAD
-    ------------------------------------------------------------- */
-
-    function loadDraft() {
-
-        const raw =
-            localStorage.getItem(
-                STORAGE_KEY
-            );
-
-
-        if (!raw) {
-            return;
-        }
-
-
-        try {
-
-            const saved =
-                JSON.parse(raw);
-
-
-            if (!Array.isArray(saved)) {
-                return;
-            }
-
-
-            saved.forEach(
-                (
-                    item: {
-                        id?: string;
-                        date?: string;
-                        people?: number | null;
-                        JINIES?: boolean | null;
-                    }
-                ) => {
-
-                    if (!item?.id) {
-                        return;
-                    }
-
-
-                    const card =
-                        cards.find(
-                            (candidate) =>
-                                candidate.dataset.id ===
-                                item.id
-                        );
-
-
-                    if (!card) {
-                        return;
-                    }
-
-
-                    const dateInput =
-                        card.querySelector<HTMLInputElement>(
-                            '[data-field="date"]'
-                        );
-
-
-                    if (
-                        dateInput &&
-                        typeof item.date ===
-                            'string'
-                    ) {
-
-                        dateInput.value =
-                            item.date;
-
-                    }
-
-
-                    if (
-                        typeof item.people ===
-                            'number'
-                    ) {
-
-                        setChoice(
-                            card,
-                            'people',
-                            String(
-                                item.people
-                            ),
-                            false
-                        );
-
-                    }
-
-
-                    if (
-                        typeof item.JINIES ===
-                            'boolean'
-                    ) {
-
-                        setChoice(
-                            card,
-                            'JINIES',
-                            item.JINIES
-                                ? 'yes'
-                                : 'no',
-                            false
-                        );
-
-                    }
-
-                }
-            );
-
-
-            updateProgress();
-
-
-            showStatus(
-                'DRAFT RESTORED'
-            );
-
-        } catch {
-
-            showStatus(
-                'DRAFT ERROR'
-            );
-
-        }
-
-    }
-
-
-    /* -------------------------------------------------------------
-       CHOICES
-    ------------------------------------------------------------- */
-
-    function setChoice(
-        card: HTMLElement,
-        field: string,
-        value: string,
-        save = true
-    ) {
-
-        const buttons =
-            Array.from(
-                card.querySelectorAll<HTMLButtonElement>(
-                    `[data-field="${field}"]`
-                )
-            );
-
-
-        buttons.forEach(
-            (button) => {
-
-                button.classList.toggle(
-                    'active',
-                    button.dataset.value ===
-                    value
-                );
-
-            }
-        );
-
-
-        updateProgress();
-
-
-        if (save) {
-
-            saveDraft(
-                'SYNCED'
-            );
-
-        }
-
-    }
-
-
-    cards.forEach(
-        (card) => {
-
-            const choiceButtons =
-                Array.from(
-                    card.querySelectorAll<HTMLButtonElement>(
-                        '.choice-button'
-                    )
-                );
-
-
-            choiceButtons.forEach(
-                (button) => {
-
-                    button.addEventListener(
-                        'click',
-                        () => {
-
-                            const field =
-                                button.dataset.field;
-
-
-                            const value =
-                                button.dataset.value;
-
-
-                            if (
-                                !field ||
-                                !value
-                            ) {
-                                return;
-                            }
-
-
-                            currentPhotoIndex =
-                                cards.indexOf(
-                                    card
-                                );
-
-
-                            updateCurrentPhoto();
-
-
-                            setChoice(
-                                card,
-                                field,
-                                value
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-
-            const dateInput =
-                card.querySelector<HTMLInputElement>(
-                    '.date-input'
-                );
-
-
-            dateInput?.addEventListener(
-                'change',
-                () => {
-
-                    currentPhotoIndex =
-                        cards.indexOf(
-                            card
-                        );
-
-
-                    updateCurrentPhoto();
-
-
-                    updateProgress();
-
-
-                    saveDraft(
-                        'SYNCED'
-                    );
-
-                }
-            );
-
-        }
+  function setChoice(card, field, value) {
+    const buttons = card.querySelectorAll(
+      `.choice-button[data-field="${field}"]`
     );
 
+    buttons.forEach(function (button) {
+      button.classList.toggle(
+        'active',
+        button.dataset.value === value
+      );
+    });
 
-    /* -------------------------------------------------------------
-       EXPORT
-    ------------------------------------------------------------- */
+    markCardDirty(card);
 
-    function exportData() {
+    saveDraft('SAVED');
+  }
 
-        const data =
-            getAllData();
+  function setChoiceWithoutSave(
+    card,
+    field,
+    value
+  ) {
+    const buttons = card.querySelectorAll(
+      `.choice-button[data-field="${field}"]`
+    );
 
+    buttons.forEach(function (button) {
+      button.classList.toggle(
+        'active',
+        button.dataset.value === value
+      );
+    });
+  }
 
-        const completeData =
-            data.filter(
-                (item) =>
-                    Boolean(item.date) &&
-                    item.people !== null &&
-                    item.JINIES !== null
-            );
+  function loadDraft() {
+    const store = readStore();
 
+    for (const card of cards) {
+      const id = card.dataset.id || '';
 
-        const output =
-            JSON.stringify(
-                completeData,
-                null,
-                2
-            );
+      if (!id) {
+        continue;
+      }
 
+      const saved = store[id];
 
-        const blob =
-            new Blob(
-                [output],
-                {
-                    type:
-                        'application/json;charset=utf-8',
-                }
-            );
+      if (!saved) {
+        continue;
+      }
 
+      const dateInput =
+        card.querySelector('.date-input');
 
-        const url =
-            URL.createObjectURL(
-                blob
-            );
+      if (
+        dateInput &&
+        typeof saved.date === 'string'
+      ) {
+        dateInput.value = saved.date;
+      }
 
-
-        const link =
-            document.createElement(
-                'a'
-            );
-
-
-        link.href =
-            url;
-
-
-        link.download =
-            'works.json';
-
-
-        document.body.appendChild(
-            link
+      if (saved.people === 1) {
+        setChoiceWithoutSave(
+          card,
+          'people',
+          '1'
         );
-
-
-        link.click();
-
-
-        link.remove();
-
-
-        URL.revokeObjectURL(
-            url
+      } else if (saved.people === 2) {
+        setChoiceWithoutSave(
+          card,
+          'people',
+          '2'
         );
-
-
-        showStatus(
-            `${completeData.length} EXPORTED`
+      } else if (
+        typeof saved.people === 'number' &&
+        saved.people >= 3
+      ) {
+        setChoiceWithoutSave(
+          card,
+          'people',
+          '3'
         );
+      }
 
+      if (saved.JINIES === true) {
+        setChoiceWithoutSave(
+          card,
+          'JINIES',
+          'yes'
+        );
+      } else if (saved.JINIES === false) {
+        setChoiceWithoutSave(
+          card,
+          'JINIES',
+          'no'
+        );
+      }
     }
 
-
-    /* -------------------------------------------------------------
-       CLEAR
-    ------------------------------------------------------------- */
-
-    function clearDraft() {
-
-        const confirmed =
-            window.confirm(
-                'Clear all saved photo information?'
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        localStorage.removeItem(
-            STORAGE_KEY
-        );
-
-
-        cards.forEach(
-            (card) => {
-
-                const input =
-                    card.querySelector<HTMLInputElement>(
-                        '.date-input'
-                    );
-
-
-                if (input) {
-
-                    input.value =
-                        input.dataset.originalDate ??
-                        '';
-
-                }
-
-
-                card.querySelectorAll<HTMLButtonElement>(
-                    '.choice-button'
-                ).forEach(
-                    (button) => {
-
-                        button.classList.remove(
-                            'active'
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-        updateProgress();
-
-
-        showStatus(
-            'DRAFT CLEARED'
-        );
-
-    }
-
-
-    /* -------------------------------------------------------------
-       QUICK NAV
-    ------------------------------------------------------------- */
-
-    function updateCurrentPhoto() {
-
-        if (!currentPhotoLabel) {
-            return;
-        }
-
-
-        currentPhotoLabel.textContent =
-            `${String(
-                currentPhotoIndex + 1
-            ).padStart(
-                2,
-                '0'
-            )} / ${cards.length}`;
-
-    }
-
-
-    function focusPhoto(
-        index: number
-    ) {
-
-        if (
-            index < 0 ||
-            index >= cards.length
-        ) {
-            return;
-        }
-
-
-        currentPhotoIndex =
-            index;
-
-
-        const card =
-            cards[
-                currentPhotoIndex
-            ];
-
-
-        card?.scrollIntoView({
-            behavior:
-                'smooth',
-            block:
-                'center',
-        });
-
-
-        card?.classList.add(
-            'is-focused'
-        );
-
-
-        window.setTimeout(() => {
-
-            card?.classList.remove(
-                'is-focused'
-            );
-
-        }, 700);
-
-
-        updateCurrentPhoto();
-
-    }
-
-
-    previousButton?.addEventListener(
-        'click',
-        () => {
-
-            focusPhoto(
-                currentPhotoIndex - 1
-            );
-
-        }
-    );
-
-
-    nextButton?.addEventListener(
-        'click',
-        () => {
-
-            focusPhoto(
-                currentPhotoIndex + 1
-            );
-
-        }
-    );
-
-
-    /* -------------------------------------------------------------
-       KEYBOARD
-    ------------------------------------------------------------- */
-
-    document.addEventListener(
-        'keydown',
-        (event) => {
-
-            const target =
-                event.target as HTMLElement;
-
-
-            const isTyping =
-                target instanceof
-                    HTMLInputElement ||
-                target instanceof
-                    HTMLTextAreaElement ||
-                target instanceof
-                    HTMLSelectElement;
-
-
-            if (isTyping) {
-                return;
-            }
-
-
-            const card =
-                cards[
-                    currentPhotoIndex
-                ];
-
-
-            if (!card) {
-                return;
-            }
-
-
-            /*
-             * 1 = exactly 1 person
-             * 2 = exactly 2 people
-             * 3 = 2+ people
-             */
-
-            if (
-                event.key === '1' ||
-                event.key === '2' ||
-                event.key === '3'
-            ) {
-
-                setChoice(
-                    card,
-                    'people',
-                    event.key
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                event.key.toLowerCase() ===
-                'r'
-            ) {
-
-                const active =
-                    card.querySelector<HTMLButtonElement>(
-                        '[data-field="JINIES"].active'
-                    );
-
-
-                setChoice(
-                    card,
-                    'JINIES',
-                    active?.dataset.value ===
-                        'yes'
-                        ? 'no'
-                        : 'yes'
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                event.key ===
-                'ArrowLeft'
-            ) {
-
-                event.preventDefault();
-
-
-                focusPhoto(
-                    currentPhotoIndex - 1
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                event.key ===
-                'ArrowRight'
-            ) {
-
-                event.preventDefault();
-
-
-                focusPhoto(
-                    currentPhotoIndex + 1
-                );
-
-            }
-
-        }
-    );
-
-
-    /* -------------------------------------------------------------
-       BUTTON EVENTS
-    ------------------------------------------------------------- */
-
-    saveDraftButton?.addEventListener(
-        'click',
-        () => {
-
-            saveDraft(
-                'SAVED'
-            );
-
-        }
-    );
-
-
-    clearDraftButton?.addEventListener(
-        'click',
-        clearDraft
-    );
-
-
-    exportButton?.addEventListener(
-        'click',
-        exportData
-    );
-
-
-    /* -------------------------------------------------------------
-       ORIGINAL DATES
-    ------------------------------------------------------------- */
-
-    cards.forEach(
-        (card) => {
-
-            const input =
-                card.querySelector<HTMLInputElement>(
-                    '.date-input'
-                );
-
-
-            if (input) {
-
-                input.dataset.originalDate =
-                    input.value;
-
-            }
-
-        }
-    );
-
-
-    /* -------------------------------------------------------------
-       INIT
-    ------------------------------------------------------------- */
-
-    loadDraft();
+    dirtyCards.clear();
 
     updateProgress();
 
-    updateCurrentPhoto();
+    console.log(
+      '[ROCO ADMIN] Draft loaded:',
+      store
+    );
+  }
 
+  function clearDraft() {
+    const confirmed = window.confirm(
+      'Clear all saved metadata?'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    dirtyCards.clear();
+
+    for (const card of cards) {
+      const dateInput =
+        card.querySelector('.date-input');
+
+      if (dateInput) {
+        dateInput.value =
+          dateInput.dataset.originalDate || '';
+      }
+
+      const buttons =
+        card.querySelectorAll('.choice-button');
+
+      buttons.forEach(function (button) {
+        button.classList.remove('active');
+      });
+    }
+
+    updateProgress();
+
+    showStatus('CLEARED');
+  }
+
+  function exportData() {
+    if (dirtyCards.size > 0) {
+      saveDraft('SAVED');
+    }
+
+    const store = readStore();
+
+    const completeData =
+      Object.values(store).filter(
+        function (item) {
+          return (
+            item &&
+            item.id &&
+            item.date &&
+            item.people !== null &&
+            item.JINIES !== null
+          );
+        }
+      );
+
+    const blob = new Blob(
+      [
+        JSON.stringify(
+          completeData,
+          null,
+          2
+        )
+      ],
+      {
+        type: 'application/json'
+      }
+    );
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const link =
+      document.createElement('a');
+
+    link.href = url;
+
+    link.download =
+      'roco-photo-metadata.json';
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(url);
+
+    showStatus('EXPORTED');
+  }
+
+  function focusCard(index) {
+    if (cards.length === 0) {
+      return;
+    }
+
+    focusedCardIndex =
+      Math.max(
+        0,
+        Math.min(
+          index,
+          cards.length - 1
+        )
+      );
+
+    const card =
+      cards[focusedCardIndex];
+
+    if (!card) {
+      return;
+    }
+
+    card.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    const input =
+      card.querySelector('.date-input');
+
+    if (input) {
+      input.focus();
+    }
+  }
+
+  const saveButton =
+    document.querySelector('#save-draft');
+
+  if (saveButton) {
+    saveButton.addEventListener(
+      'click',
+      function () {
+        saveDraft('SAVED');
+      }
+    );
+  }
+
+  const clearButton =
+    document.querySelector('#clear-draft');
+
+  if (clearButton) {
+    clearButton.addEventListener(
+      'click',
+      clearDraft
+    );
+  }
+
+  const exportButton =
+    document.querySelector('#export-json');
+
+  if (exportButton) {
+    exportButton.addEventListener(
+      'click',
+      exportData
+    );
+  }
+
+  for (const card of cards) {
+    const buttons =
+      card.querySelectorAll(
+        '.choice-button'
+      );
+
+    buttons.forEach(function (button) {
+      button.addEventListener(
+        'click',
+        function (event) {
+          event.preventDefault();
+
+          const field =
+            button.dataset.field;
+
+          const value =
+            button.dataset.value;
+
+          if (!field || !value) {
+            return;
+          }
+
+          setChoice(
+            card,
+            field,
+            value
+          );
+        }
+      );
+    });
+
+    const dateInput =
+      card.querySelector('.date-input');
+
+    if (dateInput) {
+      dateInput.dataset.originalDate =
+        dateInput.value;
+
+      dateInput.addEventListener(
+        'change',
+        function () {
+          markCardDirty(card);
+
+          saveDraft('SAVED');
+        }
+      );
+    }
+  }
+
+  const prevButton =
+    document.querySelector('#prev-card');
+
+  if (prevButton) {
+    prevButton.addEventListener(
+      'click',
+      function () {
+        focusCard(
+          focusedCardIndex - 1
+        );
+      }
+    );
+  }
+
+  const nextButton =
+    document.querySelector('#next-card');
+
+  if (nextButton) {
+    nextButton.addEventListener(
+      'click',
+      function () {
+        focusCard(
+          focusedCardIndex + 1
+        );
+      }
+    );
+  }
+
+  document.addEventListener(
+    'keydown',
+    function (event) {
+      const target = event.target;
+
+      if (
+        target &&
+        target.tagName === 'INPUT' &&
+        target.type === 'date' &&
+        (
+          event.key === 'ArrowLeft' ||
+          event.key === 'ArrowRight'
+        )
+      ) {
+        return;
+      }
+
+      const card =
+        cards[focusedCardIndex];
+
+      if (!card) {
+        return;
+      }
+
+      if (event.key === '1') {
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="1"]'
+          );
+
+        if (button) {
+          button.click();
+        }
+
+        return;
+      }
+
+      if (event.key === '2') {
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="2"]'
+          );
+
+        if (button) {
+          button.click();
+        }
+
+        return;
+      }
+
+      if (event.key === '3') {
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="3"]'
+          );
+
+        if (button) {
+          button.click();
+        }
+
+        return;
+      }
+
+      if (
+        event.key.toLowerCase() === 'r'
+      ) {
+        event.preventDefault();
+
+        const active =
+          card.querySelector(
+            '.choice-button[data-field="JINIES"].active'
+          );
+
+        const yesButton =
+          card.querySelector(
+            '.choice-button[data-field="JINIES"][data-value="yes"]'
+          );
+
+        const noButton =
+          card.querySelector(
+            '.choice-button[data-field="JINIES"][data-value="no"]'
+          );
+
+        if (active === yesButton) {
+          if (noButton) {
+            noButton.click();
+          }
+        } else {
+          if (yesButton) {
+            yesButton.click();
+          }
+        }
+
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+
+        focusCard(
+          focusedCardIndex - 1
+        );
+
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+
+        focusCard(
+          focusedCardIndex + 1
+        );
+      }
+    }
+  );
+
+  loadDraft();
+
+  updateProgress();
+
+  console.log(
+    '[ROCO ADMIN] Initialized.',
+    {
+      cards: cards.length,
+      storageKey: STORAGE_KEY
+    }
+  );
 </script>
 
 
 <style>
 
-    .admin-page {
-        position: relative;
-        width: min(100%, 1500px);
-        margin: 0 auto;
-        padding: 0 42px 70px;
-        color: #171717;
-        overflow: hidden;
-    }
-
-
-    .admin-page::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 50;
-        background-image:
-            radial-gradient(
-                rgba(32,28,16,.04) .55px,
-                transparent .55px
-            );
-        background-size: 7px 7px;
-        mix-blend-mode: multiply;
-        opacity: .45;
-    }
-
-
-    .admin-page::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 49;
-        background:
-            radial-gradient(
-                circle at 12% 12%,
-                rgba(255,255,255,.12),
-                transparent 27%
-            ),
-            radial-gradient(
-                circle at 86% 72%,
-                rgba(255,255,255,.08),
-                transparent 26%
-            );
-    }
-
-
-    .admin-header {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 24px 0 28px;
-    }
-
-
-    .brand {
-        display: inline-flex;
-        flex-direction: column;
-        gap: 5px;
-        color: #171717;
-        text-decoration: none;
-    }
-
-
-    .brand-name {
-        font-size: 24px;
-        font-weight: 950;
-        line-height: .9;
-        letter-spacing: -.07em;
-    }
-
-
-    .brand-caption {
-        font-size: 7px;
-        font-weight: 800;
-        letter-spacing: .19em;
-        opacity: .45;
-    }
-
-
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-
-    .header-link,
-    .header-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 34px;
-        padding: 0 12px;
-        border: 1.5px solid #171717;
-        border-radius: 7px 9px 6px 8px;
-        font-size: 8px;
-        font-weight: 900;
-        letter-spacing: .1em;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-
-    .header-link {
-        background: #fff8e8;
-        color: #171717;
-    }
-
-
-    .header-button {
-        background: #171717;
-        color: #fff8e8;
-    }
-
-
-    .info-bar {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 25px;
-        padding: 14px 0;
-        border-top: 1.5px solid rgba(23,23,23,.22);
-        border-bottom: 1.5px solid rgba(23,23,23,.22);
-    }
-
-
-    .info-left,
-    .info-right {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-
-    .info-title,
-    .info-count,
-    .draft-status,
-    .info-right strong {
-        font-size: 8px;
-        font-weight: 900;
-        letter-spacing: .12em;
-    }
-
-
-    .info-title {
-        opacity: .8;
-    }
-
-
-    .info-count {
-        opacity: .38;
-    }
-
-
-    .draft-status {
-        opacity: 0;
-        transition: opacity .18s ease;
-    }
-
-
-    .draft-status.visible {
-        opacity: .72;
-    }
-
-
-    .progress {
-        position: relative;
-        width: 180px;
-        height: 7px;
-        overflow: hidden;
-        background: #dfd4b8;
-        border: 1px solid #171717;
-        border-radius: 999px;
-    }
-
-
-    .progress-fill {
-        display: block;
-        width: 0;
-        height: 100%;
-        background: #f3ca36;
-        transition: width .25s ease;
-    }
-
-
-    .toolbar {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 14px 0;
-    }
-
-
-    .toolbar-hint {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 16px;
-        font-size: 7px;
-        font-weight: 900;
-        letter-spacing: .11em;
-        opacity: .35;
-    }
-
-
-    .toolbar-actions {
-        display: flex;
-        gap: 7px;
-        flex-shrink: 0;
-    }
-
-
-    .tool-button {
-        height: 32px;
-        padding: 0 11px;
-        border: 1.5px solid #171717;
-        border-radius: 6px 8px 5px 7px;
-        background: #fff8e8;
-        color: #171717;
-        font-size: 7px;
-        font-weight: 900;
-        letter-spacing: .11em;
-        cursor: pointer;
-    }
-
-
-    .tool-button.dark {
-        background: #171717;
-        color: #fff8e8;
-    }
-
-
-    .photo-grid {
-        position: relative;
-        z-index: 10;
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        column-gap: 22px;
-        row-gap: 30px;
-        padding-top: 15px;
-    }
-
-
-    .photo-card {
-        min-width: 0;
-        padding: 9px;
-        background: #fff8e8;
-        border: 2px solid #171717;
-        border-radius: 9px 12px 10px 13px;
-        box-shadow: 4px 5px 0 rgba(23,23,23,.09);
-        transform: rotate(-.35deg);
-        transition:
-            transform .2s ease,
-            box-shadow .2s ease;
-    }
-
-
-    .photo-card:nth-child(4n + 2) {
-        transform: rotate(.45deg);
-    }
-
-
-    .photo-card:nth-child(4n + 3) {
-        transform: rotate(-.55deg);
-    }
-
-
-    .photo-card:nth-child(4n) {
-        transform: rotate(.65deg);
-    }
-
-
-    .photo-card:hover,
-    .photo-card.is-focused {
-        transform:
-            translateY(-4px)
-            rotate(0);
-        box-shadow:
-            7px 9px 0
-            rgba(23,23,23,.12);
-    }
-
-
-    .photo-card.is-complete {
-        box-shadow:
-            4px 5px 0
-            rgba(23,23,23,.07);
-    }
-
-
-    .image-wrap {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 2388 / 1668;
-        overflow: hidden;
-        border: 1.5px solid rgba(23,23,23,.18);
-        background: #d7caa7;
-    }
-
-
-    .image-wrap img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-
-    .image-number {
-        position: absolute;
-        left: 7px;
-        top: 7px;
-        padding: 3px 5px;
-        background: rgba(23,23,23,.78);
-        color: #fff8e8;
-        font-size: 6px;
-        font-weight: 900;
-        letter-spacing: .11em;
-    }
-
-
-    .photo-content {
-        padding: 9px 1px 1px;
-    }
-
-
-    .filename {
-        margin-bottom: 9px;
-        font-size: 9px;
-        font-weight: 950;
-        letter-spacing: -.02em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-
-    .field {
-        margin-top: 9px;
-    }
-
-
-    .field > label {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 6px;
-        font-weight: 900;
-        letter-spacing: .15em;
-        opacity: .38;
-    }
-
-
-    .date-input {
-        width: 100%;
-        height: 31px;
-        padding: 0 8px;
-        border: 1.5px solid #171717;
-        border-radius: 5px 7px 4px 6px;
-        outline: none;
-        background: #f3ca36;
-        color: #171717;
-        font-size: 8px;
-        font-weight: 900;
-        letter-spacing: .03em;
-        box-sizing: border-box;
-        cursor: pointer;
-    }
-
-
-    .choice-row {
-        display: grid;
-        gap: 5px;
-    }
-
-
-    .people-choice {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-
-    .JINIES-choice {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-
-    .choice-button {
-        height: 29px;
-        padding: 0;
-        border: 1.5px solid #171717;
-        border-radius: 5px 7px 4px 6px;
-        background: transparent;
-        color: #171717;
-        font-size: 8px;
-        font-weight: 950;
-        cursor: pointer;
-        transition:
-            background .15s ease,
-            color .15s ease,
-            transform .15s ease;
-    }
-
-
-    .choice-button:hover {
-        transform: translateY(-1px);
-    }
-
-
-    .choice-button.active {
-        background: #171717;
-        color: #fff8e8;
-    }
-
-
-    .card-status {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 9px;
-        padding-top: 8px;
-        border-top: 1px solid rgba(23,23,23,.12);
-        font-size: 6px;
-        font-weight: 900;
-        letter-spacing: .12em;
-        opacity: .38;
-    }
-
-
-    .status-dot {
-        width: 6px;
-        height: 6px;
-        flex: 0 0 6px;
-        border: 1.5px solid #171717;
-        border-radius: 50%;
-    }
-
-
-    .status-dot.complete {
-        background: #171717;
-    }
-
-
-    .quick-nav {
-        position: sticky;
-        bottom: 15px;
-        z-index: 40;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: min(100%, 360px);
-        margin: 55px auto 0;
-        padding: 7px;
-        background: rgba(255,248,232,.95);
-        border: 2px solid #171717;
-        border-radius: 999px;
-        box-shadow: 4px 5px 0 rgba(23,23,23,.1);
-        backdrop-filter: blur(10px);
-    }
-
-
-    .quick-info {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        padding-left: 9px;
-    }
-
-
-    .quick-info span {
-        font-size: 6px;
-        font-weight: 900;
-        letter-spacing: .14em;
-        opacity: .4;
-    }
-
-
-    .quick-info strong {
-        font-size: 9px;
-        font-weight: 950;
-    }
-
-
-    .quick-actions {
-        display: flex;
-        gap: 5px;
-    }
-
-
-    .quick-arrow {
-        display: grid;
-        place-items: center;
-        width: 30px;
-        height: 30px;
-        padding: 0;
-        border: 1.5px solid #171717;
-        border-radius: 50%;
-        background: #171717;
-        color: #fff8e8;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-
-    .footer {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 30px;
-        margin-top: 90px;
-        padding: 22px 0 18px;
-        border-top: 1.5px solid rgba(23,23,23,.22);
-    }
-
-
-    .footer-brand {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-
-    .footer-brand span {
-        font-size: 14px;
-        font-weight: 950;
-        letter-spacing: -.05em;
-    }
-
-
-    .footer-brand small,
-    .footer-note span {
-        font-size: 7px;
-        font-weight: 800;
-        letter-spacing: .13em;
-        opacity: .4;
-    }
-
-
-    .footer-note {
-        display: flex;
-        gap: 20px;
-    }
-
-
-    @media (max-width: 1100px) {
-
-        .admin-page {
-            padding-left: 28px;
-            padding-right: 28px;
-        }
-
-        .photo-grid {
-            grid-template-columns:
-                repeat(
-                    3,
-                    minmax(
-                        0,
-                        1fr
-                    )
-                );
-            column-gap: 18px;
-        }
-
-    }
-
-
-    @media (max-width: 760px) {
-
-        .admin-page {
-            padding-left: 16px;
-            padding-right: 16px;
-        }
-
-        .admin-header {
-            padding-top: 18px;
-            padding-bottom: 20px;
-        }
-
-        .brand-name {
-            font-size: 21px;
-        }
-
-        .brand-caption {
-            font-size: 6px;
-        }
-
-        .header-link,
-        .header-button {
-            min-height: 31px;
-            padding: 0 9px;
-            font-size: 7px;
-        }
-
-        .info-bar {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 9px;
-        }
-
-        .info-left {
-            flex-wrap: wrap;
-        }
-
-        .info-right {
-            width: 100%;
-        }
-
-        .progress {
-            flex: 1;
-        }
-
-        .toolbar {
-            align-items: flex-start;
-            flex-direction: column;
-        }
-
-        .toolbar-hint {
-            gap: 7px 11px;
-        }
-
-        .toolbar-actions {
-            width: 100%;
-        }
-
-        .tool-button {
-            flex: 1;
-        }
-
-        .photo-grid {
-            grid-template-columns: 1fr;
-            gap: 24px;
-            padding-top: 8px;
-        }
-
-        .photo-card,
-        .photo-card:nth-child(4n + 2),
-        .photo-card:nth-child(4n + 3),
-        .photo-card:nth-child(4n) {
-            transform: rotate(-.25deg);
-        }
-
-        .photo-card:nth-child(2n) {
-            transform: rotate(.35deg);
-        }
-
-        .quick-nav {
-            bottom: 12px;
-            width: calc(100% - 10px);
-            margin-top: 60px;
-        }
-
-        .footer {
-            flex-direction: column;
-            align-items: flex-start;
-            margin-top: 70px;
-        }
-
-    }
+	:global(html) {
+		background:
+			#f4efe4;
+	}
+
+
+	:global(body) {
+		margin: 0;
+
+		background:
+			#f4efe4;
+
+		color:
+			#171717;
+
+		font-family:
+			Arial,
+			Helvetica,
+			sans-serif;
+	}
+
+
+	.admin-page {
+		width:
+			min(
+				1200px,
+				calc(
+					100% - 48px
+				)
+			);
+
+		margin:
+			0 auto;
+
+		padding:
+			32px 0 70px;
+	}
+
+
+	.admin-header {
+		display: flex;
+
+		align-items:
+			flex-start;
+
+		justify-content:
+			space-between;
+
+		gap: 30px;
+
+		padding-bottom:
+			32px;
+
+		border-bottom:
+			1.5px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.22
+			);
+	}
+
+
+	.admin-brand {
+		display: flex;
+
+		flex-direction:
+			column;
+
+		gap: 5px;
+	}
+
+
+	.brand-name {
+		color:
+			#171717;
+
+		font-size:
+			25px;
+
+		font-weight:
+			950;
+
+		letter-spacing:
+			-0.07em;
+
+		line-height:
+			0.9;
+
+		text-decoration:
+			none;
+	}
+
+
+	.brand-caption {
+		font-size:
+			8px;
+
+		font-weight:
+			800;
+
+		letter-spacing:
+			0.18em;
+
+		opacity:
+			0.45;
+	}
+
+
+	.admin-header-actions {
+		display: flex;
+
+		align-items:
+			center;
+
+		gap:
+			18px;
+	}
+
+
+	.header-link {
+		color:
+			#171717;
+
+		font-size:
+			9px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.12em;
+
+		text-decoration:
+			none;
+
+		opacity:
+			0.55;
+	}
+
+
+	.header-link:hover {
+		opacity:
+			1;
+	}
+
+
+	.save-button {
+		height:
+			42px;
+
+		padding:
+			0 20px;
+
+		border:
+			2px solid
+			#171717;
+
+		border-radius:
+			8px;
+
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+
+		font-size:
+			9px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.13em;
+
+		cursor:
+			pointer;
+	}
+
+
+	.admin-intro {
+		display: flex;
+
+		align-items:
+			flex-end;
+
+		justify-content:
+			space-between;
+
+		gap:
+			30px;
+
+		padding:
+			55px 0 30px;
+	}
+
+
+	.intro-copy {
+		max-width:
+			680px;
+	}
+
+
+	.eyebrow {
+		margin:
+			0 0 9px;
+
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.18em;
+
+		opacity:
+			0.45;
+	}
+
+
+	.intro-copy h1 {
+		margin:
+			0 0 10px;
+
+		font-size:
+			clamp(
+				42px,
+				7vw,
+				78px
+			);
+
+		font-weight:
+			950;
+
+		letter-spacing:
+			-0.07em;
+
+		line-height:
+			0.9;
+	}
+
+
+	.intro-description {
+		margin:
+			0;
+
+		font-size:
+			10px;
+
+		font-weight:
+			700;
+
+		letter-spacing:
+			0.04em;
+
+		opacity:
+			0.48;
+	}
+
+
+	.admin-meta {
+		display: flex;
+
+		gap:
+			35px;
+	}
+
+
+	.meta-item {
+		display: flex;
+
+		flex-direction:
+			column;
+
+		gap:
+			5px;
+	}
+
+
+	.meta-label {
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.15em;
+
+		opacity:
+			0.42;
+	}
+
+
+	.meta-item strong {
+		font-size:
+			25px;
+
+		font-weight:
+			950;
+
+		letter-spacing:
+			-0.05em;
+	}
+
+
+	.progress-section {
+		padding:
+			0 0 32px;
+	}
+
+
+	.progress-top {
+		display: flex;
+
+		align-items:
+			baseline;
+
+		justify-content:
+			space-between;
+
+		margin-bottom:
+			8px;
+
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.14em;
+
+		opacity:
+			0.5;
+	}
+
+
+	.progress-top strong {
+		font-size:
+			10px;
+
+		opacity:
+			1;
+	}
+
+
+	.progress-track {
+		width:
+			100%;
+
+		height:
+			7px;
+
+		overflow:
+			hidden;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			8px;
+
+		background:
+			#fff8e8;
+	}
+
+
+	.progress-fill {
+		width:
+			0%;
+
+		height:
+			100%;
+
+		background:
+			#171717;
+
+		transition:
+			width
+			0.25s
+			ease;
+	}
+
+
+	.toolbar {
+		display: flex;
+
+		align-items:
+			center;
+
+		justify-content:
+			space-between;
+
+		gap:
+			20px;
+
+		padding:
+			18px 0;
+
+		border-top:
+			1.5px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.16
+			);
+
+		border-bottom:
+			1.5px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.16
+			);
+	}
+
+
+	.keyboard-hints {
+		display: flex;
+
+		flex-wrap:
+			wrap;
+
+		gap:
+			8px;
+	}
+
+
+	.keyboard-hints span {
+		padding:
+			6px 8px;
+
+		background:
+			#fff8e8;
+
+		border:
+			1px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.22
+			);
+
+		border-radius:
+			5px;
+
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.08em;
+
+		opacity:
+			0.62;
+	}
+
+
+	.toolbar-actions {
+		display: flex;
+
+		gap:
+			8px;
+	}
+
+
+	.toolbar-button {
+		height:
+			34px;
+
+		padding:
+			0 12px;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			6px;
+
+		background:
+			transparent;
+
+		color:
+			#171717;
+
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.1em;
+
+		cursor:
+			pointer;
+	}
+
+
+	.toolbar-button:hover {
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+	}
+
+
+	.photo-grid {
+		display: grid;
+
+		grid-template-columns:
+			repeat(
+				4,
+				minmax(
+					0,
+					1fr
+				)
+			);
+
+		gap:
+			28px 20px;
+
+		padding-top:
+			35px;
+	}
+
+
+	.photo-card {
+		min-width:
+			0;
+
+		padding:
+			10px;
+
+		background:
+			#fff8e8;
+
+		border:
+			2px solid
+			#171717;
+
+		border-radius:
+			9px 13px 10px 12px;
+
+		box-shadow:
+			4px 5px 0
+			rgba(
+				23,
+				23,
+				23,
+				0.1
+			);
+	}
+
+
+	.photo-card:nth-child(4n + 1) {
+		transform:
+			rotate(-0.45deg);
+	}
+
+
+	.photo-card:nth-child(4n + 2) {
+		transform:
+			rotate(0.55deg);
+	}
+
+
+	.photo-card:nth-child(4n + 3) {
+		transform:
+			rotate(-0.3deg);
+	}
+
+
+	.photo-card:nth-child(4n) {
+		transform:
+			rotate(0.65deg);
+	}
+
+
+	.photo-card-image {
+		position:
+			relative;
+
+		aspect-ratio:
+			2388 / 1668;
+
+		overflow:
+			hidden;
+
+		border:
+			1.5px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.16
+			);
+
+		background:
+			#54657b;
+	}
+
+
+	.photo-card-image img {
+		display:
+			block;
+
+		width:
+			100%;
+
+		height:
+			100%;
+
+		object-fit:
+			cover;
+	}
+
+
+	.photo-card-index {
+		position:
+			absolute;
+
+		top:
+			8px;
+
+		left:
+			8px;
+
+		padding:
+			3px 5px;
+
+		background:
+			rgba(
+				23,
+				23,
+				23,
+				0.72
+			);
+
+		color:
+			#fff8e8;
+
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.08em;
+	}
+
+
+	.photo-card-body {
+		display:
+			flex;
+
+		flex-direction:
+			column;
+
+		gap:
+			14px;
+
+		padding:
+			14px 2px 3px;
+	}
+
+
+	.photo-card-heading {
+		display:
+			flex;
+
+		align-items:
+			center;
+
+		justify-content:
+			space-between;
+
+		gap:
+			8px;
+	}
+
+
+	.photo-card-heading strong {
+		min-width:
+			0;
+
+		overflow:
+			hidden;
+
+		font-size:
+			9px;
+
+		font-weight:
+			950;
+
+		letter-spacing:
+			0.01em;
+
+		text-overflow:
+			ellipsis;
+
+		white-space:
+			nowrap;
+	}
+
+
+	.card-status {
+		display:
+			inline-flex;
+
+		align-items:
+			center;
+
+		gap:
+			5px;
+
+		flex:
+			0 0 auto;
+
+		font-size:
+			6px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.08em;
+
+		opacity:
+			0.45;
+	}
+
+
+	.status-dot {
+		width:
+			6px;
+
+		height:
+			6px;
+
+		border-radius:
+			50%;
+
+		background:
+			#171717;
+
+		opacity:
+			0.25;
+	}
+
+
+	.status-dot.complete {
+		opacity:
+			1;
+	}
+
+
+	.field-group {
+		display:
+			flex;
+
+		flex-direction:
+			column;
+
+		gap:
+			6px;
+	}
+
+
+	.field-group label,
+	.field-label {
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.13em;
+
+		opacity:
+			0.48;
+	}
+
+
+	.date-input {
+		width:
+			100%;
+
+		height:
+			34px;
+
+		box-sizing:
+			border-box;
+
+		padding:
+			0 9px;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			6px;
+
+		background:
+			#f3ca36;
+
+		color:
+			#171717;
+
+		font-family:
+			Arial,
+			Helvetica,
+			sans-serif;
+
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		outline:
+			none;
+	}
+
+
+	.choice-row {
+		display:
+			grid;
+
+		grid-template-columns:
+			repeat(
+				3,
+				1fr
+			);
+
+		gap:
+			5px;
+	}
+
+
+	.choice-row:has(
+		[data-field="JINIES"]
+	) {
+		grid-template-columns:
+			repeat(
+				2,
+				1fr
+			);
+	}
+
+
+	.choice-button {
+		height:
+			31px;
+
+		padding:
+			0;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			5px;
+
+		background:
+			transparent;
+
+		color:
+			#171717;
+
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.08em;
+
+		cursor:
+			pointer;
+	}
+
+
+	.choice-button:hover {
+		background:
+			rgba(
+				23,
+				23,
+				23,
+				0.07
+			);
+	}
+
+
+	.choice-button.active {
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+	}
+
+
+	.quick-nav {
+		display:
+			flex;
+
+		align-items:
+			center;
+
+		justify-content:
+			center;
+
+		gap:
+			10px;
+
+		padding-top:
+			55px;
+	}
+
+
+	.nav-button {
+		height:
+			38px;
+
+		padding:
+			0 16px;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			7px;
+
+		background:
+			#fff8e8;
+
+		color:
+			#171717;
+
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.1em;
+
+		cursor:
+			pointer;
+	}
+
+
+	.nav-button:hover {
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+	}
+
+
+	.admin-footer {
+		display:
+			flex;
+
+		align-items:
+			center;
+
+		justify-content:
+			space-between;
+
+		gap:
+			20px;
+
+		margin-top:
+			75px;
+
+		padding-top:
+			20px;
+
+		border-top:
+			1.5px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.2
+			);
+
+		font-size:
+			7px;
+
+		font-weight:
+			800;
+
+		letter-spacing:
+			0.13em;
+
+		opacity:
+			0.42;
+	}
+
+
+	@media (max-width: 900px) {
+
+		.photo-grid {
+			grid-template-columns:
+				repeat(
+					3,
+					minmax(
+						0,
+						1fr
+					)
+				);
+		}
+
+	}
+
+
+	@media (max-width: 700px) {
+
+		.admin-page {
+			width:
+				calc(
+					100% - 32px
+				);
+
+			padding-top:
+				22px;
+		}
+
+
+		.admin-header {
+			padding-bottom:
+				24px;
+		}
+
+
+		.admin-intro {
+			flex-direction:
+				column;
+
+			align-items:
+				flex-start;
+
+			padding-top:
+				42px;
+		}
+
+
+		.photo-grid {
+			grid-template-columns:
+				repeat(
+					2,
+					minmax(
+						0,
+						1fr
+					)
+				);
+
+			gap:
+				20px 12px;
+		}
+
+
+		.toolbar {
+			flex-direction:
+				column;
+
+			align-items:
+				flex-start;
+		}
+
+
+		.admin-footer {
+			flex-direction:
+				column;
+
+			align-items:
+				flex-start;
+		}
+
+	}
+
+
+	@media (max-width: 460px) {
+
+		.admin-page {
+			width:
+				calc(
+					100% - 24px
+				);
+		}
+
+
+		.admin-header-actions {
+			gap:
+				10px;
+		}
+
+
+		.header-link {
+			display:
+				none;
+		}
+
+
+		.brand-name {
+			font-size:
+				22px;
+		}
+
+
+		.admin-meta {
+			gap:
+				22px;
+		}
+
+
+		.photo-grid {
+			grid-template-columns:
+				1fr;
+		}
+
+
+		.photo-card:nth-child(n) {
+			transform:
+				none;
+		}
+
+	}
 
 </style>

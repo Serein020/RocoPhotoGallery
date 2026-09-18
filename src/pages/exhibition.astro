@@ -544,2384 +544,1037 @@ const [
 
 
 <script>
-	/* =============================================================
-	   CONSTANTS
-	============================================================= */
+  const STORAGE_KEY = 'roco-photo-admin-draft-v1';
+  const PAGE_SIZE = 20;
 
-	const STORAGE_KEY =
-		'roco-photo-admin-draft-v1';
+  type PhotoData = {
+    id: string;
+    image?: string;
+    date?: string;
+    people?: number | null;
+    JINIES?: boolean | null;
+  };
 
-	const PAGE_SIZE =
-		20;
+  type PhotoStore = Record<string, PhotoData>;
 
+  type LightboxItem = {
+    card: HTMLElement;
+    trigger: HTMLButtonElement;
+    src: string;
+    alt: string;
+    title: string;
+    date: string;
+  };
 
-	/* =============================================================
-	   DOM
-	============================================================= */
+  const cards: HTMLElement[] = Array.from(
+    document.querySelectorAll<HTMLElement>('.work-card')
+  );
 
-	const cards =
-		Array.from(
-			document.querySelectorAll<HTMLElement>(
-				'.work-card'
-			)
-		);
+  function getCardsInDomOrder(): HTMLElement[] {
+    return Array.from(
+      document.querySelectorAll<HTMLElement>('.work-card')
+    );
+  }
 
+  const dateControl = document.querySelector<HTMLElement>('.date-control');
 
-	/*
-	 * 始终获取当前 DOM 中的实际作品顺序。
-	 *
-	 * 重要：
-	 * Admin 修改 DATE 后，作品会重新排序。
-	 * 因此后续筛选、分页、Lightbox 都不能继续依赖
-	 * 最初的 cards 数组顺序。
-	 */
+  const dateYear =
+    document.querySelector<HTMLInputElement>('#date-year');
 
-	function getCardsInDomOrder() {
-
-		return Array.from(
-			document.querySelectorAll<HTMLElement>(
-				'.work-card'
-			)
-		);
-
-	}
-
-
-	const dateControl =
-		document.querySelector<HTMLElement>(
-			'.date-control'
-		);
-
-
-	const dateYear =
-		document.querySelector<HTMLInputElement>(
-			'#date-year'
-		);
-
-
-	const dateMonth =
-		document.querySelector<HTMLInputElement>(
-			'#date-month'
-		);
-
-
-	const dateDay =
-		document.querySelector<HTMLInputElement>(
-			'#date-day'
-		);
-
-
-	const peopleSelect =
-		document.querySelector<HTMLSelectElement>(
-			'#people-filter'
-		);
-
-
-	const JINIESSelect =
-		document.querySelector<HTMLSelectElement>(
-			'#JINIES-filter'
-		);
-
-
-	const clearDateButton =
-		document.querySelector<HTMLButtonElement>(
-			'#clear-date'
-		);
-
-
-	const resetButton =
-		document.querySelector<HTMLButtonElement>(
-			'#reset-filters'
-		);
-
-
-	const emptyReset =
-		document.querySelector<HTMLButtonElement>(
-			'#empty-reset'
-		);
-
-
-	const resultCount =
-		document.querySelector<HTMLElement>(
-			'#result-count'
-		);
-
-
-	const resultStatus =
-		document.querySelector<HTMLElement>(
-			'#result-status'
-		);
-
-
-	const emptyState =
-		document.querySelector<HTMLElement>(
-			'#empty-state'
-		);
-
-
-	const pagination =
-		document.querySelector<HTMLElement>(
-			'#pagination'
-		);
-
-
-	const pageNumbers =
-		document.querySelector<HTMLElement>(
-			'#page-numbers'
-		);
-
-
-	const previousPage =
-		document.querySelector<HTMLButtonElement>(
-			'#previous-page'
-		);
-
-
-	const nextPage =
-		document.querySelector<HTMLButtonElement>(
-			'#next-page'
-		);
-
-
-	/* =============================================================
-	   LIGHTBOX DOM
-	============================================================= */
-
-	const lightbox =
-		document.querySelector<HTMLElement>(
-			'#lightbox'
-		);
-
-
-	const lightboxImage =
-		document.querySelector<HTMLImageElement>(
-			'#lightbox-image'
-		);
-
-
-	const lightboxTitle =
-		document.querySelector<HTMLElement>(
-			'#lightbox-title'
-		);
-
-
-	const lightboxDate =
-		document.querySelector<HTMLElement>(
-			'#lightbox-date'
-		);
-
-
-	const lightboxCounter =
-		document.querySelector<HTMLElement>(
-			'#lightbox-counter'
-		);
-
-
-	const lightboxClose =
-		document.querySelector<HTMLButtonElement>(
-			'#lightbox-close'
-		);
-
-
-	const lightboxPrevious =
-		document.querySelector<HTMLButtonElement>(
-			'#lightbox-prev'
-		);
-
-
-	const lightboxNext =
-		document.querySelector<HTMLButtonElement>(
-			'#lightbox-next'
-		);
-
-
-	/* =============================================================
-	   STATE
-	============================================================= */
-
-	let currentPage =
-		1;
-
-
-	/*
-	 * 初始状态：
-	 *
-	 * DATE 显示最新 DATE，
-	 * 但不立即执行 DATE 筛选。
-	 */
-
-	let filtersActivated =
-		false;
-
-
-	const DEFAULT_DATE =
-		dateControl?.dataset.defaultDate ??
-		'';
-
-
-	let lightboxItems: Array<{
-		src: string;
-		alt: string;
-		title: string;
-		date: string;
-	}> = [];
-
-
-	let lightboxIndex =
-		0;
-
-
-	let lastFocusedElement:
-		HTMLElement | null =
-		null;
-
-
-	let touchStartX =
-		0;
-
-
-	/* =============================================================
-	   STORAGE
-	============================================================= */
-
-	function readStore(): Record<
-		string,
-		{
-			date?: string;
-			people?: number | null;
-			JINIES?: boolean | null;
-		}
-	> {
-
-		try {
-
-			const raw =
-				localStorage.getItem(
-					STORAGE_KEY
-				);
-
-
-			if (!raw) {
-
-				return {};
-
-			}
-
-
-			const parsed =
-				JSON.parse(raw);
-
-
-			return parsed &&
-				typeof parsed === 'object'
-				? parsed
-				: {};
-
-		} catch {
-
-			return {};
-
-		}
-
-	}
-
-
-	/* =============================================================
-	   DATE VALIDATION
-	============================================================= */
-
-	function isValidDateString(
-		value: string
-	) {
-
-		return /^\d{4}-\d{2}-\d{2}$/.test(
-			value
-		);
-
-	}
-
-
-	/* =============================================================
-	   APPLY ADMIN METADATA
-	============================================================= */
-
-	function applyMetadata() {
-
-		const store =
-			readStore();
-
-
-		cards.forEach(
-			(card) => {
-
-				const id =
-					card.dataset.id ??
-					'';
-
-
-				const saved =
-					store[id];
-
-
-				const meta =
-					card.querySelector<HTMLElement>(
-						'[data-meta]'
-					);
-
-
-				const time =
-					card.querySelector<HTMLTimeElement>(
-						'time'
-					);
-
-
-				const trigger =
-					card.querySelector<HTMLButtonElement>(
-						'.lightbox-trigger'
-					);
-
-
-				const people =
-					saved?.people ??
-					null;
-
-
-				const JINIES =
-					saved?.JINIES ??
-					null;
-
-
-				const peopleText =
-					people === 1
-						? '1 PERSON'
-						: people !== null &&
-								people >= 2
-							? '2+ PEOPLE'
-							: 'ROCO —';
-
-
-				const JINIESText =
-					JINIES === true
-						? 'JINIES'
-						: JINIES === false
-							? 'NO JINIES'
-							: 'JINIES —';
-
-
-				/*
-				 * 更新 ROCO / JINIES 信息。
-				 */
-
-				if (meta) {
-
-					meta.textContent =
-						`${peopleText} / ${JINIESText}`;
-
-				}
-
-
-				card.dataset.people =
-					people !== null &&
-						people >= 2
-						? '2+'
-						: people === 1
-							? '1'
-							: '';
-
-
-				card.dataset.JINIES =
-					JINIES === true
-						? 'yes'
-						: JINIES === false
-							? 'no'
-							: '';
-
-
-				/*
-				 * =================================================
-				 * DATE
-				 * =================================================
-				 *
-				 * Admin 修改过：
-				 * 使用 Admin DATE。
-				 *
-				 * 没有修改：
-				 * 使用 photo.ts 原始 DATE。
-				 */
-
-				if (
-					saved?.date &&
-					isValidDateString(
-						saved.date
-					)
-				) {
-
-					card.dataset.date =
-						saved.date;
-
-
-					if (time) {
-
-						time.dateTime =
-							saved.date;
-
-						time.textContent =
-							saved.date;
-
-					}
-
-
-					/*
-					 * 同步 Lightbox DATE。
-					 */
-
-					if (trigger) {
-
-						trigger.dataset.lightboxDate =
-							saved.date;
-
-					}
-
-				} else {
-
-					/*
-					 * 没有 Admin DATE 覆盖时，
-					 * 使用卡片当前 DATE。
-					 */
-
-					if (trigger) {
-
-						trigger.dataset.lightboxDate =
-							card.dataset.date ??
-							'';
-
-					}
-
-				}
-
-			}
-		);
-
-
-		/* =========================================================
-		   REORDER WORKS
-		========================================================= */
-
-		const grid =
-			document.querySelector<HTMLElement>(
-				'#works-grid'
-			);
-
-
-		if (!grid) {
-
-			return;
-
-		}
-
-
-		/*
-		 * 保存 photo.ts 原始顺序。
-		 *
-		 * 日期相同时，
-		 * 保持原始作品顺序。
-		 */
-
-		const originalOrder =
-			new Map(
-				cards.map(
-					(card, index) => [
-						card,
-						index,
-					]
-				)
-			);
-
-
-		const sortedCards =
-			[...cards].sort(
-				(a, b) => {
-
-					const dateA =
-						a.dataset.date ??
-						'';
-
-
-					const dateB =
-						b.dataset.date ??
-						'';
-
-
-					const validA =
-						isValidDateString(
-							dateA
-						);
-
-
-					const validB =
-						isValidDateString(
-							dateB
-						);
-
-
-					/*
-					 * 两个都没有有效日期：
-					 * 保持原始顺序。
-					 */
-
-					if (
-						!validA &&
-						!validB
-					) {
-
-						return (
-							(originalOrder.get(a) ?? 0) -
-							(originalOrder.get(b) ?? 0)
-						);
-
-					}
-
-
-					/*
-					 * 无效日期放最后。
-					 */
-
-					if (!validA) {
-
-						return 1;
-
-					}
-
-
-					if (!validB) {
-
-						return -1;
-
-					}
-
-
-					/*
-					 * 日期新的在前。
-					 */
-
-					const dateCompare =
-						dateB.localeCompare(
-							dateA
-						);
-
-
-					if (
-						dateCompare !== 0
-					) {
-
-						return dateCompare;
-
-					}
-
-
-					/*
-					 * 日期相同：
-					 * 保持原始顺序。
-					 */
-
-					return (
-						(originalOrder.get(a) ?? 0) -
-						(originalOrder.get(b) ?? 0)
-					);
-
-				}
-			);
-
-
-		/*
-		 * 将排序后的作品重新插入 Grid。
-		 */
-
-		sortedCards.forEach(
-			(card) => {
-
-				grid.appendChild(
-					card
-				);
-
-			}
-		);
-
-	}
-
-
-	/* =============================================================
-	   DATE
-	============================================================= */
-
-	function getSelectedDate(): string {
-
-		const year =
-			dateYear?.value
-				.trim()
-				.replace(/\D/g, '') ??
-			'';
-
-
-		const month =
-			dateMonth?.value
-				.trim()
-				.replace(/\D/g, '') ??
-			'';
-
-
-		const day =
-			dateDay?.value
-				.trim()
-				.replace(/\D/g, '') ??
-			'';
-
-
-		if (
-			year.length !== 4 ||
-			month.length < 1 ||
-			day.length < 1
-		) {
-
-			return '';
-
-		}
-
-
-		const monthNumber =
-			Number(month);
-
-
-		const dayNumber =
-			Number(day);
-
-
-		if (
-			!Number.isFinite(monthNumber) ||
-			monthNumber < 1 ||
-			monthNumber > 12
-		) {
-
-			return '';
-
-		}
-
-
-		if (
-			!Number.isFinite(dayNumber) ||
-			dayNumber < 1 ||
-			dayNumber > 31
-		) {
-
-			return '';
-
-		}
-
-
-		return (
-			`${year}-${String(monthNumber).padStart(2, '0')}-${String(dayNumber).padStart(2, '0')}`
-		);
-
-	}
-
-
-	function setDateValue(
-		dateString: string
-	) {
-
-		const parts =
-			dateString.split('-');
-
-
-		if (dateYear) {
-
-			dateYear.value =
-				parts[0] ?? '';
-
-		}
-
-
-		if (dateMonth) {
-
-			dateMonth.value =
-				parts[1] ?? '';
-
-		}
-
-
-		if (dateDay) {
-
-			dateDay.value =
-				parts[2] ?? '';
-
-		}
-
-	}
-
-
-	function clearDateValue() {
-
-		if (dateYear) {
-
-			dateYear.value =
-				'';
-
-		}
-
-
-		if (dateMonth) {
-
-			dateMonth.value =
-				'';
-
-		}
-
-
-		if (dateDay) {
-
-			dateDay.value =
-				'';
-
-		}
-
-	}
-
-
-	function normalizeDateFields() {
-
-		if (dateYear) {
-
-			dateYear.value =
-				dateYear.value
-					.replace(/\D/g, '')
-					.slice(0, 4);
-
-		}
-
-
-		if (dateMonth) {
-
-			const value =
-				dateMonth.value
-					.replace(/\D/g, '')
-					.slice(0, 2);
-
-
-			if (value) {
-
-				const number =
-					Math.min(
-						12,
-						Math.max(
-							1,
-							Number(value)
-						)
-					);
-
-
-				dateMonth.value =
-					String(number)
-						.padStart(2, '0');
-
-			}
-
-		}
-
-
-		if (dateDay) {
-
-			const value =
-				dateDay.value
-					.replace(/\D/g, '')
-					.slice(0, 2);
-
-
-			if (value) {
-
-				const number =
-					Math.min(
-						31,
-						Math.max(
-							1,
-							Number(value)
-						)
-					);
-
-
-				dateDay.value =
-					String(number)
-						.padStart(2, '0');
-
-			}
-
-		}
-
-	}
-
-
-	/* =============================================================
-	   DATE INPUT FLOW
-	   
-	   Visual:
-	   YYYY - MM - DD
-
-	   Editing:
-	   DD → MM → YYYY
-	============================================================= */
-
-	function bindDateInputFlow(
-		input:
-			HTMLInputElement | null,
-		nextInput:
-			HTMLInputElement | null,
-		maxLength: number
-	) {
-
-		if (!input) {
-
-			return;
-
-		}
-
-
-		input.addEventListener(
-			'focus',
-			() => {
-
-				input.select();
-
-			}
-		);
-
-
-		input.addEventListener(
-			'input',
-			() => {
-
-				filtersActivated =
-					true;
-
-
-				input.value =
-					input.value
-						.replace(/\D/g, '')
-						.slice(0, maxLength);
-
-
-				if (
-					input.value.length >=
-						maxLength &&
-					nextInput
-				) {
-
-					nextInput.focus();
-
-				}
-
-
-				currentPage =
-					1;
-
-
-				render();
-
-			}
-		);
-
-
-		input.addEventListener(
-			'change',
-			() => {
-
-				filtersActivated =
-					true;
-
-
-				normalizeDateFields();
-
-
-				currentPage =
-					1;
-
-
-				render();
-
-			}
-		);
-
-
-		input.addEventListener(
-			'keydown',
-			(event) => {
-
-				if (
-					event.key === 'Enter' ||
-					event.key === 'ArrowRight'
-				) {
-
-					event.preventDefault();
-
-					nextInput?.focus();
-
-				}
-
-			}
-		);
-
-	}
-
-
-	bindDateInputFlow(
-		dateDay,
-		dateMonth,
-		2
-	);
-
-
-	bindDateInputFlow(
-		dateMonth,
-		dateYear,
-		2
-	);
-
-
-	bindDateInputFlow(
-		dateYear,
-		null,
-		4
-	);
-
-
-	/* =============================================================
-	   DATE BACKWARD FLOW
-	============================================================= */
-
-	dateMonth?.addEventListener(
-		'keydown',
-		(event) => {
-
-			if (
-				event.key ===
-				'ArrowLeft'
-			) {
-
-				event.preventDefault();
-
-				dateDay?.focus();
-
-			}
-
-		}
-	);
-
-
-	dateYear?.addEventListener(
-		'keydown',
-		(event) => {
-
-			if (
-				event.key ===
-				'ArrowLeft'
-			) {
-
-				event.preventDefault();
-
-				dateMonth?.focus();
-
-			}
-
-		}
-	);
-
-
-	/*
-	 * 点击 DATE 区域的空白处：
-	 * 从 DD 开始编辑。
-	 */
-
-	dateControl?.addEventListener(
-		'click',
-		(event) => {
-
-			const target =
-				event.target as HTMLElement;
-
-
-			if (
-				target === dateControl ||
-				target.classList.contains(
-					'date-segments'
-				) ||
-				target.classList.contains(
-					'date-separator'
-				)
-			) {
-
-				dateDay?.focus();
-
-			}
-
-		}
-	);
-
-
-	/* =============================================================
-	   FILTERING
-	============================================================= */
-
-	function getFilteredCards() {
-
-		/*
-		 * 初始状态：
-		 * 显示全部作品。
-		 *
-		 * 这里必须使用当前 DOM 顺序。
-		 */
-
-		if (!filtersActivated) {
-
-			return getCardsInDomOrder();
-
-		}
-
-
-		const date =
-			getSelectedDate();
-
-
-		const people =
-			peopleSelect?.value ??
-			'all';
-
-
-		const JINIES =
-			JINIESSelect?.value ??
-			'all';
-
-
-		return getCardsInDomOrder().filter(
-			(card) => {
-
-				const dateMatch =
-					!date ||
-					card.dataset.date ===
-						date;
-
-
-				const peopleMatch =
-					people === 'all' ||
-					card.dataset.people ===
-						people;
-
-
-				const JINIESMatch =
-					JINIES === 'all' ||
-					card.dataset.JINIES ===
-						JINIES;
-
-
-				return (
-					dateMatch &&
-					peopleMatch &&
-					JINIESMatch
-				);
-
-			}
-		);
-
-	}
-
-
-	function getStatusText() {
-
-		if (!filtersActivated) {
-
-			return 'ALL WORKS';
-
-		}
-
-
-		const parts: string[] =
-			[];
-
-
-		const date =
-			getSelectedDate();
-
-
-		const people =
-			peopleSelect?.value ??
-			'all';
-
-
-		const JINIES =
-			JINIESSelect?.value ??
-			'all';
-
-
-		if (date) {
-
-			parts.push(
-				date
-			);
-
-		}
-
-
-		if (
-			people !== 'all'
-		) {
-
-			parts.push(
-				people === '1'
-					? '1 PERSON'
-					: '2+ PEOPLE'
-			);
-
-		}
-
-
-		if (
-			JINIES !== 'all'
-		) {
-
-			parts.push(
-				JINIES === 'yes'
-					? 'WITH JINIES'
-					: 'WITHOUT JINIES'
-			);
-
-		}
-
-
-		return parts.length
-			? parts.join(' / ')
-			: 'ALL WORKS';
-
-	}
-
-
-	/* =============================================================
-	   PAGINATION
-	============================================================= */
-
-	function createPageNumber(
-		page: number,
-		active: boolean
-	) {
-
-		const button =
-			document.createElement(
-				'button'
-			);
-
-
-		button.type =
-			'button';
-
-
-		button.className =
-			active
-				? 'page-number active'
-				: 'page-number';
-
-
-		button.textContent =
-			String(page);
-
-
-		button.setAttribute(
-			'aria-label',
-			`Go to page ${page}`
-		);
-
-
-		if (active) {
-
-			button.setAttribute(
-				'aria-current',
-				'page'
-			);
-
-		}
-
-
-		button.addEventListener(
-			'click',
-			() => {
-
-				currentPage =
-					page;
-
-
-				render();
-
-
-				scrollToGrid();
-
-			}
-		);
-
-
-		return button;
-
-	}
-
-
-	function renderPageNumbers(
-		totalPages: number
-	) {
-
-		if (!pageNumbers) {
-
-			return;
-
-		}
-
-
-		pageNumbers.innerHTML =
-			'';
-
-
-		if (
-			totalPages <= 7
-		) {
-
-			for (
-				let page = 1;
-				page <= totalPages;
-				page += 1
-			) {
-
-				pageNumbers.appendChild(
-					createPageNumber(
-						page,
-						page === currentPage
-					)
-				);
-
-			}
-
-			return;
-
-		}
-
-
-		pageNumbers.appendChild(
-			createPageNumber(
-				1,
-				currentPage === 1
-			)
-		);
-
-
-		if (
-			currentPage > 3
-		) {
-
-			const ellipsis =
-				document.createElement(
-					'span'
-				);
-
-
-			ellipsis.className =
-				'page-ellipsis';
-
-
-			ellipsis.textContent =
-				'···';
-
-
-			pageNumbers.appendChild(
-				ellipsis
-			);
-
-		}
-
-
-		const start =
-			Math.max(
-				2,
-				currentPage - 1
-			);
-
-
-		const end =
-			Math.min(
-				totalPages - 1,
-				currentPage + 1
-			);
-
-
-		for (
-			let page = start;
-			page <= end;
-			page += 1
-		) {
-
-			pageNumbers.appendChild(
-				createPageNumber(
-					page,
-					page === currentPage
-				)
-			);
-
-		}
-
-
-		if (
-			currentPage <
-			totalPages - 2
-		) {
-
-			const ellipsis =
-				document.createElement(
-					'span'
-				);
-
-
-			ellipsis.className =
-				'page-ellipsis';
-
-
-			ellipsis.textContent =
-				'···';
-
-
-			pageNumbers.appendChild(
-				ellipsis
-			);
-
-		}
-
-
-		pageNumbers.appendChild(
-			createPageNumber(
-				totalPages,
-				currentPage === totalPages
-			)
-		);
-
-	}
-
-
-	function render() {
-
-		const filteredCards =
-			getFilteredCards();
-
-
-		const totalPages =
-			Math.max(
-				1,
-				Math.ceil(
-					filteredCards.length /
-						PAGE_SIZE
-				)
-			);
-
-
-		if (
-			currentPage >
-			totalPages
-		) {
-
-			currentPage =
-				totalPages;
-
-		}
-
-
-		const start =
-			(currentPage - 1) *
-			PAGE_SIZE;
-
-
-		const visibleCards =
-			new Set(
-				filteredCards.slice(
-					start,
-					start + PAGE_SIZE
-				)
-			);
-
-
-		/*
-		 * 按当前 DOM 顺序处理显示状态。
-		 */
-
-		getCardsInDomOrder().forEach(
-			(card) => {
-
-				card.style.display =
-					visibleCards.has(card)
-						? ''
-						: 'none';
-
-			}
-		);
-
-
-		if (resultCount) {
-
-			resultCount.textContent =
-				String(
-					filteredCards.length
-				);
-
-		}
-
-
-		if (resultStatus) {
-
-			resultStatus.textContent =
-				getStatusText();
-
-		}
-
-
-		const hasResults =
-			filteredCards.length >
-			0;
-
-
-		if (emptyState) {
-
-			emptyState.hidden =
-				hasResults;
-
-		}
-
-
-		if (pagination) {
-
-			pagination.hidden =
-				!hasResults ||
-				totalPages <= 1;
-
-		}
-
-
-		if (previousPage) {
-
-			previousPage.disabled =
-				!hasResults ||
-				currentPage === 1;
-
-		}
-
-
-		if (nextPage) {
-
-			nextPage.disabled =
-				!hasResults ||
-				currentPage === totalPages;
-
-		}
-
-
-		renderPageNumbers(
-			totalPages
-		);
-
-	}
-
-
-	function scrollToGrid() {
-
-		document
-			.querySelector(
-				'#works-grid'
-			)
-			?.scrollIntoView({
-				behavior: 'smooth',
-				block: 'start',
-			});
-
-	}
-
-
-	/* =============================================================
-	   RESET
-	============================================================= */
-
-	function resetFilters() {
-
-		setDateValue(
-			DEFAULT_DATE
-		);
-
-
-		if (peopleSelect) {
-
-			peopleSelect.value =
-				'all';
-
-		}
-
-
-		if (JINIESSelect) {
-
-			JINIESSelect.value =
-				'all';
-
-		}
-
-
-		filtersActivated =
-			false;
-
-
-		currentPage =
-			1;
-
-
-		render();
-
-	}
-
-
-	/* =============================================================
-	   FILTER EVENTS
-	============================================================= */
-
-	peopleSelect?.addEventListener(
-		'change',
-		() => {
-
-			filtersActivated =
-				true;
-
-
-			currentPage =
-				1;
-
-
-			render();
-
-		}
-	);
-
-
-	JINIESSelect?.addEventListener(
-		'change',
-		() => {
-
-			filtersActivated =
-				true;
-
-
-			currentPage =
-				1;
-
-
-			render();
-
-		}
-	);
-
-
-	clearDateButton?.addEventListener(
-		'click',
-		(event) => {
-
-			event.stopPropagation();
-
-
-			clearDateValue();
-
-
-			filtersActivated =
-				true;
-
-
-			currentPage =
-				1;
-
-
-			render();
-
-		}
-	);
-
-
-	resetButton?.addEventListener(
-		'click',
-		resetFilters
-	);
-
-
-	emptyReset?.addEventListener(
-		'click',
-		resetFilters
-	);
-
-
-	previousPage?.addEventListener(
-		'click',
-		() => {
-
-			if (
-				currentPage <= 1
-			) {
-
-				return;
-
-			}
-
-
-			currentPage -=
-				1;
-
-
-			render();
-
-
-			scrollToGrid();
-
-		}
-	);
-
-
-	nextPage?.addEventListener(
-		'click',
-		() => {
-
-			const totalPages =
-				Math.max(
-					1,
-					Math.ceil(
-						getFilteredCards()
-							.length /
-							PAGE_SIZE
-					)
-				);
-
-
-			if (
-				currentPage >=
-				totalPages
-			) {
-
-				return;
-
-			}
-
-
-			currentPage +=
-				1;
-
-
-			render();
-
-
-			scrollToGrid();
-
-		}
-	);
-
-
-	/* =============================================================
-	   LIGHTBOX
-	============================================================= */
-
-	function collectLightboxItems() {
-
-		/*
-		 * 必须按照当前 DOM 顺序收集。
-		 *
-		 * 这样 Lightbox 的上一张 / 下一张
-		 * 才会与 Exhibition 当前排序一致。
-		 */
-
-		const visibleCards =
-			getCardsInDomOrder().filter(
-				(card) =>
-					card.style.display !==
-					'none'
-			);
-
-
-		lightboxItems =
-			visibleCards
-				.map(
-					(card) => {
-
-						const trigger =
-							card.querySelector<HTMLButtonElement>(
-								'.lightbox-trigger'
-							);
-
-
-						if (!trigger) {
-
-							return null;
-
-						}
-
-
-						return {
-							src:
-								trigger.dataset
-									.lightboxSrc ??
-								'',
-
-							alt:
-								trigger.dataset
-									.lightboxAlt ??
-								'',
-
-							title:
-								trigger.dataset
-									.lightboxTitle ??
-								'',
-
-							/*
-							 * 直接读取 card 当前 DATE。
-							 *
-							 * Admin 修改 DATE 后，
-							 * 这里一定是最终 DATE。
-							 */
-
-							date:
-								card.dataset.date ??
-								'',
-						};
-
-					}
-				)
-				.filter(
-					(item): item is {
-						src: string;
-						alt: string;
-						title: string;
-						date: string;
-					} =>
-						Boolean(item)
-				);
-
-	}
-
-
-	function updateLightboxImage() {
-
-		const item =
-			lightboxItems[
-				lightboxIndex
-			];
-
-
-		if (
-			!item ||
-			!lightboxImage
-		) {
-
-			return;
-
-		}
-
-
-		lightboxImage.src =
-			item.src;
-
-
-		lightboxImage.alt =
-			item.alt;
-
-
-		if (lightboxTitle) {
-
-			lightboxTitle.textContent =
-				item.title;
-
-		}
-
-
-		if (lightboxDate) {
-
-			lightboxDate.textContent =
-				item.date;
-
-		}
-
-
-		if (lightboxCounter) {
-
-			lightboxCounter.textContent =
-				`${String(
-					lightboxIndex + 1
-				).padStart(
-					2,
-					'0'
-				)} / ${String(
-					lightboxItems.length
-				).padStart(
-					2,
-					'0'
-				)}`;
-
-		}
-
-
-		const hasMultiple =
-			lightboxItems.length >
-			1;
-
-
-		if (lightboxPrevious) {
-
-			lightboxPrevious.hidden =
-				!hasMultiple;
-
-
-			lightboxPrevious.disabled =
-				!hasMultiple;
-
-		}
-
-
-		if (lightboxNext) {
-
-			lightboxNext.hidden =
-				!hasMultiple;
-
-
-			lightboxNext.disabled =
-				!hasMultiple;
-
-		}
-
-	}
-
-
-	function openLightbox(
-		index: number
-	) {
-
-		if (
-			!lightbox ||
-			!lightboxItems.length
-		) {
-
-			return;
-
-		}
-
-
-		lastFocusedElement =
-			document.activeElement instanceof
-			HTMLElement
-				? document.activeElement
-				: null;
-
-
-		lightboxIndex =
-			Math.max(
-				0,
-				Math.min(
-					index,
-					lightboxItems.length - 1
-				)
-			);
-
-
-		updateLightboxImage();
-
-
-		lightbox.classList.add(
-			'is-open'
-		);
-
-
-		lightbox.setAttribute(
-			'aria-hidden',
-			'false'
-		);
-
-
-		document.body.classList.add(
-			'lightbox-open'
-		);
-
-
-		lightboxClose?.focus();
-
-	}
-
-
-	function closeLightbox() {
-
-		if (!lightbox) {
-
-			return;
-
-		}
-
-
-		lightbox.classList.remove(
-			'is-open'
-		);
-
-
-		lightbox.setAttribute(
-			'aria-hidden',
-			'true'
-		);
-
-
-		document.body.classList.remove(
-			'lightbox-open'
-		);
-
-
-		if (lightboxImage) {
-
-			lightboxImage.removeAttribute(
-				'src'
-			);
-
-
-			lightboxImage.alt =
-				'';
-
-		}
-
-
-		lastFocusedElement?.focus();
-
-
-		lastFocusedElement =
-			null;
-
-	}
-
-
-	function showPrevious() {
-
-		if (
-			lightboxItems.length <=
-			1
-		) {
-
-			return;
-
-		}
-
-
-		lightboxIndex =
-			(
-				lightboxIndex -
-				1 +
-				lightboxItems.length
-			) %
-			lightboxItems.length;
-
-
-		updateLightboxImage();
-
-	}
-
-
-	function showNext() {
-
-		if (
-			lightboxItems.length <=
-			1
-		) {
-
-			return;
-
-		}
-
-
-		lightboxIndex =
-			(
-				lightboxIndex +
-				1
-			) %
-			lightboxItems.length;
-
-
-		updateLightboxImage();
-
-	}
-
-
-	/* =============================================================
-	   OPEN FROM CARD
-	============================================================= */
-
-	function openFromTrigger(
-		trigger: HTMLButtonElement
-	) {
-
-		collectLightboxItems();
-
-
-		/*
-		 * 使用当前 DOM 顺序。
-		 */
-
-		const visibleTriggers =
-			getCardsInDomOrder()
-				.filter(
-					(card) =>
-						card.style.display !==
-						'none'
-				)
-				.map(
-					(card) =>
-						card.querySelector<HTMLButtonElement>(
-							'.lightbox-trigger'
-						)
-				)
-				.filter(
-					(item): item is HTMLButtonElement =>
-						Boolean(item)
-				);
-
-
-		const clickedIndex =
-			visibleTriggers.indexOf(
-				trigger
-			);
-
-
-		openLightbox(
-			clickedIndex >= 0
-				? clickedIndex
-				: 0
-		);
-
-	}
-
-
-	/* =============================================================
-	   LIGHTBOX CLICK EVENTS
-	============================================================= */
-
-	document.addEventListener(
-		'click',
-		(event) => {
-
-			const target =
-				event.target;
-
-
-			if (
-				!(
-					target instanceof
-					Element
-				)
-			) {
-
-				return;
-
-			}
-
-
-			/*
-			 * 点击图片。
-			 */
-
-			const trigger =
-				target.closest<HTMLButtonElement>(
-					'.lightbox-trigger'
-				);
-
-
-			if (trigger) {
-
-				event.preventDefault();
-
-
-				openFromTrigger(
-					trigger
-				);
-
-
-				return;
-
-			}
-
-
-			/*
-			 * 关闭按钮。
-			 */
-
-			if (
-				target.closest(
-					'#lightbox-close'
-				)
-			) {
-
-				closeLightbox();
-
-
-				return;
-
-			}
-
-
-			/*
-			 * 上一张。
-			 */
-
-			if (
-				target.closest(
-					'#lightbox-prev'
-				)
-			) {
-
-				showPrevious();
-
-
-				return;
-
-			}
-
-
-			/*
-			 * 下一张。
-			 */
-
-			if (
-				target.closest(
-					'#lightbox-next'
-				)
-			) {
-
-				showNext();
-
-
-				return;
-
-			}
-
-
-			/*
-			 * 黑色背景。
-			 */
-
-			if (
-				target.closest(
-					'[data-lightbox-close]'
-				)
-			) {
-
-				closeLightbox();
-
-			}
-
-		}
-	);
-
-
-	/* =============================================================
-	   KEYBOARD
-	============================================================= */
-
-	document.addEventListener(
-		'keydown',
-		(event) => {
-
-			if (
-				!lightbox?.classList.contains(
-					'is-open'
-				)
-			) {
-
-				return;
-
-			}
-
-
-			if (
-				event.key ===
-				'Escape'
-			) {
-
-				event.preventDefault();
-
-
-				closeLightbox();
-
-
-				return;
-
-			}
-
-
-			if (
-				event.key ===
-				'ArrowLeft'
-			) {
-
-				event.preventDefault();
-
-
-				showPrevious();
-
-
-				return;
-
-			}
-
-
-			if (
-				event.key ===
-				'ArrowRight'
-			) {
-
-				event.preventDefault();
-
-
-				showNext();
-
-			}
-
-		}
-	);
-
-
-	/* =============================================================
-	   MOBILE SWIPE
-	============================================================= */
-
-	lightbox?.addEventListener(
-		'touchstart',
-		(event) => {
-
-			touchStartX =
-				event.changedTouches[0]
-					?.clientX ??
-				0;
-
-		},
-		{
-			passive: true,
-		}
-	);
-
-
-	lightbox?.addEventListener(
-		'touchend',
-		(event) => {
-
-			const endX =
-				event.changedTouches[0]
-					?.clientX ??
-				0;
-
-
-			const deltaX =
-				endX -
-				touchStartX;
-
-
-			if (
-				Math.abs(deltaX) <
-				50
-			) {
-
-				return;
-
-			}
-
-
-			if (
-				deltaX < 0
-			) {
-
-				showNext();
-
-			} else {
-
-				showPrevious();
-
-			}
-
-		},
-		{
-			passive: true,
-		}
-	);
-
-
-	/* =============================================================
-	   STORAGE REFRESH
-	============================================================= */
-
-	function refreshFromStorage() {
-
-		/*
-		 * 重新读取 Admin 数据。
-		 *
-		 * applyMetadata() 会同时：
-		 *
-		 * 1. 更新 ROCO
-		 * 2. 更新 JINIES
-		 * 3. 更新 DATE
-		 * 4. 按最终 DATE 重新排序
-		 * 5. 同步 Lightbox DATE
-		 */
-
-		applyMetadata();
-
-
-		currentPage =
-			1;
-
-
-		render();
-
-	}
-
-
-	window.addEventListener(
-		'storage',
-		(event) => {
-
-			if (
-				event.key ===
-				STORAGE_KEY
-			) {
-
-				refreshFromStorage();
-
-			}
-
-		}
-	);
-
-
-	window.addEventListener(
-		'pageshow',
-		refreshFromStorage
-	);
-
-
-	document.addEventListener(
-		'astro:page-load',
-		() => {
-
-			refreshFromStorage();
-
-		}
-	);
-
-
-	/* =============================================================
-	   INITIAL
-	============================================================= */
-
-	applyMetadata();
-
-
-	render();
+  const dateMonth =
+    document.querySelector<HTMLInputElement>('#date-month');
+
+  const dateDay =
+    document.querySelector<HTMLInputElement>('#date-day');
+
+  const clearDateButton =
+    document.querySelector<HTMLButtonElement>('#clear-date');
+
+  const peopleSelect =
+    document.querySelector<HTMLSelectElement>('#people-filter');
+
+  const JINIESSelect =
+    document.querySelector<HTMLSelectElement>('#JINIES-filter');
+
+  const resetButton =
+    document.querySelector<HTMLButtonElement>('#reset-filters');
+
+  const resultCount =
+    document.querySelector<HTMLElement>('#result-count');
+
+  const resultStatus =
+    document.querySelector<HTMLElement>('#result-status');
+
+  const emptyState =
+    document.querySelector<HTMLElement>('#empty-state');
+
+  const pagination =
+    document.querySelector<HTMLElement>('#pagination');
+
+  const lightbox =
+    document.querySelector<HTMLElement>('#lightbox');
+
+  const lightboxImage =
+    document.querySelector<HTMLImageElement>('#lightbox-image');
+
+  const lightboxTitle =
+    document.querySelector<HTMLElement>('#lightbox-title');
+
+  const lightboxDate =
+    document.querySelector<HTMLElement>('#lightbox-date');
+
+  const lightboxCounter =
+    document.querySelector<HTMLElement>('#lightbox-counter');
+
+  const lightboxPrevious =
+    document.querySelector<HTMLButtonElement>('#lightbox-prev');
+
+  const lightboxNext =
+    document.querySelector<HTMLButtonElement>('#lightbox-next');
+
+  const lightboxClose =
+    document.querySelector<HTMLButtonElement>('#lightbox-close');
+
+  let currentPage = 1;
+  let filtersActivated = false;
+
+  const DEFAULT_DATE =
+    dateControl?.dataset.defaultDate ?? '';
+
+  let lightboxItems: LightboxItem[] = [];
+  let currentLightboxIndex = 0;
+
+  function isValidDate(value: string): boolean {
+    return /^\d{4}-\d{2}-\d{2}$/.test(value);
+  }
+
+  function readStore(): PhotoStore {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+
+      if (!raw) {
+        return {};
+      }
+
+      const parsed: unknown = JSON.parse(raw);
+
+      /*
+       * 兼容两种格式：
+       *
+       * 旧格式：
+       * [
+       *   { id: "...", date: "...", people: 1, JINIES: false }
+       * ]
+       *
+       * 新格式：
+       * {
+       *   "20260915-016": {
+       *      id: "...",
+       *      date: "...",
+       *      people: 1,
+       *      JINIES: false
+       *   }
+       * }
+       */
+
+      if (Array.isArray(parsed)) {
+        return parsed.reduce<PhotoStore>(
+          (store: PhotoStore, item: unknown) => {
+            if (
+              item &&
+              typeof item === 'object' &&
+              'id' in item
+            ) {
+              const row = item as PhotoData;
+
+              if (typeof row.id === 'string') {
+                store[row.id] = row;
+              }
+            }
+
+            return store;
+          },
+          {}
+        );
+      }
+
+      if (
+        parsed &&
+        typeof parsed === 'object' &&
+        !Array.isArray(parsed)
+      ) {
+        return parsed as PhotoStore;
+      }
+
+      return {};
+    } catch (error) {
+      console.warn(
+        '[Exhibition] Failed to read localStorage:',
+        error
+      );
+
+      return {};
+    }
+  }
+
+  function getSavedData(
+    id: string,
+    store: PhotoStore
+  ): PhotoData | undefined {
+    return store[id];
+  }
+
+  function getPeopleLabel(
+    people: number | null | undefined
+  ): string {
+    if (people === 1) {
+      return '1 PERSON';
+    }
+
+    if (people === 2) {
+      return '2 PEOPLE';
+    }
+
+    if (people === 3) {
+      return '2+ PEOPLE';
+    }
+
+    return 'ROCO —';
+  }
+
+  function getJINIESLabel(
+    JINIES: boolean | null | undefined
+  ): string {
+    if (JINIES === true) {
+      return 'JINIES';
+    }
+
+    if (JINIES === false) {
+      return 'NO JINIES';
+    }
+
+    return 'JINIES —';
+  }
+
+  function getDateValue(
+    card: HTMLElement,
+    saved: PhotoData | undefined
+  ): string {
+    if (saved?.date && isValidDate(saved.date)) {
+      return saved.date;
+    }
+
+    return card.dataset.date ?? '';
+  }
+
+  function applyMetadata(): void {
+    const store = readStore();
+
+    cards.forEach((card: HTMLElement) => {
+      const id = card.dataset.id ?? '';
+
+      if (!id) {
+        return;
+      }
+
+      const saved = getSavedData(id, store);
+
+      const meta =
+        card.querySelector<HTMLElement>('[data-meta]');
+
+      const time =
+        card.querySelector<HTMLTimeElement>('time');
+
+      const trigger =
+        card.querySelector<HTMLButtonElement>(
+          '.lightbox-trigger'
+        );
+
+      if (!meta) {
+        return;
+      }
+
+      const people = saved?.people ?? null;
+      const JINIES = saved?.JINIES ?? null;
+
+      /*
+       * 更新人物 / JINIES 文案
+       */
+      meta.textContent =
+        `${getPeopleLabel(people)} / ${getJINIESLabel(JINIES)}`;
+
+      /*
+       * 更新 data 属性
+       */
+      if (people === 1) {
+        card.dataset.people = '1';
+      } else if (people === 2) {
+        card.dataset.people = '2';
+      } else if (people === 3) {
+        card.dataset.people = '2+';
+      } else {
+        delete card.dataset.people;
+      }
+
+      if (JINIES === true) {
+        card.dataset.JINIES = 'yes';
+      } else if (JINIES === false) {
+        card.dataset.JINIES = 'no';
+      } else {
+        delete card.dataset.JINIES;
+      }
+
+      /*
+       * 更新日期
+       */
+      const finalDate = getDateValue(card, saved);
+
+      if (finalDate) {
+        card.dataset.date = finalDate;
+
+        if (time) {
+          time.dateTime = finalDate;
+          time.textContent = finalDate;
+        }
+
+        if (trigger) {
+          trigger.dataset.lightboxDate = finalDate;
+        }
+      }
+    });
+
+    /*
+     * 按最终日期重新排序：
+     * 最新 → 最旧
+     */
+    const grid =
+      document.querySelector<HTMLElement>('#works-grid');
+
+
+const originalOrder = new Map(
+  cards.map((card, index) => [card, index])
+);
+
+    const sortedCards = getCardsInDomOrder().sort(
+      (a: HTMLElement, b: HTMLElement) => {
+        const dateA = a.dataset.date ?? '';
+        const dateB = b.dataset.date ?? '';
+
+        const validA = isValidDate(dateA);
+        const validB = isValidDate(dateB);
+
+        if (validA && validB) {
+          if (dateA !== dateB) {
+            return dateB.localeCompare(dateA);
+          }
+        }
+
+        if (validA && !validB) {
+          return -1;
+        }
+
+        if (!validA && validB) {
+          return 1;
+        }
+
+        return (
+          (originalOrder.get(a) ?? 0) -
+          (originalOrder.get(b) ?? 0)
+        );
+      }
+    );
+
+    if (!grid) {
+      return;
+    }
+
+    sortedCards.forEach((card: HTMLElement) => {
+      grid.appendChild(card);
+    });
+  }
+
+  function getCurrentDateFilter(): string {
+    if (!dateYear || !dateMonth || !dateDay) {
+      return '';
+    }
+
+    const year = dateYear.value.trim();
+    const month = dateMonth.value.trim();
+    const day = dateDay.value.trim();
+
+    if (!year && !month && !day) {
+      return '';
+    }
+
+    if (
+      year.length === 4 &&
+      month.length === 2 &&
+      day.length === 2
+    ) {
+      const value = `${year}-${month}-${day}`;
+
+      if (isValidDate(value)) {
+        return value;
+      }
+    }
+
+    return `${year}-${month}-${day}`;
+  }
+
+  function clearDateInputs(): void {
+    if (dateYear) {
+      dateYear.value = '';
+    }
+
+    if (dateMonth) {
+      dateMonth.value = '';
+    }
+
+    if (dateDay) {
+      dateDay.value = '';
+    }
+  }
+
+  function setDateInputs(value: string): void {
+    if (!dateYear || !dateMonth || !dateDay) {
+      return;
+    }
+
+    if (!value || !isValidDate(value)) {
+      clearDateInputs();
+      return;
+    }
+
+    const parts = value.split('-');
+
+    dateYear.value = parts[0] ?? '';
+    dateMonth.value = parts[1] ?? '';
+    dateDay.value = parts[2] ?? '';
+  }
+
+  function matchesDateFilter(
+    card: HTMLElement,
+    filter: string
+  ): boolean {
+    if (!filter) {
+      return true;
+    }
+
+    const cardDate = card.dataset.date ?? '';
+
+    /*
+     * 完整日期：精确匹配
+     */
+    if (filter.length === 10) {
+      return cardDate === filter;
+    }
+
+    /*
+     * 部分日期：
+     * 输入 2026 → 匹配年份
+     * 输入 2026-09 → 匹配年月
+     */
+    return cardDate.startsWith(filter);
+  }
+
+  function matchesPeopleFilter(
+    card: HTMLElement
+  ): boolean {
+    const value = peopleSelect?.value ?? 'all';
+
+    if (value === 'all') {
+      return true;
+    }
+
+    const people = card.dataset.people ?? '';
+
+    if (value === '1') {
+      return people === '1';
+    }
+
+    if (value === '2') {
+      return people === '2';
+    }
+
+    if (value === '2+') {
+      return people === '2+';
+    }
+
+    return true;
+  }
+
+  function matchesJINIESFilter(
+    card: HTMLElement
+  ): boolean {
+    const value = JINIESSelect?.value ?? 'all';
+
+    if (value === 'all') {
+      return true;
+    }
+
+    const JINIES = card.dataset.JINIES ?? '';
+
+    if (value === 'yes') {
+      return JINIES === 'yes';
+    }
+
+    if (value === 'no') {
+      return JINIES === 'no';
+    }
+
+    return true;
+  }
+
+  function getFilteredCards(): HTMLElement[] {
+    const dateFilter = getCurrentDateFilter();
+
+    return getCardsInDomOrder().filter(
+      (card: HTMLElement) => {
+        return (
+          matchesDateFilter(card, dateFilter) &&
+          matchesPeopleFilter(card) &&
+          matchesJINIESFilter(card)
+        );
+      }
+    );
+  }
+
+  function updateFilterState(): void {
+    const dateFilter = getCurrentDateFilter();
+
+    const peopleFilter =
+      peopleSelect?.value ?? 'all';
+
+    const JINIESFilter =
+      JINIESSelect?.value ?? 'all';
+
+    filtersActivated =
+      Boolean(
+        dateFilter ||
+        peopleFilter !== 'all' ||
+        JINIESFilter !== 'all'
+      );
+  }
+
+  function updateResultStatus(
+    total: number
+  ): void {
+    if (!resultStatus) {
+      return;
+    }
+
+    if (!filtersActivated) {
+      resultStatus.textContent = 'ALL WORKS';
+      return;
+    }
+
+    resultStatus.textContent =
+      `${total} ${total === 1 ? 'WORK' : 'WORKS'}`;
+  }
+
+  function renderPagination(
+    total: number
+  ): void {
+    if (!pagination) {
+      return;
+    }
+
+    pagination.innerHTML = '';
+
+    const totalPages =
+      Math.ceil(total / PAGE_SIZE);
+
+    if (totalPages <= 1) {
+      pagination.hidden = true;
+      return;
+    }
+
+    pagination.hidden = false;
+
+    const createPageButton = (
+      label: string,
+      page: number,
+      disabled = false
+    ): HTMLButtonElement => {
+      const button =
+        document.createElement('button');
+
+      button.type = 'button';
+      button.className = 'page-button';
+      button.textContent = label;
+      button.disabled = disabled;
+
+      if (page === currentPage) {
+        button.classList.add('is-active');
+        button.setAttribute(
+          'aria-current',
+          'page'
+        );
+      }
+
+      button.addEventListener(
+        'click',
+        () => {
+          currentPage = page;
+          render();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+      );
+
+      return button;
+    };
+
+    pagination.appendChild(
+      createPageButton(
+        '←',
+        currentPage - 1,
+        currentPage <= 1
+      )
+    );
+
+    for (
+      let page = 1;
+      page <= totalPages;
+      page += 1
+    ) {
+      pagination.appendChild(
+        createPageButton(
+          String(page),
+          page
+        )
+      );
+    }
+
+    pagination.appendChild(
+      createPageButton(
+        '→',
+        currentPage + 1,
+        currentPage >= totalPages
+      )
+    );
+  }
+
+  function render(): void {
+    const filteredCards =
+      getFilteredCards();
+
+    const total =
+      filteredCards.length;
+
+    const totalPages =
+      Math.max(
+        1,
+        Math.ceil(total / PAGE_SIZE)
+      );
+
+    if (currentPage > totalPages) {
+      currentPage = totalPages;
+    }
+
+    const start =
+      (currentPage - 1) * PAGE_SIZE;
+
+    const end =
+      start + PAGE_SIZE;
+
+    const visibleCards =
+      new Set(
+        filteredCards.slice(start, end)
+      );
+
+    getCardsInDomOrder().forEach(
+      (card: HTMLElement) => {
+        card.style.display =
+          visibleCards.has(card)
+            ? ''
+            : 'none';
+      }
+    );
+
+    if (resultCount) {
+      resultCount.textContent =
+        String(total);
+    }
+
+    updateResultStatus(total);
+
+    if (emptyState) {
+      emptyState.hidden = total !== 0;
+    }
+
+    renderPagination(total);
+
+    /*
+     * 更新当前 Lightbox 数据
+     */
+    lightboxItems =
+      filteredCards.map(
+        (card: HTMLElement) => {
+          const trigger =
+            card.querySelector<HTMLButtonElement>(
+              '.lightbox-trigger'
+            );
+
+          const image =
+            card.querySelector<HTMLImageElement>(
+              'img'
+            );
+
+          return {
+            card,
+            trigger: trigger as HTMLButtonElement,
+            src:
+              trigger?.dataset.lightboxSrc ??
+              image?.src ??
+              '',
+            alt:
+              trigger?.dataset.lightboxAlt ??
+              image?.alt ??
+              '',
+            title:
+              trigger?.dataset.lightboxTitle ??
+              card.dataset.id ??
+              '',
+            date:
+              card.dataset.date ??
+              '',
+          };
+        }
+      )
+      .filter(
+        (item: LightboxItem) =>
+          Boolean(item.trigger)
+      );
+  }
+
+  function resetFilters(): void {
+    clearDateInputs();
+
+    if (peopleSelect) {
+      peopleSelect.value = 'all';
+    }
+
+    if (JINIESSelect) {
+      JINIESSelect.value = 'all';
+    }
+
+    filtersActivated = false;
+    currentPage = 1;
+
+    render();
+  }
+
+  function openLightbox(
+    index: number
+  ): void {
+    if (
+      !lightbox ||
+      !lightboxImage ||
+      !lightboxTitle ||
+      !lightboxDate ||
+      !lightboxCounter
+    ) {
+      return;
+    }
+
+    if (
+      index < 0 ||
+      index >= lightboxItems.length
+    ) {
+      return;
+    }
+
+    currentLightboxIndex = index;
+
+    const item =
+      lightboxItems[currentLightboxIndex];
+
+    if (!item) {
+      return;
+    }
+
+    lightboxImage.src = item.src;
+    lightboxImage.alt = item.alt;
+    lightboxTitle.textContent = item.title;
+    lightboxDate.textContent = item.date;
+
+    lightboxCounter.textContent =
+      `${currentLightboxIndex + 1} / ${lightboxItems.length}`;
+
+    lightbox.hidden = false;
+    document.body.classList.add(
+      'lightbox-open'
+    );
+
+    updateLightboxButtons();
+  }
+
+  function closeLightbox(): void {
+    if (!lightbox) {
+      return;
+    }
+
+    lightbox.hidden = true;
+
+    document.body.classList.remove(
+      'lightbox-open'
+    );
+  }
+
+  function updateLightboxButtons(): void {
+    if (lightboxPrevious) {
+      lightboxPrevious.disabled =
+        lightboxItems.length <= 1;
+    }
+
+    if (lightboxNext) {
+      lightboxNext.disabled =
+        lightboxItems.length <= 1;
+    }
+  }
+
+  function moveLightbox(
+    direction: number
+  ): void {
+    if (lightboxItems.length <= 1) {
+      return;
+    }
+
+    currentLightboxIndex =
+      (
+        currentLightboxIndex +
+        direction +
+        lightboxItems.length
+      ) %
+      lightboxItems.length;
+
+    openLightbox(
+      currentLightboxIndex
+    );
+  }
+
+  function openFromTrigger(
+    trigger: HTMLButtonElement
+  ): void {
+    const card =
+      trigger.closest<HTMLElement>(
+        '.work-card'
+      );
+
+    if (!card) {
+      return;
+    }
+
+    const visibleCards =
+      getFilteredCards();
+
+    const index =
+      visibleCards.indexOf(card);
+
+    if (index === -1) {
+      return;
+    }
+
+    openLightbox(index);
+  }
+
+  /*
+   * Filter events
+   */
+  [
+    dateYear,
+    dateMonth,
+    dateDay,
+  ].forEach(
+    (input: HTMLInputElement | null) => {
+      input?.addEventListener(
+        'input',
+        () => {
+          updateFilterState();
+          currentPage = 1;
+          render();
+        }
+      );
+    }
+  );
+
+  peopleSelect?.addEventListener(
+    'change',
+    () => {
+      updateFilterState();
+      currentPage = 1;
+      render();
+    }
+  );
+
+  JINIESSelect?.addEventListener(
+    'change',
+    () => {
+      updateFilterState();
+      currentPage = 1;
+      render();
+    }
+  );
+
+  clearDateButton?.addEventListener(
+    'click',
+    () => {
+      clearDateInputs();
+      updateFilterState();
+      currentPage = 1;
+      render();
+    }
+  );
+
+  resetButton?.addEventListener(
+    'click',
+    resetFilters
+  );
+
+  /*
+   * Lightbox open
+   */
+  document.addEventListener(
+    'click',
+    (event: MouseEvent) => {
+      const target =
+        event.target as HTMLElement | null;
+
+      const trigger =
+        target?.closest<HTMLButtonElement>(
+          '.lightbox-trigger'
+        );
+
+      if (!trigger) {
+        return;
+      }
+
+      event.preventDefault();
+
+      openFromTrigger(trigger);
+    }
+  );
+
+  lightboxClose?.addEventListener(
+    'click',
+    closeLightbox
+  );
+
+  lightboxPrevious?.addEventListener(
+    'click',
+    () => {
+      moveLightbox(-1);
+    }
+  );
+
+  lightboxNext?.addEventListener(
+    'click',
+    () => {
+      moveLightbox(1);
+    }
+  );
+
+  /*
+   * 点击遮罩关闭
+   */
+  lightbox?.addEventListener(
+    'click',
+    (event: MouseEvent) => {
+      if (
+        event.target === lightbox
+      ) {
+        closeLightbox();
+      }
+    }
+  );
+
+  /*
+   * 键盘控制
+   */
+  document.addEventListener(
+    'keydown',
+    (event: KeyboardEvent) => {
+      if (
+        lightbox &&
+        !lightbox.hidden
+      ) {
+        if (event.key === 'Escape') {
+          closeLightbox();
+        } else if (
+          event.key === 'ArrowLeft'
+        ) {
+          moveLightbox(-1);
+        } else if (
+          event.key === 'ArrowRight'
+        ) {
+          moveLightbox(1);
+        }
+      }
+    }
+  );
+
+  function refreshFromStorage(): void {
+    applyMetadata();
+
+    updateFilterState();
+
+    currentPage = 1;
+
+    render();
+  }
+
+  /*
+   * Admin 页面修改 localStorage 后，
+   * Exhibition 页面打开时 / 返回时重新读取。
+   */
+  window.addEventListener(
+    'storage',
+    (event: StorageEvent) => {
+      if (
+        event.key === STORAGE_KEY
+      ) {
+        refreshFromStorage();
+      }
+    }
+  );
+
+  window.addEventListener(
+    'pageshow',
+    () => {
+      refreshFromStorage();
+    }
+  );
+
+  document.addEventListener(
+    'astro:page-load',
+    () => {
+      refreshFromStorage();
+    }
+  );
+
+  /*
+   * 初始化
+   */
+  if (
+    DEFAULT_DATE &&
+    dateYear &&
+    dateMonth &&
+    dateDay
+  ) {
+    /*
+     * 保留原来的默认日期，
+     * 但不主动激活日期筛选。
+     */
+    setDateInputs('');
+  }
+
+  applyMetadata();
+  updateFilterState();
+  render();
 </script>
-
 
 <style>
 	/* =============================================================
