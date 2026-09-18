@@ -6,22 +6,8 @@ import vue from '@astrojs/vue';
 
 import cloudflare from '@astrojs/cloudflare';
 
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
-
 export default defineConfig({
-  output: isGitHubPages ? 'static' : 'server',
-
-  site: isGitHubPages
-    ? 'https://serein020.github.io'
-    : 'https://rocophotogallery.weykeiii.workers.dev',
-
-  base: isGitHubPages ? '/RocoPhotoGallery' : undefined,
-
+  output: 'server',
   integrations: [vue()],
-
-  ...(isGitHubPages
-    ? {}
-    : {
-        adapter: cloudflare(),
-      }),
+  adapter: cloudflare(),
 });
