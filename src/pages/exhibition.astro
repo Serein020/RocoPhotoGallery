@@ -288,7 +288,7 @@ const [
 						type="button"
 						class="work-link lightbox-trigger"
 						data-lightbox-index={index}
-						data-lightbox-src={work.imageLarge}
+						data-lightbox-src={`/photos/optimized/${work.id}-1600.webp`}
 						data-lightbox-alt={work.id}
 						data-lightbox-title={work.id}
 						data-lightbox-date={work.date}
@@ -303,16 +303,16 @@ const [
 
 									<source
 										media="(max-width: 760px)"
-										srcset={work.imageSmall}
+										srcset={`/photos/optimized/${work.id}-480.webp`}
 									/>
 
 									<source
 										media="(max-width: 1200px)"
-										srcset={work.imageMedium}
+										srcset={`/photos/optimized/${work.id}-960.webp`}
 									/>
 
 									<img
-										src={work.imageLarge}
+										src={`/photos/optimized/${work.id}-1600.webp`}
 										alt={work.id}
 										loading={index < 6 ? 'eager' : 'lazy'}
 										decoding="async"
