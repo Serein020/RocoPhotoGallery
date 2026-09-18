@@ -130,6 +130,7 @@ const photos = photoWorks;
 		<section class="toolbar">
 
 			<div class="keyboard-hints">
+
 				<span>
 					0 = 0
 				</span>
@@ -250,6 +251,7 @@ const photos = photoWorks;
 							</span>
 
 							<div class="choice-row">
+
 								<button
 									type="button"
 									class="choice-button"
@@ -459,7 +461,9 @@ const photos = photoWorks;
     if (activePeople) {
       const value = activePeople.dataset.value;
 
-      if (value === '1') {
+      if (value === '0') {
+        people = 0;
+      } else if (value === '1') {
         people = 1;
       } else if (value === '2') {
         people = 2;
@@ -694,7 +698,13 @@ const photos = photoWorks;
         dateInput.value = saved.date;
       }
 
-      if (saved.people === 1) {
+      if (saved.people === 0) {
+        setChoiceWithoutSave(
+          card,
+          'people',
+          '0'
+        );
+      } else if (saved.people === 1) {
         setChoiceWithoutSave(
           card,
           'people',
@@ -999,6 +1009,21 @@ const photos = photoWorks;
         return;
       }
 
+      if (event.key === '0') {
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="0"]'
+          );
+
+        if (button) {
+          button.click();
+        }
+
+        return;
+      }
+
       if (event.key === '1') {
         event.preventDefault();
 
@@ -1115,7 +1140,7 @@ const photos = photoWorks;
 
 	:global(html) {
 		background:
-			#f3ca36;
+			#f4efe4;
 	}
 
 
