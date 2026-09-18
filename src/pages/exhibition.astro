@@ -284,7 +284,7 @@ const [
 						type="button"
 						class="work-link lightbox-trigger"
 						data-lightbox-index={index}
-						data-lightbox-src={work.image}
+						data-lightbox-src={work.imageLarge}
 						data-lightbox-alt={work.id}
 						data-lightbox-title={work.id}
 						data-lightbox-date={work.date}
@@ -295,12 +295,27 @@ const [
 
 							<div class="photo-image">
 
-								<img
-									src={work.image}
-									alt={work.id}
-									loading="lazy"
-									decoding="async"
-								/>
+								<picture>
+
+									<source
+										media="(max-width: 760px)"
+										srcset={work.imageSmall}
+									/>
+
+									<source
+										media="(max-width: 1200px)"
+										srcset={work.imageMedium}
+									/>
+
+									<img
+										src={work.imageLarge}
+										alt={work.id}
+										loading={index < 6 ? 'eager' : 'lazy'}
+										decoding="async"
+										fetchpriority={index < 6 ? 'high' : 'auto'}
+									/>
+
+								</picture>
 
 								<span class="photo-index">
 									{String(index + 1).padStart(2, '0')}
@@ -469,6 +484,8 @@ const [
 							id="lightbox-image"
 							src=""
 							alt=""
+							loading="eager"
+							decoding="async"
 						/>
 
 					</div>
@@ -1305,6 +1322,7 @@ const originalOrder = new Map(
       `${currentLightboxIndex + 1} / ${lightboxItems.length}`;
 
     lightbox.hidden = false;
+    lightbox.classList.add('is-open');
     document.body.classList.add(
       'lightbox-open'
     );
@@ -1317,6 +1335,7 @@ const originalOrder = new Map(
       return;
     }
 
+    lightbox.classList.remove('is-open');
     lightbox.hidden = true;
 
     document.body.classList.remove(
