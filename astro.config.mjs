@@ -6,8 +6,16 @@ import vue from '@astrojs/vue';
 
 import cloudflare from '@astrojs/cloudflare';
 
+const isNetlify = process.env.NETLIFY === 'true';
+
 export default defineConfig({
-  output: 'server',
+  output: isNetlify ? 'static' : 'server',
+
   integrations: [vue()],
-  adapter: cloudflare(),
+
+  ...(isNetlify
+    ? {}
+    : {
+        adapter: cloudflare(),
+      }),
 });
