@@ -1,8 +1,20 @@
 {
+  "main": "@astrojs/cloudflare/entrypoints/server",
+
   "name": "rocophotogallery",
+
   "compatibility_date": "2026-09-17",
+
   "assets": {
     "directory": "./dist/client",
     "binding": "ASSETS"
-  }
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "roco-photo-metadata",
+      "database_id": "e987bad3-54e1-4d8a-a3b0-b839a1ddc05a"
+    }
+  ]
 }

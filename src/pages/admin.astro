@@ -360,7 +360,7 @@ const photos = photoWorks;
 			</span>
 
 			<span>
-				LOCAL METADATA / V1
+				CLOUD METADATA / D1
 			</span>
 
 		</footer>
@@ -372,6 +372,9 @@ const photos = photoWorks;
 <script is:inline>
   const STORAGE_KEY = 'roco-photo-admin-draft-v1';
 
+  const CLOUDFLARE_API =
+    'https://rocophotogallery.weykeiii.workers.dev';
+
   const cards = Array.from(
     document.querySelectorAll('.photo-card')
   );
@@ -380,14 +383,46 @@ const photos = photoWorks;
 
   let statusTimer = null;
   let focusedCardIndex = 0;
+  let saveQueue = Promise.resolve();
+
+  function getApiBaseUrl() {
+    const hostname =
+      window.location.hostname;
+
+    if (
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1'
+    ) {
+      return 'http://localhost:8787';
+    }
+
+    if (
+      hostname === 'rocophotogallery.weykeiii.workers.dev'
+    ) {
+      return '';
+    }
+
+    return CLOUDFLARE_API;
+  }
+
+  function getApiUrl() {
+    return `${getApiBaseUrl()}/api/photos`;
+  }
+
 
   function readStore() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw =
+        localStorage.getItem(
+          STORAGE_KEY
+        );
 
-      if (!raw) return {};
+      if (!raw) {
+        return {};
+      }
 
-      const parsed = JSON.parse(raw);
+      const parsed =
+        JSON.parse(raw);
 
       if (
         parsed &&
@@ -400,13 +435,16 @@ const photos = photoWorks;
       /*
        * 兼容旧版本：
        * 如果 localStorage 里还是数组，
-       * 这里自动转换成 object。
+       * 自动转换成 object。
        */
       if (Array.isArray(parsed)) {
         const store = {};
 
         for (const item of parsed) {
-          if (item && typeof item.id === 'string') {
+          if (
+            item &&
+            typeof item.id === 'string'
+          ) {
             store[item.id] = item;
           }
         }
@@ -423,43 +461,72 @@ const photos = photoWorks;
     return {};
   }
 
+
+  function writeStore(store) {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(store)
+      );
+
+      return true;
+    } catch (error) {
+      console.error(
+        '[ROCO ADMIN] Failed to write localStorage:',
+        error
+      );
+
+      return false;
+    }
+  }
+
+
   function getImageSource(card) {
-    const image = card.querySelector('img');
+    const image =
+      card.querySelector('img');
 
     if (image) {
-      const src = image.getAttribute('src');
+      const src =
+        image.getAttribute('src');
 
       if (src) {
         return src;
       }
     }
 
-    const id = card.dataset.id || '';
+    const id =
+      card.dataset.id || '';
 
     return `/photos/pics/${id}.png`;
   }
 
+
   function getCardData(card) {
-    const id = card.dataset.id || '';
+    const id =
+      card.dataset.id || '';
 
     if (!id) {
       return null;
     }
 
-    const dateInput = card.querySelector('.date-input');
+    const dateInput =
+      card.querySelector('.date-input');
 
-    const activePeople = card.querySelector(
-      '.choice-button[data-field="people"].active'
-    );
+    const activePeople =
+      card.querySelector(
+        '.choice-button[data-field="people"].active'
+      );
 
-    const activeJINIES = card.querySelector(
-      '.choice-button[data-field="JINIES"].active'
-    );
+    const activeJINIES =
+      card.querySelector(
+        '.choice-button[data-field="JINIES"].active'
+      );
 
     let people = null;
 
     if (activePeople) {
-      const value = activePeople.dataset.value;
+      const value =
+        activePeople.dataset.value;
 
       if (value === '0') {
         people = 0;
@@ -475,7 +542,8 @@ const photos = photoWorks;
     let JINIES = null;
 
     if (activeJINIES) {
-      const value = activeJINIES.dataset.value;
+      const value =
+        activeJINIES.dataset.value;
 
       if (value === 'yes') {
         JINIES = true;
@@ -487,23 +555,199 @@ const photos = photoWorks;
     return {
       id,
       image: getImageSource(card),
-      date: dateInput ? dateInput.value : '',
+      date:
+        dateInput
+          ? dateInput.value
+          : '',
       people,
       JINIES
     };
   }
 
+
+  function normalizeCloudPhoto(photo) {
+    if (
+      !photo ||
+      typeof photo !== 'object' ||
+      !photo.id
+    ) {
+      return null;
+    }
+
+    let people = null;
+
+    if (
+      typeof photo.people === 'number'
+    ) {
+      people =
+        photo.people >= 3
+          ? 3
+          : photo.people;
+    }
+
+    /*
+     * D1 中的 INTEGER 字段会返回：
+     *
+     * 1 = true
+     * 0 = false
+     *
+     * 所以这里同时兼容：
+     * true / false / 1 / 0
+     */
+    let JINIES = null;
+
+    if (
+      photo.jinies === true ||
+      photo.jinies === 1 ||
+      photo.jinies === '1'
+    ) {
+      JINIES = true;
+    } else if (
+      photo.jinies === false ||
+      photo.jinies === 0 ||
+      photo.jinies === '0'
+    ) {
+      JINIES = false;
+    }
+
+    return {
+      id: photo.id,
+
+      image:
+        photo.image || '',
+
+      date:
+        typeof photo.date === 'string'
+          ? photo.date
+          : '',
+
+      people,
+
+      JINIES,
+
+      updatedAt:
+        photo.updatedAt ||
+        photo.updated_at ||
+        null
+    };
+  }
+
+
+  function normalizeLocalPhoto(photo) {
+    if (
+      !photo ||
+      typeof photo !== 'object' ||
+      !photo.id
+    ) {
+      return null;
+    }
+
+    let JINIES = null;
+
+    if (
+      photo.JINIES === true ||
+      photo.JINIES === 1 ||
+      photo.JINIES === '1'
+    ) {
+      JINIES = true;
+    } else if (
+      photo.JINIES === false ||
+      photo.JINIES === 0 ||
+      photo.JINIES === '0'
+    ) {
+      JINIES = false;
+    }
+
+    return {
+      id: photo.id,
+
+      image:
+        photo.image || '',
+
+      date:
+        typeof photo.date === 'string'
+          ? photo.date
+          : '',
+
+      people:
+        typeof photo.people === 'number'
+          ? (
+              photo.people >= 3
+                ? 3
+                : photo.people
+            )
+          : null,
+
+      JINIES,
+
+      updatedAt:
+        photo.updatedAt || null
+    };
+  }
+
+
+  function isNewer(candidate, current) {
+    if (!candidate) {
+      return false;
+    }
+
+    if (!current) {
+      return true;
+    }
+
+    if (!candidate.updatedAt) {
+      return false;
+    }
+
+    if (!current.updatedAt) {
+      return true;
+    }
+
+    const candidateTime =
+      new Date(
+        candidate.updatedAt
+      ).getTime();
+
+    const currentTime =
+      new Date(
+        current.updatedAt
+      ).getTime();
+
+    if (
+      Number.isNaN(candidateTime)
+    ) {
+      return false;
+    }
+
+    if (
+      Number.isNaN(currentTime)
+    ) {
+      return true;
+    }
+
+    return (
+      candidateTime >
+      currentTime
+    );
+  }
+
+
   function updateProgress() {
     const progressNumber =
-      document.querySelector('#progress-number');
+      document.querySelector(
+        '#progress-number'
+      );
 
     const progressFill =
-      document.querySelector('#progress-fill');
+      document.querySelector(
+        '#progress-fill'
+      );
 
     let complete = 0;
 
     for (const card of cards) {
-      const data = getCardData(card);
+      const data =
+        getCardData(card);
 
       if (
         data &&
@@ -515,33 +759,47 @@ const photos = photoWorks;
       }
     }
 
-    const total = cards.length;
+    const total =
+      cards.length;
 
     const percent =
       total > 0
-        ? Math.round((complete / total) * 100)
+        ? Math.round(
+            (complete / total) * 100
+          )
         : 0;
 
     if (progressNumber) {
-      progressNumber.textContent = `${percent}%`;
+      progressNumber.textContent =
+        `${percent}%`;
     }
 
     if (progressFill) {
-      progressFill.style.width = `${percent}%`;
+      progressFill.style.width =
+        `${percent}%`;
     }
 
     for (const card of cards) {
-      const data = getCardData(card);
+      const data =
+        getCardData(card);
 
-      const completeCard = Boolean(
-        data &&
-        data.date &&
-        data.people !== null &&
-        data.JINIES !== null
-      );
+      const completeCard =
+        Boolean(
+          data &&
+          data.date &&
+          data.people !== null &&
+          data.JINIES !== null
+        );
 
-      const dot = card.querySelector('.status-dot');
-      const text = card.querySelector('.status-text');
+      const dot =
+        card.querySelector(
+          '.status-dot'
+        );
+
+      const text =
+        card.querySelector(
+          '.status-text'
+        );
 
       if (dot) {
         dot.classList.toggle(
@@ -552,82 +810,47 @@ const photos = photoWorks;
 
       if (text) {
         text.textContent =
-          completeCard ? 'DONE' : 'READY';
+          completeCard
+            ? 'DONE'
+            : 'READY';
       }
     }
   }
 
+
   function showStatus(message) {
     const status =
-      document.querySelector('#draft-status');
+      document.querySelector(
+        '#draft-status'
+      );
 
     if (!status) {
       return;
     }
 
-    status.textContent = message;
+    status.textContent =
+      message;
 
     if (statusTimer) {
-      clearTimeout(statusTimer);
+      clearTimeout(
+        statusTimer
+      );
     }
 
-    statusTimer = setTimeout(function () {
-      status.textContent = 'READY';
-    }, 1800);
+    statusTimer =
+      setTimeout(
+        function () {
+          status.textContent =
+            'READY';
+        },
+        1800
+      );
   }
 
-  function saveDraft(message) {
-    if (!message) {
-      message = 'SAVED';
-    }
-
-    const existingStore = readStore();
-
-    for (const id of dirtyCards) {
-      const card = cards.find(function (item) {
-        return item.dataset.id === id;
-      });
-
-      if (!card) {
-        continue;
-      }
-
-      const data = getCardData(card);
-
-      if (!data) {
-        continue;
-      }
-
-      existingStore[id] = data;
-    }
-
-    try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(existingStore)
-      );
-
-      dirtyCards.clear();
-
-      showStatus(message);
-      updateProgress();
-
-      console.log(
-        '[ROCO ADMIN] Saved:',
-        existingStore
-      );
-    } catch (error) {
-      console.error(
-        '[ROCO ADMIN] Failed to save:',
-        error
-      );
-
-      showStatus('ERROR');
-    }
-  }
 
   function markCardDirty(card) {
-    const id = card.dataset.id || '';
+    const id =
+      card.dataset.id || '';
 
     if (!id) {
       return;
@@ -638,164 +861,698 @@ const photos = photoWorks;
     updateProgress();
   }
 
-  function setChoice(card, field, value) {
-    const buttons = card.querySelectorAll(
-      `.choice-button[data-field="${field}"]`
-    );
-
-    buttons.forEach(function (button) {
-      button.classList.toggle(
-        'active',
-        button.dataset.value === value
-      );
-    });
-
-    markCardDirty(card);
-
-    saveDraft('SAVED');
-  }
 
   function setChoiceWithoutSave(
     card,
     field,
     value
   ) {
-    const buttons = card.querySelectorAll(
-      `.choice-button[data-field="${field}"]`
-    );
-
-    buttons.forEach(function (button) {
-      button.classList.toggle(
-        'active',
-        button.dataset.value === value
+    const buttons =
+      card.querySelectorAll(
+        `.choice-button[data-field="${field}"]`
       );
-    });
+
+    buttons.forEach(
+      function (button) {
+        button.classList.toggle(
+          'active',
+          button.dataset.value === value
+        );
+      }
+    );
   }
 
-  function loadDraft() {
-    const store = readStore();
 
+  function applyPhotoData(
+    card,
+    saved
+  ) {
+    if (!saved) {
+      return;
+    }
+
+    const dateInput =
+      card.querySelector(
+        '.date-input'
+      );
+
+    if (
+      dateInput &&
+      typeof saved.date === 'string'
+    ) {
+      dateInput.value =
+        saved.date;
+    }
+
+    if (
+      saved.people === 0
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '0'
+      );
+    } else if (
+      saved.people === 1
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '1'
+      );
+    } else if (
+      saved.people === 2
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '2'
+      );
+    } else if (
+      typeof saved.people === 'number' &&
+      saved.people >= 3
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '3'
+      );
+    }
+
+    if (
+      saved.JINIES === true
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'JINIES',
+        'yes'
+      );
+    } else if (
+      saved.JINIES === false
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'JINIES',
+        'no'
+      );
+    }
+  }
+
+
+  async function fetchCloudStore() {
+    const response =
+      await fetch(
+        getApiUrl(),
+        {
+          method: 'GET',
+
+          headers: {
+            Accept:
+              'application/json'
+          }
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        `GET /api/photos failed: ${response.status}`
+      );
+    }
+
+    const result =
+      await response.json();
+
+    const cloudStore = {};
+
+    for (
+      const [
+        id,
+        photo
+      ] of Object.entries(
+        result.photos || {}
+      )
+    ) {
+      const normalized =
+        normalizeCloudPhoto(
+          {
+            ...photo,
+            id
+          }
+        );
+
+      if (normalized) {
+        cloudStore[id] =
+          normalized;
+      }
+    }
+
+    return cloudStore;
+  }
+
+
+  function mergeStores(
+    localStore,
+    cloudStore
+  ) {
+    const merged = {};
+
+    /*
+     * 先把本地数据规范化。
+     */
+    for (
+      const [
+        id,
+        localPhoto
+      ] of Object.entries(
+        localStore
+      )
+    ) {
+      const normalized =
+        normalizeLocalPhoto(
+          localPhoto
+        );
+
+      if (normalized) {
+        merged[id] =
+          normalized;
+      }
+    }
+
+    /*
+     * 云端数据只有在：
+     *
+     * 1. 本地不存在
+     * 2. 云端 updatedAt 更新
+     *
+     * 时才覆盖本地。
+     */
+    for (
+      const [
+        id,
+        cloudPhoto
+      ] of Object.entries(
+        cloudStore
+      )
+    ) {
+      const localPhoto =
+        merged[id];
+
+      if (
+        !localPhoto ||
+        isNewer(
+          cloudPhoto,
+          localPhoto
+        )
+      ) {
+        merged[id] =
+          cloudPhoto;
+      }
+    }
+
+    return merged;
+  }
+
+
+  async function loadDraft() {
+    const localStore =
+      readStore();
+
+    /*
+     * 第一阶段：
+     * 立即显示本地缓存。
+     *
+     * 这样网络较慢时页面不会空着。
+     */
     for (const card of cards) {
-      const id = card.dataset.id || '';
+      const id =
+        card.dataset.id || '';
 
       if (!id) {
         continue;
       }
 
-      const saved = store[id];
+      const saved =
+        localStore[id];
 
-      if (!saved) {
-        continue;
-      }
-
-      const dateInput =
-        card.querySelector('.date-input');
-
-      if (
-        dateInput &&
-        typeof saved.date === 'string'
-      ) {
-        dateInput.value = saved.date;
-      }
-
-      if (saved.people === 0) {
-        setChoiceWithoutSave(
+      if (saved) {
+        applyPhotoData(
           card,
-          'people',
-          '0'
-        );
-      } else if (saved.people === 1) {
-        setChoiceWithoutSave(
-          card,
-          'people',
-          '1'
-        );
-      } else if (saved.people === 2) {
-        setChoiceWithoutSave(
-          card,
-          'people',
-          '2'
-        );
-      } else if (
-        typeof saved.people === 'number' &&
-        saved.people >= 3
-      ) {
-        setChoiceWithoutSave(
-          card,
-          'people',
-          '3'
-        );
-      }
-
-      if (saved.JINIES === true) {
-        setChoiceWithoutSave(
-          card,
-          'JINIES',
-          'yes'
-        );
-      } else if (saved.JINIES === false) {
-        setChoiceWithoutSave(
-          card,
-          'JINIES',
-          'no'
+          saved
         );
       }
     }
+
+    updateProgress();
+
+    showStatus('SYNC...');
+
+    /*
+     * 第二阶段：
+     * 从 D1 拉取最新数据。
+     */
+    try {
+      const cloudStore =
+        await fetchCloudStore();
+
+      const mergedStore =
+        mergeStores(
+          localStore,
+          cloudStore
+        );
+
+      /*
+       * 合并结果重新写入本地，
+       * 作为下一次打开时的缓存。
+       */
+      writeStore(
+        mergedStore
+      );
+
+      /*
+       * 将最终合并结果重新渲染到页面。
+       */
+      for (const card of cards) {
+        const id =
+          card.dataset.id || '';
+
+        if (!id) {
+          continue;
+        }
+
+        const saved =
+          mergedStore[id];
+
+        if (saved) {
+          applyPhotoData(
+            card,
+            saved
+          );
+        }
+      }
+
+      dirtyCards.clear();
+
+      updateProgress();
+
+      showStatus('SYNCED');
+
+      console.log(
+        '[ROCO ADMIN] Cloud metadata loaded:',
+        cloudStore
+      );
+    } catch (error) {
+      console.warn(
+        '[ROCO ADMIN] Cloud metadata unavailable. Using local cache:',
+        error
+      );
+
+      showStatus('LOCAL');
+    }
+  }
+
+
+  function buildCloudPayload(
+    store
+  ) {
+    const photos = {};
+
+    for (
+      const [
+        id,
+        item
+      ] of Object.entries(store)
+    ) {
+      if (
+        !item ||
+        !item.image ||
+        !item.date
+      ) {
+        continue;
+      }
+
+      photos[id] = {
+        id,
+
+        image:
+          item.image,
+
+        date:
+          item.date,
+
+        people:
+          item.people !== null &&
+          typeof item.people === 'number'
+            ? item.people
+            : null,
+
+        /*
+         * D1 INTEGER：
+         *
+         * true  -> 1
+         * false -> 0
+         */
+        jinies:
+          item.JINIES === true
+            ? 1
+            : item.JINIES === false
+              ? 0
+              : null,
+
+        updatedAt:
+          item.updatedAt ||
+          new Date().toISOString()
+      };
+    }
+
+    return photos;
+  }
+
+
+  async function pushCloudStore(
+    store
+  ) {
+    const photos =
+      buildCloudPayload(
+        store
+      );
+
+    const response =
+      await fetch(
+        getApiUrl(),
+        {
+          method: 'PUT',
+
+          headers: {
+            'Content-Type':
+              'application/json',
+
+            Accept:
+              'application/json'
+          },
+
+          body:
+            JSON.stringify({
+              photos
+            })
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        `PUT /api/photos failed: ${response.status}`
+      );
+    }
+
+    const result =
+      await response.json();
+
+    if (
+      !result ||
+      result.ok !== true
+    ) {
+      throw new Error(
+        'Cloud save returned an invalid response.'
+      );
+    }
+
+    return result;
+  }
+
+
+  function saveDraft(
+    message
+  ) {
+    if (!message) {
+      message = 'SAVED';
+    }
+
+    const existingStore =
+      readStore();
+
+    const now =
+      new Date().toISOString();
+
+    /*
+     * 只给本次实际修改的卡片
+     * 更新 updatedAt。
+     */
+    for (
+      const id of dirtyCards
+    ) {
+      const card =
+        cards.find(
+          function (item) {
+            return (
+              item.dataset.id === id
+            );
+          }
+        );
+
+      if (!card) {
+        continue;
+      }
+
+      const data =
+        getCardData(card);
+
+      if (!data) {
+        continue;
+      }
+
+      existingStore[id] = {
+        ...data,
+        updatedAt: now
+      };
+    }
+
+    /*
+     * 先写 localStorage。
+     *
+     * 即使云端暂时不可用，
+     * 用户刚刚的修改也不会丢失。
+     */
+    writeStore(
+      existingStore
+    );
+
+    const storeToSave = {
+      ...existingStore
+    };
 
     dirtyCards.clear();
 
     updateProgress();
 
-    console.log(
-      '[ROCO ADMIN] Draft loaded:',
-      store
-    );
+    /*
+     * 请求进入队列，
+     * 防止连续快速点击产生乱序 PUT。
+     */
+    saveQueue =
+      saveQueue.then(
+        async function () {
+          showStatus('SYNC...');
+
+          try {
+            await pushCloudStore(
+              storeToSave
+            );
+
+            showStatus(message);
+
+            console.log(
+              '[ROCO ADMIN] Cloud save complete:',
+              storeToSave
+            );
+          } catch (error) {
+            console.error(
+              '[ROCO ADMIN] Cloud save failed:',
+              error
+            );
+
+            /*
+             * localStorage 已经保存成功，
+             * 所以这里只显示 LOCAL。
+             */
+            showStatus('LOCAL');
+          }
+        }
+      );
+
+    return saveQueue;
   }
 
-  function clearDraft() {
-    const confirmed = window.confirm(
-      'Clear all saved metadata?'
+
+  function setChoice(
+    card,
+    field,
+    value
+  ) {
+    const buttons =
+      card.querySelectorAll(
+        `.choice-button[data-field="${field}"]`
+      );
+
+    buttons.forEach(
+      function (button) {
+        button.classList.toggle(
+          'active',
+          button.dataset.value === value
+        );
+      }
     );
+
+    markCardDirty(card);
+
+    saveDraft('SAVED');
+  }
+
+
+  async function clearDraft() {
+    const confirmed =
+      window.confirm(
+        'Clear all saved metadata?'
+      );
 
     if (!confirmed) {
       return;
     }
 
-    localStorage.removeItem(STORAGE_KEY);
+    showStatus('CLEARING...');
 
-    dirtyCards.clear();
+    try {
+      const response =
+        await fetch(
+          getApiUrl(),
+          {
+            method: 'DELETE',
 
-    for (const card of cards) {
-      const dateInput =
-        card.querySelector('.date-input');
+            headers: {
+              Accept:
+                'application/json'
+            }
+          }
+        );
 
-      if (dateInput) {
-        dateInput.value =
-          dateInput.dataset.originalDate || '';
+      if (!response.ok) {
+        throw new Error(
+          `DELETE /api/photos failed: ${response.status}`
+        );
       }
 
-      const buttons =
-        card.querySelectorAll('.choice-button');
+      const result =
+        await response.json();
 
-      buttons.forEach(function (button) {
-        button.classList.remove('active');
-      });
+      if (
+        !result ||
+        result.ok !== true
+      ) {
+        throw new Error(
+          'Cloud clear returned an invalid response.'
+        );
+      }
+
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
+
+      dirtyCards.clear();
+
+      for (const card of cards) {
+        const dateInput =
+          card.querySelector(
+            '.date-input'
+          );
+
+        if (dateInput) {
+          dateInput.value =
+            dateInput.dataset.originalDate ||
+            '';
+        }
+
+        const buttons =
+          card.querySelectorAll(
+            '.choice-button'
+          );
+
+        buttons.forEach(
+          function (button) {
+            button.classList.remove(
+              'active'
+            );
+          }
+        );
+      }
+
+      updateProgress();
+
+      showStatus('CLEARED');
+
+      console.log(
+        '[ROCO ADMIN] Cloud metadata cleared.'
+      );
+    } catch (error) {
+      console.error(
+        '[ROCO ADMIN] Failed to clear cloud metadata:',
+        error
+      );
+
+      /*
+       * 云端失败时仍然清理本地，
+       * 但提示用户当前只是本地清理成功。
+       */
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
+
+      dirtyCards.clear();
+
+      for (const card of cards) {
+        const dateInput =
+          card.querySelector(
+            '.date-input'
+          );
+
+        if (dateInput) {
+          dateInput.value =
+            dateInput.dataset.originalDate ||
+            '';
+        }
+
+        const buttons =
+          card.querySelectorAll(
+            '.choice-button'
+          );
+
+        buttons.forEach(
+          function (button) {
+            button.classList.remove(
+              'active'
+            );
+          }
+        );
+      }
+
+      updateProgress();
+
+      showStatus('LOCAL');
     }
-
-    updateProgress();
-
-    showStatus('CLEARED');
   }
 
+
   function exportData() {
-    if (dirtyCards.size > 0) {
+    if (
+      dirtyCards.size > 0
+    ) {
       saveDraft('SAVED');
     }
 
-    const store = readStore();
+    const store =
+      readStore();
 
     const completeData =
-      Object.values(store).filter(
+      Object.values(
+        store
+      ).filter(
         function (item) {
           return (
             item &&
@@ -807,43 +1564,57 @@ const photos = photoWorks;
         }
       );
 
-    const blob = new Blob(
-      [
-        JSON.stringify(
-          completeData,
-          null,
-          2
-        )
-      ],
-      {
-        type: 'application/json'
-      }
-    );
+    const blob =
+      new Blob(
+        [
+          JSON.stringify(
+            completeData,
+            null,
+            2
+          )
+        ],
+        {
+          type:
+            'application/json'
+        }
+      );
 
     const url =
-      URL.createObjectURL(blob);
+      URL.createObjectURL(
+        blob
+      );
 
     const link =
-      document.createElement('a');
+      document.createElement(
+        'a'
+      );
 
-    link.href = url;
+    link.href =
+      url;
 
     link.download =
       'roco-photo-metadata.json';
 
-    document.body.appendChild(link);
+    document.body.appendChild(
+      link
+    );
 
     link.click();
 
     link.remove();
 
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(
+      url
+    );
 
     showStatus('EXPORTED');
   }
 
+
   function focusCard(index) {
-    if (cards.length === 0) {
+    if (
+      cards.length === 0
+    ) {
       return;
     }
 
@@ -857,7 +1628,9 @@ const photos = photoWorks;
       );
 
     const card =
-      cards[focusedCardIndex];
+      cards[
+        focusedCardIndex
+      ];
 
     if (!card) {
       return;
@@ -869,27 +1642,74 @@ const photos = photoWorks;
     });
 
     const input =
-      card.querySelector('.date-input');
+      card.querySelector(
+        '.date-input'
+      );
 
     if (input) {
       input.focus();
     }
   }
 
+
   const saveButton =
-    document.querySelector('#save-draft');
+    document.querySelector(
+      '#save-draft'
+    );
 
   if (saveButton) {
     saveButton.addEventListener(
       'click',
       function () {
-        saveDraft('SAVED');
+        if (
+          dirtyCards.size > 0
+        ) {
+          saveDraft('SAVED');
+          return;
+        }
+
+        /*
+         * 即使当前没有 dirty card，
+         * SAVE 仍然会把当前 localStore
+         * 再同步一次 D1。
+         */
+        const store =
+          readStore();
+
+        showStatus('SYNC...');
+
+        saveQueue =
+          saveQueue.then(
+            async function () {
+              try {
+                await pushCloudStore(
+                  store
+                );
+
+                showStatus(
+                  'SAVED'
+                );
+              } catch (error) {
+                console.error(
+                  '[ROCO ADMIN] Manual cloud save failed:',
+                  error
+                );
+
+                showStatus(
+                  'LOCAL'
+                );
+              }
+            }
+          );
       }
     );
   }
 
+
   const clearButton =
-    document.querySelector('#clear-draft');
+    document.querySelector(
+      '#clear-draft'
+    );
 
   if (clearButton) {
     clearButton.addEventListener(
@@ -898,8 +1718,11 @@ const photos = photoWorks;
     );
   }
 
+
   const exportButton =
-    document.querySelector('#export-json');
+    document.querySelector(
+      '#export-json'
+    );
 
   if (exportButton) {
     exportButton.addEventListener(
@@ -908,39 +1731,48 @@ const photos = photoWorks;
     );
   }
 
+
   for (const card of cards) {
     const buttons =
       card.querySelectorAll(
         '.choice-button'
       );
 
-    buttons.forEach(function (button) {
-      button.addEventListener(
-        'click',
-        function (event) {
-          event.preventDefault();
+    buttons.forEach(
+      function (button) {
+        button.addEventListener(
+          'click',
+          function (event) {
+            event.preventDefault();
 
-          const field =
-            button.dataset.field;
+            const field =
+              button.dataset.field;
 
-          const value =
-            button.dataset.value;
+            const value =
+              button.dataset.value;
 
-          if (!field || !value) {
-            return;
+            if (
+              !field ||
+              !value
+            ) {
+              return;
+            }
+
+            setChoice(
+              card,
+              field,
+              value
+            );
           }
+        );
+      }
+    );
 
-          setChoice(
-            card,
-            field,
-            value
-          );
-        }
-      );
-    });
 
     const dateInput =
-      card.querySelector('.date-input');
+      card.querySelector(
+        '.date-input'
+      );
 
     if (dateInput) {
       dateInput.dataset.originalDate =
@@ -957,8 +1789,11 @@ const photos = photoWorks;
     }
   }
 
+
   const prevButton =
-    document.querySelector('#prev-card');
+    document.querySelector(
+      '#prev-card'
+    );
 
   if (prevButton) {
     prevButton.addEventListener(
@@ -971,8 +1806,11 @@ const photos = photoWorks;
     );
   }
 
+
   const nextButton =
-    document.querySelector('#next-card');
+    document.querySelector(
+      '#next-card'
+    );
 
   if (nextButton) {
     nextButton.addEventListener(
@@ -985,10 +1823,12 @@ const photos = photoWorks;
     );
   }
 
+
   document.addEventListener(
     'keydown',
     function (event) {
-      const target = event.target;
+      const target =
+        event.target;
 
       if (
         target &&
@@ -1003,13 +1843,18 @@ const photos = photoWorks;
       }
 
       const card =
-        cards[focusedCardIndex];
+        cards[
+          focusedCardIndex
+        ];
 
       if (!card) {
         return;
       }
 
-      if (event.key === '0') {
+
+      if (
+        event.key === '0'
+      ) {
         event.preventDefault();
 
         const button =
@@ -1024,7 +1869,10 @@ const photos = photoWorks;
         return;
       }
 
-      if (event.key === '1') {
+
+      if (
+        event.key === '1'
+      ) {
         event.preventDefault();
 
         const button =
@@ -1039,7 +1887,10 @@ const photos = photoWorks;
         return;
       }
 
-      if (event.key === '2') {
+
+      if (
+        event.key === '2'
+      ) {
         event.preventDefault();
 
         const button =
@@ -1054,7 +1905,10 @@ const photos = photoWorks;
         return;
       }
 
-      if (event.key === '3') {
+
+      if (
+        event.key === '3'
+      ) {
         event.preventDefault();
 
         const button =
@@ -1069,8 +1923,10 @@ const photos = photoWorks;
         return;
       }
 
+
       if (
-        event.key.toLowerCase() === 'r'
+        event.key.toLowerCase() ===
+        'r'
       ) {
         event.preventDefault();
 
@@ -1089,7 +1945,9 @@ const photos = photoWorks;
             '.choice-button[data-field="JINIES"][data-value="no"]'
           );
 
-        if (active === yesButton) {
+        if (
+          active === yesButton
+        ) {
           if (noButton) {
             noButton.click();
           }
@@ -1102,7 +1960,10 @@ const photos = photoWorks;
         return;
       }
 
-      if (event.key === 'ArrowLeft') {
+
+      if (
+        event.key === 'ArrowLeft'
+      ) {
         event.preventDefault();
 
         focusCard(
@@ -1112,7 +1973,10 @@ const photos = photoWorks;
         return;
       }
 
-      if (event.key === 'ArrowRight') {
+
+      if (
+        event.key === 'ArrowRight'
+      ) {
         event.preventDefault();
 
         focusCard(
@@ -1122,6 +1986,7 @@ const photos = photoWorks;
     }
   );
 
+
   loadDraft();
 
   updateProgress();
@@ -1129,8 +1994,14 @@ const photos = photoWorks;
   console.log(
     '[ROCO ADMIN] Initialized.',
     {
-      cards: cards.length,
-      storageKey: STORAGE_KEY
+      cards:
+        cards.length,
+
+      storageKey:
+        STORAGE_KEY,
+
+      api:
+        getApiUrl()
     }
   );
 </script>
