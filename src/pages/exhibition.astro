@@ -747,7 +747,7 @@ const [
 
   async function fetchCloudStore(): Promise<PhotoStore> {
     const response = await fetch(
-      `${CLOUDFLARE_API}/api/photos`,
+      `${CLOUDFLARE_API}/api/photos?t=${Date.now()}`,
       {
         method: 'GET',
         headers: {
