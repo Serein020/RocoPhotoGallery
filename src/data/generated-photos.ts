@@ -19,13 +19,427 @@ export type GeneratedPhotoWork = {
 
 export const generatedPhotoWorks: GeneratedPhotoWork[] = [
   {
+    "id": "20260920-046",
+    "image": "/photos/pics/20260920-046.png",
+    "imageSmall": "/photos/optimized/20260920-046-480.webp",
+    "imageMedium": "/photos/optimized/20260920-046-960.webp",
+    "imageLarge": "/photos/optimized/20260920-046-1600.webp",
+    "date": "2026-09-20",
+    "order": 1
+  },
+  {
+    "id": "20260920-045",
+    "image": "/photos/pics/20260920-045.png",
+    "imageSmall": "/photos/optimized/20260920-045-480.webp",
+    "imageMedium": "/photos/optimized/20260920-045-960.webp",
+    "imageLarge": "/photos/optimized/20260920-045-1600.webp",
+    "date": "2026-09-20",
+    "order": 2
+  },
+  {
+    "id": "20260920-044",
+    "image": "/photos/pics/20260920-044.png",
+    "imageSmall": "/photos/optimized/20260920-044-480.webp",
+    "imageMedium": "/photos/optimized/20260920-044-960.webp",
+    "imageLarge": "/photos/optimized/20260920-044-1600.webp",
+    "date": "2026-09-20",
+    "order": 3
+  },
+  {
+    "id": "20260920-043",
+    "image": "/photos/pics/20260920-043.png",
+    "imageSmall": "/photos/optimized/20260920-043-480.webp",
+    "imageMedium": "/photos/optimized/20260920-043-960.webp",
+    "imageLarge": "/photos/optimized/20260920-043-1600.webp",
+    "date": "2026-09-20",
+    "order": 4
+  },
+  {
+    "id": "20260920-042",
+    "image": "/photos/pics/20260920-042.png",
+    "imageSmall": "/photos/optimized/20260920-042-480.webp",
+    "imageMedium": "/photos/optimized/20260920-042-960.webp",
+    "imageLarge": "/photos/optimized/20260920-042-1600.webp",
+    "date": "2026-09-20",
+    "order": 5
+  },
+  {
+    "id": "20260920-041",
+    "image": "/photos/pics/20260920-041.png",
+    "imageSmall": "/photos/optimized/20260920-041-480.webp",
+    "imageMedium": "/photos/optimized/20260920-041-960.webp",
+    "imageLarge": "/photos/optimized/20260920-041-1600.webp",
+    "date": "2026-09-20",
+    "order": 6
+  },
+  {
+    "id": "20260920-040",
+    "image": "/photos/pics/20260920-040.png",
+    "imageSmall": "/photos/optimized/20260920-040-480.webp",
+    "imageMedium": "/photos/optimized/20260920-040-960.webp",
+    "imageLarge": "/photos/optimized/20260920-040-1600.webp",
+    "date": "2026-09-20",
+    "order": 7
+  },
+  {
+    "id": "20260920-039",
+    "image": "/photos/pics/20260920-039.png",
+    "imageSmall": "/photos/optimized/20260920-039-480.webp",
+    "imageMedium": "/photos/optimized/20260920-039-960.webp",
+    "imageLarge": "/photos/optimized/20260920-039-1600.webp",
+    "date": "2026-09-20",
+    "order": 8
+  },
+  {
+    "id": "20260920-038",
+    "image": "/photos/pics/20260920-038.png",
+    "imageSmall": "/photos/optimized/20260920-038-480.webp",
+    "imageMedium": "/photos/optimized/20260920-038-960.webp",
+    "imageLarge": "/photos/optimized/20260920-038-1600.webp",
+    "date": "2026-09-20",
+    "order": 9
+  },
+  {
+    "id": "20260920-037",
+    "image": "/photos/pics/20260920-037.png",
+    "imageSmall": "/photos/optimized/20260920-037-480.webp",
+    "imageMedium": "/photos/optimized/20260920-037-960.webp",
+    "imageLarge": "/photos/optimized/20260920-037-1600.webp",
+    "date": "2026-09-20",
+    "order": 10
+  },
+  {
+    "id": "20260920-036",
+    "image": "/photos/pics/20260920-036.png",
+    "imageSmall": "/photos/optimized/20260920-036-480.webp",
+    "imageMedium": "/photos/optimized/20260920-036-960.webp",
+    "imageLarge": "/photos/optimized/20260920-036-1600.webp",
+    "date": "2026-09-20",
+    "order": 11
+  },
+  {
+    "id": "20260920-035",
+    "image": "/photos/pics/20260920-035.png",
+    "imageSmall": "/photos/optimized/20260920-035-480.webp",
+    "imageMedium": "/photos/optimized/20260920-035-960.webp",
+    "imageLarge": "/photos/optimized/20260920-035-1600.webp",
+    "date": "2026-09-20",
+    "order": 12
+  },
+  {
+    "id": "20260920-034",
+    "image": "/photos/pics/20260920-034.png",
+    "imageSmall": "/photos/optimized/20260920-034-480.webp",
+    "imageMedium": "/photos/optimized/20260920-034-960.webp",
+    "imageLarge": "/photos/optimized/20260920-034-1600.webp",
+    "date": "2026-09-20",
+    "order": 13
+  },
+  {
+    "id": "20260920-033",
+    "image": "/photos/pics/20260920-033.png",
+    "imageSmall": "/photos/optimized/20260920-033-480.webp",
+    "imageMedium": "/photos/optimized/20260920-033-960.webp",
+    "imageLarge": "/photos/optimized/20260920-033-1600.webp",
+    "date": "2026-09-20",
+    "order": 14
+  },
+  {
+    "id": "20260920-032",
+    "image": "/photos/pics/20260920-032.png",
+    "imageSmall": "/photos/optimized/20260920-032-480.webp",
+    "imageMedium": "/photos/optimized/20260920-032-960.webp",
+    "imageLarge": "/photos/optimized/20260920-032-1600.webp",
+    "date": "2026-09-20",
+    "order": 15
+  },
+  {
+    "id": "20260920-031",
+    "image": "/photos/pics/20260920-031.png",
+    "imageSmall": "/photos/optimized/20260920-031-480.webp",
+    "imageMedium": "/photos/optimized/20260920-031-960.webp",
+    "imageLarge": "/photos/optimized/20260920-031-1600.webp",
+    "date": "2026-09-20",
+    "order": 16
+  },
+  {
+    "id": "20260920-030",
+    "image": "/photos/pics/20260920-030.png",
+    "imageSmall": "/photos/optimized/20260920-030-480.webp",
+    "imageMedium": "/photos/optimized/20260920-030-960.webp",
+    "imageLarge": "/photos/optimized/20260920-030-1600.webp",
+    "date": "2026-09-20",
+    "order": 17
+  },
+  {
+    "id": "20260920-029",
+    "image": "/photos/pics/20260920-029.png",
+    "imageSmall": "/photos/optimized/20260920-029-480.webp",
+    "imageMedium": "/photos/optimized/20260920-029-960.webp",
+    "imageLarge": "/photos/optimized/20260920-029-1600.webp",
+    "date": "2026-09-20",
+    "order": 18
+  },
+  {
+    "id": "20260920-028",
+    "image": "/photos/pics/20260920-028.png",
+    "imageSmall": "/photos/optimized/20260920-028-480.webp",
+    "imageMedium": "/photos/optimized/20260920-028-960.webp",
+    "imageLarge": "/photos/optimized/20260920-028-1600.webp",
+    "date": "2026-09-20",
+    "order": 19
+  },
+  {
+    "id": "20260920-027",
+    "image": "/photos/pics/20260920-027.png",
+    "imageSmall": "/photos/optimized/20260920-027-480.webp",
+    "imageMedium": "/photos/optimized/20260920-027-960.webp",
+    "imageLarge": "/photos/optimized/20260920-027-1600.webp",
+    "date": "2026-09-20",
+    "order": 20
+  },
+  {
+    "id": "20260920-026",
+    "image": "/photos/pics/20260920-026.png",
+    "imageSmall": "/photos/optimized/20260920-026-480.webp",
+    "imageMedium": "/photos/optimized/20260920-026-960.webp",
+    "imageLarge": "/photos/optimized/20260920-026-1600.webp",
+    "date": "2026-09-20",
+    "order": 21
+  },
+  {
+    "id": "20260920-025",
+    "image": "/photos/pics/20260920-025.png",
+    "imageSmall": "/photos/optimized/20260920-025-480.webp",
+    "imageMedium": "/photos/optimized/20260920-025-960.webp",
+    "imageLarge": "/photos/optimized/20260920-025-1600.webp",
+    "date": "2026-09-20",
+    "order": 22
+  },
+  {
+    "id": "20260920-024",
+    "image": "/photos/pics/20260920-024.png",
+    "imageSmall": "/photos/optimized/20260920-024-480.webp",
+    "imageMedium": "/photos/optimized/20260920-024-960.webp",
+    "imageLarge": "/photos/optimized/20260920-024-1600.webp",
+    "date": "2026-09-20",
+    "order": 23
+  },
+  {
+    "id": "20260920-023",
+    "image": "/photos/pics/20260920-023.png",
+    "imageSmall": "/photos/optimized/20260920-023-480.webp",
+    "imageMedium": "/photos/optimized/20260920-023-960.webp",
+    "imageLarge": "/photos/optimized/20260920-023-1600.webp",
+    "date": "2026-09-20",
+    "order": 24
+  },
+  {
+    "id": "20260920-022",
+    "image": "/photos/pics/20260920-022.png",
+    "imageSmall": "/photos/optimized/20260920-022-480.webp",
+    "imageMedium": "/photos/optimized/20260920-022-960.webp",
+    "imageLarge": "/photos/optimized/20260920-022-1600.webp",
+    "date": "2026-09-20",
+    "order": 25
+  },
+  {
+    "id": "20260920-021",
+    "image": "/photos/pics/20260920-021.png",
+    "imageSmall": "/photos/optimized/20260920-021-480.webp",
+    "imageMedium": "/photos/optimized/20260920-021-960.webp",
+    "imageLarge": "/photos/optimized/20260920-021-1600.webp",
+    "date": "2026-09-20",
+    "order": 26
+  },
+  {
+    "id": "20260920-020",
+    "image": "/photos/pics/20260920-020.png",
+    "imageSmall": "/photos/optimized/20260920-020-480.webp",
+    "imageMedium": "/photos/optimized/20260920-020-960.webp",
+    "imageLarge": "/photos/optimized/20260920-020-1600.webp",
+    "date": "2026-09-20",
+    "order": 27
+  },
+  {
+    "id": "20260920-019",
+    "image": "/photos/pics/20260920-019.png",
+    "imageSmall": "/photos/optimized/20260920-019-480.webp",
+    "imageMedium": "/photos/optimized/20260920-019-960.webp",
+    "imageLarge": "/photos/optimized/20260920-019-1600.webp",
+    "date": "2026-09-20",
+    "order": 28
+  },
+  {
+    "id": "20260920-018",
+    "image": "/photos/pics/20260920-018.png",
+    "imageSmall": "/photos/optimized/20260920-018-480.webp",
+    "imageMedium": "/photos/optimized/20260920-018-960.webp",
+    "imageLarge": "/photos/optimized/20260920-018-1600.webp",
+    "date": "2026-09-20",
+    "order": 29
+  },
+  {
+    "id": "20260920-017",
+    "image": "/photos/pics/20260920-017.png",
+    "imageSmall": "/photos/optimized/20260920-017-480.webp",
+    "imageMedium": "/photos/optimized/20260920-017-960.webp",
+    "imageLarge": "/photos/optimized/20260920-017-1600.webp",
+    "date": "2026-09-20",
+    "order": 30
+  },
+  {
+    "id": "20260920-016",
+    "image": "/photos/pics/20260920-016.png",
+    "imageSmall": "/photos/optimized/20260920-016-480.webp",
+    "imageMedium": "/photos/optimized/20260920-016-960.webp",
+    "imageLarge": "/photos/optimized/20260920-016-1600.webp",
+    "date": "2026-09-20",
+    "order": 31
+  },
+  {
+    "id": "20260920-015",
+    "image": "/photos/pics/20260920-015.png",
+    "imageSmall": "/photos/optimized/20260920-015-480.webp",
+    "imageMedium": "/photos/optimized/20260920-015-960.webp",
+    "imageLarge": "/photos/optimized/20260920-015-1600.webp",
+    "date": "2026-09-20",
+    "order": 32
+  },
+  {
+    "id": "20260920-014",
+    "image": "/photos/pics/20260920-014.png",
+    "imageSmall": "/photos/optimized/20260920-014-480.webp",
+    "imageMedium": "/photos/optimized/20260920-014-960.webp",
+    "imageLarge": "/photos/optimized/20260920-014-1600.webp",
+    "date": "2026-09-20",
+    "order": 33
+  },
+  {
+    "id": "20260920-013",
+    "image": "/photos/pics/20260920-013.png",
+    "imageSmall": "/photos/optimized/20260920-013-480.webp",
+    "imageMedium": "/photos/optimized/20260920-013-960.webp",
+    "imageLarge": "/photos/optimized/20260920-013-1600.webp",
+    "date": "2026-09-20",
+    "order": 34
+  },
+  {
+    "id": "20260920-012",
+    "image": "/photos/pics/20260920-012.png",
+    "imageSmall": "/photos/optimized/20260920-012-480.webp",
+    "imageMedium": "/photos/optimized/20260920-012-960.webp",
+    "imageLarge": "/photos/optimized/20260920-012-1600.webp",
+    "date": "2026-09-20",
+    "order": 35
+  },
+  {
+    "id": "20260920-011",
+    "image": "/photos/pics/20260920-011.png",
+    "imageSmall": "/photos/optimized/20260920-011-480.webp",
+    "imageMedium": "/photos/optimized/20260920-011-960.webp",
+    "imageLarge": "/photos/optimized/20260920-011-1600.webp",
+    "date": "2026-09-20",
+    "order": 36
+  },
+  {
+    "id": "20260920-010",
+    "image": "/photos/pics/20260920-010.png",
+    "imageSmall": "/photos/optimized/20260920-010-480.webp",
+    "imageMedium": "/photos/optimized/20260920-010-960.webp",
+    "imageLarge": "/photos/optimized/20260920-010-1600.webp",
+    "date": "2026-09-20",
+    "order": 37
+  },
+  {
+    "id": "20260920-009",
+    "image": "/photos/pics/20260920-009.png",
+    "imageSmall": "/photos/optimized/20260920-009-480.webp",
+    "imageMedium": "/photos/optimized/20260920-009-960.webp",
+    "imageLarge": "/photos/optimized/20260920-009-1600.webp",
+    "date": "2026-09-20",
+    "order": 38
+  },
+  {
+    "id": "20260920-008",
+    "image": "/photos/pics/20260920-008.png",
+    "imageSmall": "/photos/optimized/20260920-008-480.webp",
+    "imageMedium": "/photos/optimized/20260920-008-960.webp",
+    "imageLarge": "/photos/optimized/20260920-008-1600.webp",
+    "date": "2026-09-20",
+    "order": 39
+  },
+  {
+    "id": "20260920-007",
+    "image": "/photos/pics/20260920-007.png",
+    "imageSmall": "/photos/optimized/20260920-007-480.webp",
+    "imageMedium": "/photos/optimized/20260920-007-960.webp",
+    "imageLarge": "/photos/optimized/20260920-007-1600.webp",
+    "date": "2026-09-20",
+    "order": 40
+  },
+  {
+    "id": "20260920-006",
+    "image": "/photos/pics/20260920-006.png",
+    "imageSmall": "/photos/optimized/20260920-006-480.webp",
+    "imageMedium": "/photos/optimized/20260920-006-960.webp",
+    "imageLarge": "/photos/optimized/20260920-006-1600.webp",
+    "date": "2026-09-20",
+    "order": 41
+  },
+  {
+    "id": "20260920-005",
+    "image": "/photos/pics/20260920-005.png",
+    "imageSmall": "/photos/optimized/20260920-005-480.webp",
+    "imageMedium": "/photos/optimized/20260920-005-960.webp",
+    "imageLarge": "/photos/optimized/20260920-005-1600.webp",
+    "date": "2026-09-20",
+    "order": 42
+  },
+  {
+    "id": "20260920-004",
+    "image": "/photos/pics/20260920-004.png",
+    "imageSmall": "/photos/optimized/20260920-004-480.webp",
+    "imageMedium": "/photos/optimized/20260920-004-960.webp",
+    "imageLarge": "/photos/optimized/20260920-004-1600.webp",
+    "date": "2026-09-20",
+    "order": 43
+  },
+  {
+    "id": "20260920-003",
+    "image": "/photos/pics/20260920-003.png",
+    "imageSmall": "/photos/optimized/20260920-003-480.webp",
+    "imageMedium": "/photos/optimized/20260920-003-960.webp",
+    "imageLarge": "/photos/optimized/20260920-003-1600.webp",
+    "date": "2026-09-20",
+    "order": 44
+  },
+  {
+    "id": "20260920-002",
+    "image": "/photos/pics/20260920-002.png",
+    "imageSmall": "/photos/optimized/20260920-002-480.webp",
+    "imageMedium": "/photos/optimized/20260920-002-960.webp",
+    "imageLarge": "/photos/optimized/20260920-002-1600.webp",
+    "date": "2026-09-20",
+    "order": 45
+  },
+  {
+    "id": "20260920-001",
+    "image": "/photos/pics/20260920-001.png",
+    "imageSmall": "/photos/optimized/20260920-001-480.webp",
+    "imageMedium": "/photos/optimized/20260920-001-960.webp",
+    "imageLarge": "/photos/optimized/20260920-001-1600.webp",
+    "date": "2026-09-20",
+    "order": 46
+  },
+  {
     "id": "20260919-073",
     "image": "/photos/pics/20260919-073.png",
     "imageSmall": "/photos/optimized/20260919-073-480.webp",
     "imageMedium": "/photos/optimized/20260919-073-960.webp",
     "imageLarge": "/photos/optimized/20260919-073-1600.webp",
     "date": "2026-09-19",
-    "order": 1
+    "order": 47
   },
   {
     "id": "20260919-072",
@@ -34,7 +448,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-072-960.webp",
     "imageLarge": "/photos/optimized/20260919-072-1600.webp",
     "date": "2026-09-19",
-    "order": 2
+    "order": 48
   },
   {
     "id": "20260919-071",
@@ -43,7 +457,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-071-960.webp",
     "imageLarge": "/photos/optimized/20260919-071-1600.webp",
     "date": "2026-09-19",
-    "order": 3
+    "order": 49
   },
   {
     "id": "20260919-070",
@@ -52,7 +466,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-070-960.webp",
     "imageLarge": "/photos/optimized/20260919-070-1600.webp",
     "date": "2026-09-19",
-    "order": 4
+    "order": 50
   },
   {
     "id": "20260919-069",
@@ -61,7 +475,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-069-960.webp",
     "imageLarge": "/photos/optimized/20260919-069-1600.webp",
     "date": "2026-09-19",
-    "order": 5
+    "order": 51
   },
   {
     "id": "20260919-068",
@@ -70,7 +484,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-068-960.webp",
     "imageLarge": "/photos/optimized/20260919-068-1600.webp",
     "date": "2026-09-19",
-    "order": 6
+    "order": 52
   },
   {
     "id": "20260919-067",
@@ -79,7 +493,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-067-960.webp",
     "imageLarge": "/photos/optimized/20260919-067-1600.webp",
     "date": "2026-09-19",
-    "order": 7
+    "order": 53
   },
   {
     "id": "20260919-066",
@@ -88,7 +502,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-066-960.webp",
     "imageLarge": "/photos/optimized/20260919-066-1600.webp",
     "date": "2026-09-19",
-    "order": 8
+    "order": 54
   },
   {
     "id": "20260919-065",
@@ -97,7 +511,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-065-960.webp",
     "imageLarge": "/photos/optimized/20260919-065-1600.webp",
     "date": "2026-09-19",
-    "order": 9
+    "order": 55
   },
   {
     "id": "20260919-064",
@@ -106,7 +520,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-064-960.webp",
     "imageLarge": "/photos/optimized/20260919-064-1600.webp",
     "date": "2026-09-19",
-    "order": 10
+    "order": 56
   },
   {
     "id": "20260919-063",
@@ -115,7 +529,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-063-960.webp",
     "imageLarge": "/photos/optimized/20260919-063-1600.webp",
     "date": "2026-09-19",
-    "order": 11
+    "order": 57
   },
   {
     "id": "20260919-062",
@@ -124,7 +538,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-062-960.webp",
     "imageLarge": "/photos/optimized/20260919-062-1600.webp",
     "date": "2026-09-19",
-    "order": 12
+    "order": 58
   },
   {
     "id": "20260919-061",
@@ -133,7 +547,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-061-960.webp",
     "imageLarge": "/photos/optimized/20260919-061-1600.webp",
     "date": "2026-09-19",
-    "order": 13
+    "order": 59
   },
   {
     "id": "20260919-059",
@@ -142,7 +556,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-059-960.webp",
     "imageLarge": "/photos/optimized/20260919-059-1600.webp",
     "date": "2026-09-19",
-    "order": 14
+    "order": 60
   },
   {
     "id": "20260919-058",
@@ -151,7 +565,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-058-960.webp",
     "imageLarge": "/photos/optimized/20260919-058-1600.webp",
     "date": "2026-09-19",
-    "order": 15
+    "order": 61
   },
   {
     "id": "20260919-057",
@@ -160,7 +574,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-057-960.webp",
     "imageLarge": "/photos/optimized/20260919-057-1600.webp",
     "date": "2026-09-19",
-    "order": 16
+    "order": 62
   },
   {
     "id": "20260919-056",
@@ -169,7 +583,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-056-960.webp",
     "imageLarge": "/photos/optimized/20260919-056-1600.webp",
     "date": "2026-09-19",
-    "order": 17
+    "order": 63
   },
   {
     "id": "20260919-055",
@@ -178,7 +592,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-055-960.webp",
     "imageLarge": "/photos/optimized/20260919-055-1600.webp",
     "date": "2026-09-19",
-    "order": 18
+    "order": 64
   },
   {
     "id": "20260919-054",
@@ -187,7 +601,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-054-960.webp",
     "imageLarge": "/photos/optimized/20260919-054-1600.webp",
     "date": "2026-09-19",
-    "order": 19
+    "order": 65
   },
   {
     "id": "20260919-053",
@@ -196,7 +610,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-053-960.webp",
     "imageLarge": "/photos/optimized/20260919-053-1600.webp",
     "date": "2026-09-19",
-    "order": 20
+    "order": 66
   },
   {
     "id": "20260919-052",
@@ -205,7 +619,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-052-960.webp",
     "imageLarge": "/photos/optimized/20260919-052-1600.webp",
     "date": "2026-09-19",
-    "order": 21
+    "order": 67
   },
   {
     "id": "20260919-051",
@@ -214,7 +628,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-051-960.webp",
     "imageLarge": "/photos/optimized/20260919-051-1600.webp",
     "date": "2026-09-19",
-    "order": 22
+    "order": 68
   },
   {
     "id": "20260919-050",
@@ -223,7 +637,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-050-960.webp",
     "imageLarge": "/photos/optimized/20260919-050-1600.webp",
     "date": "2026-09-19",
-    "order": 23
+    "order": 69
   },
   {
     "id": "20260919-049",
@@ -232,7 +646,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-049-960.webp",
     "imageLarge": "/photos/optimized/20260919-049-1600.webp",
     "date": "2026-09-19",
-    "order": 24
+    "order": 70
   },
   {
     "id": "20260919-048",
@@ -241,7 +655,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-048-960.webp",
     "imageLarge": "/photos/optimized/20260919-048-1600.webp",
     "date": "2026-09-19",
-    "order": 25
+    "order": 71
   },
   {
     "id": "20260919-047",
@@ -250,7 +664,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-047-960.webp",
     "imageLarge": "/photos/optimized/20260919-047-1600.webp",
     "date": "2026-09-19",
-    "order": 26
+    "order": 72
   },
   {
     "id": "20260919-046",
@@ -259,7 +673,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-046-960.webp",
     "imageLarge": "/photos/optimized/20260919-046-1600.webp",
     "date": "2026-09-19",
-    "order": 27
+    "order": 73
   },
   {
     "id": "20260919-045",
@@ -268,7 +682,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-045-960.webp",
     "imageLarge": "/photos/optimized/20260919-045-1600.webp",
     "date": "2026-09-19",
-    "order": 28
+    "order": 74
   },
   {
     "id": "20260919-044",
@@ -277,7 +691,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-044-960.webp",
     "imageLarge": "/photos/optimized/20260919-044-1600.webp",
     "date": "2026-09-19",
-    "order": 29
+    "order": 75
   },
   {
     "id": "20260919-043",
@@ -286,7 +700,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-043-960.webp",
     "imageLarge": "/photos/optimized/20260919-043-1600.webp",
     "date": "2026-09-19",
-    "order": 30
+    "order": 76
   },
   {
     "id": "20260919-042",
@@ -295,7 +709,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-042-960.webp",
     "imageLarge": "/photos/optimized/20260919-042-1600.webp",
     "date": "2026-09-19",
-    "order": 31
+    "order": 77
   },
   {
     "id": "20260919-041",
@@ -304,7 +718,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-041-960.webp",
     "imageLarge": "/photos/optimized/20260919-041-1600.webp",
     "date": "2026-09-19",
-    "order": 32
+    "order": 78
   },
   {
     "id": "20260919-040",
@@ -313,7 +727,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-040-960.webp",
     "imageLarge": "/photos/optimized/20260919-040-1600.webp",
     "date": "2026-09-19",
-    "order": 33
+    "order": 79
   },
   {
     "id": "20260919-039",
@@ -322,7 +736,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-039-960.webp",
     "imageLarge": "/photos/optimized/20260919-039-1600.webp",
     "date": "2026-09-19",
-    "order": 34
+    "order": 80
   },
   {
     "id": "20260919-038",
@@ -331,7 +745,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-038-960.webp",
     "imageLarge": "/photos/optimized/20260919-038-1600.webp",
     "date": "2026-09-19",
-    "order": 35
+    "order": 81
   },
   {
     "id": "20260919-037",
@@ -340,7 +754,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-037-960.webp",
     "imageLarge": "/photos/optimized/20260919-037-1600.webp",
     "date": "2026-09-19",
-    "order": 36
+    "order": 82
   },
   {
     "id": "20260919-036",
@@ -349,7 +763,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-036-960.webp",
     "imageLarge": "/photos/optimized/20260919-036-1600.webp",
     "date": "2026-09-19",
-    "order": 37
+    "order": 83
   },
   {
     "id": "20260919-035",
@@ -358,7 +772,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-035-960.webp",
     "imageLarge": "/photos/optimized/20260919-035-1600.webp",
     "date": "2026-09-19",
-    "order": 38
+    "order": 84
   },
   {
     "id": "20260919-034",
@@ -367,7 +781,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-034-960.webp",
     "imageLarge": "/photos/optimized/20260919-034-1600.webp",
     "date": "2026-09-19",
-    "order": 39
+    "order": 85
   },
   {
     "id": "20260919-033",
@@ -376,7 +790,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-033-960.webp",
     "imageLarge": "/photos/optimized/20260919-033-1600.webp",
     "date": "2026-09-19",
-    "order": 40
+    "order": 86
   },
   {
     "id": "20260919-032",
@@ -385,7 +799,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-032-960.webp",
     "imageLarge": "/photos/optimized/20260919-032-1600.webp",
     "date": "2026-09-19",
-    "order": 41
+    "order": 87
   },
   {
     "id": "20260919-031",
@@ -394,7 +808,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-031-960.webp",
     "imageLarge": "/photos/optimized/20260919-031-1600.webp",
     "date": "2026-09-19",
-    "order": 42
+    "order": 88
   },
   {
     "id": "20260919-030",
@@ -403,7 +817,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-030-960.webp",
     "imageLarge": "/photos/optimized/20260919-030-1600.webp",
     "date": "2026-09-19",
-    "order": 43
+    "order": 89
   },
   {
     "id": "20260919-029",
@@ -412,7 +826,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-029-960.webp",
     "imageLarge": "/photos/optimized/20260919-029-1600.webp",
     "date": "2026-09-19",
-    "order": 44
+    "order": 90
   },
   {
     "id": "20260919-028",
@@ -421,7 +835,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-028-960.webp",
     "imageLarge": "/photos/optimized/20260919-028-1600.webp",
     "date": "2026-09-19",
-    "order": 45
+    "order": 91
   },
   {
     "id": "20260919-027",
@@ -430,7 +844,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-027-960.webp",
     "imageLarge": "/photos/optimized/20260919-027-1600.webp",
     "date": "2026-09-19",
-    "order": 46
+    "order": 92
   },
   {
     "id": "20260919-026",
@@ -439,7 +853,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-026-960.webp",
     "imageLarge": "/photos/optimized/20260919-026-1600.webp",
     "date": "2026-09-19",
-    "order": 47
+    "order": 93
   },
   {
     "id": "20260919-025",
@@ -448,7 +862,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-025-960.webp",
     "imageLarge": "/photos/optimized/20260919-025-1600.webp",
     "date": "2026-09-19",
-    "order": 48
+    "order": 94
   },
   {
     "id": "20260919-024",
@@ -457,7 +871,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-024-960.webp",
     "imageLarge": "/photos/optimized/20260919-024-1600.webp",
     "date": "2026-09-19",
-    "order": 49
+    "order": 95
   },
   {
     "id": "20260919-023",
@@ -466,7 +880,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-023-960.webp",
     "imageLarge": "/photos/optimized/20260919-023-1600.webp",
     "date": "2026-09-19",
-    "order": 50
+    "order": 96
   },
   {
     "id": "20260919-022",
@@ -475,7 +889,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-022-960.webp",
     "imageLarge": "/photos/optimized/20260919-022-1600.webp",
     "date": "2026-09-19",
-    "order": 51
+    "order": 97
   },
   {
     "id": "20260919-021",
@@ -484,7 +898,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-021-960.webp",
     "imageLarge": "/photos/optimized/20260919-021-1600.webp",
     "date": "2026-09-19",
-    "order": 52
+    "order": 98
   },
   {
     "id": "20260919-020",
@@ -493,7 +907,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-020-960.webp",
     "imageLarge": "/photos/optimized/20260919-020-1600.webp",
     "date": "2026-09-19",
-    "order": 53
+    "order": 99
   },
   {
     "id": "20260919-019",
@@ -502,7 +916,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-019-960.webp",
     "imageLarge": "/photos/optimized/20260919-019-1600.webp",
     "date": "2026-09-19",
-    "order": 54
+    "order": 100
   },
   {
     "id": "20260919-018",
@@ -511,7 +925,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-018-960.webp",
     "imageLarge": "/photos/optimized/20260919-018-1600.webp",
     "date": "2026-09-19",
-    "order": 55
+    "order": 101
   },
   {
     "id": "20260919-017",
@@ -520,7 +934,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-017-960.webp",
     "imageLarge": "/photos/optimized/20260919-017-1600.webp",
     "date": "2026-09-19",
-    "order": 56
+    "order": 102
   },
   {
     "id": "20260919-016",
@@ -529,7 +943,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-016-960.webp",
     "imageLarge": "/photos/optimized/20260919-016-1600.webp",
     "date": "2026-09-19",
-    "order": 57
+    "order": 103
   },
   {
     "id": "20260919-015",
@@ -538,7 +952,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-015-960.webp",
     "imageLarge": "/photos/optimized/20260919-015-1600.webp",
     "date": "2026-09-19",
-    "order": 58
+    "order": 104
   },
   {
     "id": "20260919-014",
@@ -547,7 +961,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-014-960.webp",
     "imageLarge": "/photos/optimized/20260919-014-1600.webp",
     "date": "2026-09-19",
-    "order": 59
+    "order": 105
   },
   {
     "id": "20260919-013",
@@ -556,7 +970,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-013-960.webp",
     "imageLarge": "/photos/optimized/20260919-013-1600.webp",
     "date": "2026-09-19",
-    "order": 60
+    "order": 106
   },
   {
     "id": "20260919-012",
@@ -565,7 +979,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-012-960.webp",
     "imageLarge": "/photos/optimized/20260919-012-1600.webp",
     "date": "2026-09-19",
-    "order": 61
+    "order": 107
   },
   {
     "id": "20260919-011",
@@ -574,7 +988,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-011-960.webp",
     "imageLarge": "/photos/optimized/20260919-011-1600.webp",
     "date": "2026-09-19",
-    "order": 62
+    "order": 108
   },
   {
     "id": "20260919-010",
@@ -583,7 +997,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-010-960.webp",
     "imageLarge": "/photos/optimized/20260919-010-1600.webp",
     "date": "2026-09-19",
-    "order": 63
+    "order": 109
   },
   {
     "id": "20260919-009",
@@ -592,7 +1006,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-009-960.webp",
     "imageLarge": "/photos/optimized/20260919-009-1600.webp",
     "date": "2026-09-19",
-    "order": 64
+    "order": 110
   },
   {
     "id": "20260919-008",
@@ -601,7 +1015,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-008-960.webp",
     "imageLarge": "/photos/optimized/20260919-008-1600.webp",
     "date": "2026-09-19",
-    "order": 65
+    "order": 111
   },
   {
     "id": "20260919-007",
@@ -610,7 +1024,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-007-960.webp",
     "imageLarge": "/photos/optimized/20260919-007-1600.webp",
     "date": "2026-09-19",
-    "order": 66
+    "order": 112
   },
   {
     "id": "20260919-006",
@@ -619,7 +1033,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-006-960.webp",
     "imageLarge": "/photos/optimized/20260919-006-1600.webp",
     "date": "2026-09-19",
-    "order": 67
+    "order": 113
   },
   {
     "id": "20260919-005",
@@ -628,7 +1042,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-005-960.webp",
     "imageLarge": "/photos/optimized/20260919-005-1600.webp",
     "date": "2026-09-19",
-    "order": 68
+    "order": 114
   },
   {
     "id": "20260919-004",
@@ -637,7 +1051,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-004-960.webp",
     "imageLarge": "/photos/optimized/20260919-004-1600.webp",
     "date": "2026-09-19",
-    "order": 69
+    "order": 115
   },
   {
     "id": "20260919-003",
@@ -646,7 +1060,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-003-960.webp",
     "imageLarge": "/photos/optimized/20260919-003-1600.webp",
     "date": "2026-09-19",
-    "order": 70
+    "order": 116
   },
   {
     "id": "20260919-002",
@@ -655,7 +1069,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-002-960.webp",
     "imageLarge": "/photos/optimized/20260919-002-1600.webp",
     "date": "2026-09-19",
-    "order": 71
+    "order": 117
   },
   {
     "id": "20260919-001",
@@ -664,7 +1078,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260919-001-960.webp",
     "imageLarge": "/photos/optimized/20260919-001-1600.webp",
     "date": "2026-09-19",
-    "order": 72
+    "order": 118
   },
   {
     "id": "20260918-036",
@@ -673,7 +1087,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-036-960.webp",
     "imageLarge": "/photos/optimized/20260918-036-1600.webp",
     "date": "2026-09-18",
-    "order": 73
+    "order": 119
   },
   {
     "id": "20260918-035",
@@ -682,7 +1096,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-035-960.webp",
     "imageLarge": "/photos/optimized/20260918-035-1600.webp",
     "date": "2026-09-18",
-    "order": 74
+    "order": 120
   },
   {
     "id": "20260918-034",
@@ -691,7 +1105,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-034-960.webp",
     "imageLarge": "/photos/optimized/20260918-034-1600.webp",
     "date": "2026-09-18",
-    "order": 75
+    "order": 121
   },
   {
     "id": "20260918-033",
@@ -700,7 +1114,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-033-960.webp",
     "imageLarge": "/photos/optimized/20260918-033-1600.webp",
     "date": "2026-09-18",
-    "order": 76
+    "order": 122
   },
   {
     "id": "20260918-032",
@@ -709,7 +1123,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-032-960.webp",
     "imageLarge": "/photos/optimized/20260918-032-1600.webp",
     "date": "2026-09-18",
-    "order": 77
+    "order": 123
   },
   {
     "id": "20260918-031",
@@ -718,7 +1132,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-031-960.webp",
     "imageLarge": "/photos/optimized/20260918-031-1600.webp",
     "date": "2026-09-18",
-    "order": 78
+    "order": 124
   },
   {
     "id": "20260918-030",
@@ -727,7 +1141,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-030-960.webp",
     "imageLarge": "/photos/optimized/20260918-030-1600.webp",
     "date": "2026-09-18",
-    "order": 79
+    "order": 125
   },
   {
     "id": "20260918-029",
@@ -736,7 +1150,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-029-960.webp",
     "imageLarge": "/photos/optimized/20260918-029-1600.webp",
     "date": "2026-09-18",
-    "order": 80
+    "order": 126
   },
   {
     "id": "20260918-028",
@@ -745,7 +1159,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-028-960.webp",
     "imageLarge": "/photos/optimized/20260918-028-1600.webp",
     "date": "2026-09-18",
-    "order": 81
+    "order": 127
   },
   {
     "id": "20260918-027",
@@ -754,7 +1168,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-027-960.webp",
     "imageLarge": "/photos/optimized/20260918-027-1600.webp",
     "date": "2026-09-18",
-    "order": 82
+    "order": 128
   },
   {
     "id": "20260918-026",
@@ -763,7 +1177,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-026-960.webp",
     "imageLarge": "/photos/optimized/20260918-026-1600.webp",
     "date": "2026-09-18",
-    "order": 83
+    "order": 129
   },
   {
     "id": "20260918-025",
@@ -772,7 +1186,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-025-960.webp",
     "imageLarge": "/photos/optimized/20260918-025-1600.webp",
     "date": "2026-09-18",
-    "order": 84
+    "order": 130
   },
   {
     "id": "20260918-024",
@@ -781,7 +1195,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-024-960.webp",
     "imageLarge": "/photos/optimized/20260918-024-1600.webp",
     "date": "2026-09-18",
-    "order": 85
+    "order": 131
   },
   {
     "id": "20260918-023",
@@ -790,7 +1204,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-023-960.webp",
     "imageLarge": "/photos/optimized/20260918-023-1600.webp",
     "date": "2026-09-18",
-    "order": 86
+    "order": 132
   },
   {
     "id": "20260918-022",
@@ -799,7 +1213,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-022-960.webp",
     "imageLarge": "/photos/optimized/20260918-022-1600.webp",
     "date": "2026-09-18",
-    "order": 87
+    "order": 133
   },
   {
     "id": "20260918-021",
@@ -808,7 +1222,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-021-960.webp",
     "imageLarge": "/photos/optimized/20260918-021-1600.webp",
     "date": "2026-09-18",
-    "order": 88
+    "order": 134
   },
   {
     "id": "20260918-020",
@@ -817,7 +1231,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-020-960.webp",
     "imageLarge": "/photos/optimized/20260918-020-1600.webp",
     "date": "2026-09-18",
-    "order": 89
+    "order": 135
   },
   {
     "id": "20260918-019",
@@ -826,7 +1240,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-019-960.webp",
     "imageLarge": "/photos/optimized/20260918-019-1600.webp",
     "date": "2026-09-18",
-    "order": 90
+    "order": 136
   },
   {
     "id": "20260918-018",
@@ -835,7 +1249,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-018-960.webp",
     "imageLarge": "/photos/optimized/20260918-018-1600.webp",
     "date": "2026-09-18",
-    "order": 91
+    "order": 137
   },
   {
     "id": "20260918-017",
@@ -844,7 +1258,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-017-960.webp",
     "imageLarge": "/photos/optimized/20260918-017-1600.webp",
     "date": "2026-09-18",
-    "order": 92
+    "order": 138
   },
   {
     "id": "20260918-016",
@@ -853,7 +1267,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-016-960.webp",
     "imageLarge": "/photos/optimized/20260918-016-1600.webp",
     "date": "2026-09-18",
-    "order": 93
+    "order": 139
   },
   {
     "id": "20260918-015",
@@ -862,7 +1276,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-015-960.webp",
     "imageLarge": "/photos/optimized/20260918-015-1600.webp",
     "date": "2026-09-18",
-    "order": 94
+    "order": 140
   },
   {
     "id": "20260918-014",
@@ -871,7 +1285,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-014-960.webp",
     "imageLarge": "/photos/optimized/20260918-014-1600.webp",
     "date": "2026-09-18",
-    "order": 95
+    "order": 141
   },
   {
     "id": "20260918-013",
@@ -880,7 +1294,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-013-960.webp",
     "imageLarge": "/photos/optimized/20260918-013-1600.webp",
     "date": "2026-09-18",
-    "order": 96
+    "order": 142
   },
   {
     "id": "20260918-012",
@@ -889,7 +1303,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-012-960.webp",
     "imageLarge": "/photos/optimized/20260918-012-1600.webp",
     "date": "2026-09-18",
-    "order": 97
+    "order": 143
   },
   {
     "id": "20260918-011",
@@ -898,7 +1312,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-011-960.webp",
     "imageLarge": "/photos/optimized/20260918-011-1600.webp",
     "date": "2026-09-18",
-    "order": 98
+    "order": 144
   },
   {
     "id": "20260918-010",
@@ -907,7 +1321,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-010-960.webp",
     "imageLarge": "/photos/optimized/20260918-010-1600.webp",
     "date": "2026-09-18",
-    "order": 99
+    "order": 145
   },
   {
     "id": "20260918-009",
@@ -916,7 +1330,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-009-960.webp",
     "imageLarge": "/photos/optimized/20260918-009-1600.webp",
     "date": "2026-09-18",
-    "order": 100
+    "order": 146
   },
   {
     "id": "20260918-008",
@@ -925,7 +1339,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-008-960.webp",
     "imageLarge": "/photos/optimized/20260918-008-1600.webp",
     "date": "2026-09-18",
-    "order": 101
+    "order": 147
   },
   {
     "id": "20260918-007",
@@ -934,7 +1348,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-007-960.webp",
     "imageLarge": "/photos/optimized/20260918-007-1600.webp",
     "date": "2026-09-18",
-    "order": 102
+    "order": 148
   },
   {
     "id": "20260918-006",
@@ -943,7 +1357,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-006-960.webp",
     "imageLarge": "/photos/optimized/20260918-006-1600.webp",
     "date": "2026-09-18",
-    "order": 103
+    "order": 149
   },
   {
     "id": "20260918-005",
@@ -952,7 +1366,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-005-960.webp",
     "imageLarge": "/photos/optimized/20260918-005-1600.webp",
     "date": "2026-09-18",
-    "order": 104
+    "order": 150
   },
   {
     "id": "20260918-004",
@@ -961,7 +1375,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-004-960.webp",
     "imageLarge": "/photos/optimized/20260918-004-1600.webp",
     "date": "2026-09-18",
-    "order": 105
+    "order": 151
   },
   {
     "id": "20260918-003",
@@ -970,7 +1384,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-003-960.webp",
     "imageLarge": "/photos/optimized/20260918-003-1600.webp",
     "date": "2026-09-18",
-    "order": 106
+    "order": 152
   },
   {
     "id": "20260918-002",
@@ -979,7 +1393,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-002-960.webp",
     "imageLarge": "/photos/optimized/20260918-002-1600.webp",
     "date": "2026-09-18",
-    "order": 107
+    "order": 153
   },
   {
     "id": "20260918-001",
@@ -988,7 +1402,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260918-001-960.webp",
     "imageLarge": "/photos/optimized/20260918-001-1600.webp",
     "date": "2026-09-18",
-    "order": 108
+    "order": 154
   },
   {
     "id": "20260917-028",
@@ -997,7 +1411,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-028-960.webp",
     "imageLarge": "/photos/optimized/20260917-028-1600.webp",
     "date": "2026-09-17",
-    "order": 109
+    "order": 155
   },
   {
     "id": "20260917-027",
@@ -1006,7 +1420,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-027-960.webp",
     "imageLarge": "/photos/optimized/20260917-027-1600.webp",
     "date": "2026-09-17",
-    "order": 110
+    "order": 156
   },
   {
     "id": "20260917-026",
@@ -1015,7 +1429,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-026-960.webp",
     "imageLarge": "/photos/optimized/20260917-026-1600.webp",
     "date": "2026-09-17",
-    "order": 111
+    "order": 157
   },
   {
     "id": "20260917-025",
@@ -1024,7 +1438,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-025-960.webp",
     "imageLarge": "/photos/optimized/20260917-025-1600.webp",
     "date": "2026-09-17",
-    "order": 112
+    "order": 158
   },
   {
     "id": "20260917-024",
@@ -1033,7 +1447,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-024-960.webp",
     "imageLarge": "/photos/optimized/20260917-024-1600.webp",
     "date": "2026-09-17",
-    "order": 113
+    "order": 159
   },
   {
     "id": "20260917-023",
@@ -1042,7 +1456,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-023-960.webp",
     "imageLarge": "/photos/optimized/20260917-023-1600.webp",
     "date": "2026-09-17",
-    "order": 114
+    "order": 160
   },
   {
     "id": "20260917-022",
@@ -1051,7 +1465,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-022-960.webp",
     "imageLarge": "/photos/optimized/20260917-022-1600.webp",
     "date": "2026-09-17",
-    "order": 115
+    "order": 161
   },
   {
     "id": "20260917-021",
@@ -1060,7 +1474,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-021-960.webp",
     "imageLarge": "/photos/optimized/20260917-021-1600.webp",
     "date": "2026-09-17",
-    "order": 116
+    "order": 162
   },
   {
     "id": "20260917-020",
@@ -1069,7 +1483,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-020-960.webp",
     "imageLarge": "/photos/optimized/20260917-020-1600.webp",
     "date": "2026-09-17",
-    "order": 117
+    "order": 163
   },
   {
     "id": "20260917-019",
@@ -1078,7 +1492,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-019-960.webp",
     "imageLarge": "/photos/optimized/20260917-019-1600.webp",
     "date": "2026-09-17",
-    "order": 118
+    "order": 164
   },
   {
     "id": "20260917-018",
@@ -1087,7 +1501,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-018-960.webp",
     "imageLarge": "/photos/optimized/20260917-018-1600.webp",
     "date": "2026-09-17",
-    "order": 119
+    "order": 165
   },
   {
     "id": "20260917-017",
@@ -1096,7 +1510,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-017-960.webp",
     "imageLarge": "/photos/optimized/20260917-017-1600.webp",
     "date": "2026-09-17",
-    "order": 120
+    "order": 166
   },
   {
     "id": "20260917-016",
@@ -1105,7 +1519,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-016-960.webp",
     "imageLarge": "/photos/optimized/20260917-016-1600.webp",
     "date": "2026-09-17",
-    "order": 121
+    "order": 167
   },
   {
     "id": "20260917-015",
@@ -1114,7 +1528,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-015-960.webp",
     "imageLarge": "/photos/optimized/20260917-015-1600.webp",
     "date": "2026-09-17",
-    "order": 122
+    "order": 168
   },
   {
     "id": "20260917-014",
@@ -1123,7 +1537,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-014-960.webp",
     "imageLarge": "/photos/optimized/20260917-014-1600.webp",
     "date": "2026-09-17",
-    "order": 123
+    "order": 169
   },
   {
     "id": "20260917-013",
@@ -1132,7 +1546,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-013-960.webp",
     "imageLarge": "/photos/optimized/20260917-013-1600.webp",
     "date": "2026-09-17",
-    "order": 124
+    "order": 170
   },
   {
     "id": "20260917-012",
@@ -1141,7 +1555,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-012-960.webp",
     "imageLarge": "/photos/optimized/20260917-012-1600.webp",
     "date": "2026-09-17",
-    "order": 125
+    "order": 171
   },
   {
     "id": "20260917-011",
@@ -1150,7 +1564,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-011-960.webp",
     "imageLarge": "/photos/optimized/20260917-011-1600.webp",
     "date": "2026-09-17",
-    "order": 126
+    "order": 172
   },
   {
     "id": "20260917-010",
@@ -1159,7 +1573,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-010-960.webp",
     "imageLarge": "/photos/optimized/20260917-010-1600.webp",
     "date": "2026-09-17",
-    "order": 127
+    "order": 173
   },
   {
     "id": "20260917-009",
@@ -1168,7 +1582,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-009-960.webp",
     "imageLarge": "/photos/optimized/20260917-009-1600.webp",
     "date": "2026-09-17",
-    "order": 128
+    "order": 174
   },
   {
     "id": "20260917-008",
@@ -1177,7 +1591,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-008-960.webp",
     "imageLarge": "/photos/optimized/20260917-008-1600.webp",
     "date": "2026-09-17",
-    "order": 129
+    "order": 175
   },
   {
     "id": "20260917-007",
@@ -1186,7 +1600,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-007-960.webp",
     "imageLarge": "/photos/optimized/20260917-007-1600.webp",
     "date": "2026-09-17",
-    "order": 130
+    "order": 176
   },
   {
     "id": "20260917-006",
@@ -1195,7 +1609,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-006-960.webp",
     "imageLarge": "/photos/optimized/20260917-006-1600.webp",
     "date": "2026-09-17",
-    "order": 131
+    "order": 177
   },
   {
     "id": "20260917-005",
@@ -1204,7 +1618,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-005-960.webp",
     "imageLarge": "/photos/optimized/20260917-005-1600.webp",
     "date": "2026-09-17",
-    "order": 132
+    "order": 178
   },
   {
     "id": "20260917-004",
@@ -1213,7 +1627,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-004-960.webp",
     "imageLarge": "/photos/optimized/20260917-004-1600.webp",
     "date": "2026-09-17",
-    "order": 133
+    "order": 179
   },
   {
     "id": "20260917-003",
@@ -1222,7 +1636,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-003-960.webp",
     "imageLarge": "/photos/optimized/20260917-003-1600.webp",
     "date": "2026-09-17",
-    "order": 134
+    "order": 180
   },
   {
     "id": "20260917-002",
@@ -1231,7 +1645,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-002-960.webp",
     "imageLarge": "/photos/optimized/20260917-002-1600.webp",
     "date": "2026-09-17",
-    "order": 135
+    "order": 181
   },
   {
     "id": "20260917-001",
@@ -1240,7 +1654,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260917-001-960.webp",
     "imageLarge": "/photos/optimized/20260917-001-1600.webp",
     "date": "2026-09-17",
-    "order": 136
+    "order": 182
   },
   {
     "id": "20260916-028",
@@ -1249,7 +1663,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-028-960.webp",
     "imageLarge": "/photos/optimized/20260916-028-1600.webp",
     "date": "2026-09-16",
-    "order": 137
+    "order": 183
   },
   {
     "id": "20260916-027",
@@ -1258,7 +1672,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-027-960.webp",
     "imageLarge": "/photos/optimized/20260916-027-1600.webp",
     "date": "2026-09-16",
-    "order": 138
+    "order": 184
   },
   {
     "id": "20260916-026",
@@ -1267,7 +1681,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-026-960.webp",
     "imageLarge": "/photos/optimized/20260916-026-1600.webp",
     "date": "2026-09-16",
-    "order": 139
+    "order": 185
   },
   {
     "id": "20260916-025",
@@ -1276,7 +1690,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-025-960.webp",
     "imageLarge": "/photos/optimized/20260916-025-1600.webp",
     "date": "2026-09-16",
-    "order": 140
+    "order": 186
   },
   {
     "id": "20260916-024",
@@ -1285,7 +1699,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-024-960.webp",
     "imageLarge": "/photos/optimized/20260916-024-1600.webp",
     "date": "2026-09-16",
-    "order": 141
+    "order": 187
   },
   {
     "id": "20260916-023",
@@ -1294,7 +1708,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-023-960.webp",
     "imageLarge": "/photos/optimized/20260916-023-1600.webp",
     "date": "2026-09-16",
-    "order": 142
+    "order": 188
   },
   {
     "id": "20260916-022",
@@ -1303,7 +1717,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-022-960.webp",
     "imageLarge": "/photos/optimized/20260916-022-1600.webp",
     "date": "2026-09-16",
-    "order": 143
+    "order": 189
   },
   {
     "id": "20260916-021",
@@ -1312,7 +1726,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-021-960.webp",
     "imageLarge": "/photos/optimized/20260916-021-1600.webp",
     "date": "2026-09-16",
-    "order": 144
+    "order": 190
   },
   {
     "id": "20260916-020",
@@ -1321,7 +1735,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-020-960.webp",
     "imageLarge": "/photos/optimized/20260916-020-1600.webp",
     "date": "2026-09-16",
-    "order": 145
+    "order": 191
   },
   {
     "id": "20260916-019",
@@ -1330,7 +1744,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-019-960.webp",
     "imageLarge": "/photos/optimized/20260916-019-1600.webp",
     "date": "2026-09-16",
-    "order": 146
+    "order": 192
   },
   {
     "id": "20260916-018",
@@ -1339,7 +1753,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-018-960.webp",
     "imageLarge": "/photos/optimized/20260916-018-1600.webp",
     "date": "2026-09-16",
-    "order": 147
+    "order": 193
   },
   {
     "id": "20260916-017",
@@ -1348,7 +1762,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-017-960.webp",
     "imageLarge": "/photos/optimized/20260916-017-1600.webp",
     "date": "2026-09-16",
-    "order": 148
+    "order": 194
   },
   {
     "id": "20260916-016",
@@ -1357,7 +1771,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-016-960.webp",
     "imageLarge": "/photos/optimized/20260916-016-1600.webp",
     "date": "2026-09-16",
-    "order": 149
+    "order": 195
   },
   {
     "id": "20260916-015",
@@ -1366,7 +1780,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-015-960.webp",
     "imageLarge": "/photos/optimized/20260916-015-1600.webp",
     "date": "2026-09-16",
-    "order": 150
+    "order": 196
   },
   {
     "id": "20260916-014",
@@ -1375,7 +1789,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-014-960.webp",
     "imageLarge": "/photos/optimized/20260916-014-1600.webp",
     "date": "2026-09-16",
-    "order": 151
+    "order": 197
   },
   {
     "id": "20260916-013",
@@ -1384,7 +1798,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-013-960.webp",
     "imageLarge": "/photos/optimized/20260916-013-1600.webp",
     "date": "2026-09-16",
-    "order": 152
+    "order": 198
   },
   {
     "id": "20260916-012",
@@ -1393,7 +1807,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-012-960.webp",
     "imageLarge": "/photos/optimized/20260916-012-1600.webp",
     "date": "2026-09-16",
-    "order": 153
+    "order": 199
   },
   {
     "id": "20260916-011",
@@ -1402,7 +1816,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-011-960.webp",
     "imageLarge": "/photos/optimized/20260916-011-1600.webp",
     "date": "2026-09-16",
-    "order": 154
+    "order": 200
   },
   {
     "id": "20260916-010",
@@ -1411,7 +1825,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-010-960.webp",
     "imageLarge": "/photos/optimized/20260916-010-1600.webp",
     "date": "2026-09-16",
-    "order": 155
+    "order": 201
   },
   {
     "id": "20260916-009",
@@ -1420,7 +1834,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-009-960.webp",
     "imageLarge": "/photos/optimized/20260916-009-1600.webp",
     "date": "2026-09-16",
-    "order": 156
+    "order": 202
   },
   {
     "id": "20260916-008",
@@ -1429,7 +1843,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-008-960.webp",
     "imageLarge": "/photos/optimized/20260916-008-1600.webp",
     "date": "2026-09-16",
-    "order": 157
+    "order": 203
   },
   {
     "id": "20260916-007",
@@ -1438,7 +1852,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-007-960.webp",
     "imageLarge": "/photos/optimized/20260916-007-1600.webp",
     "date": "2026-09-16",
-    "order": 158
+    "order": 204
   },
   {
     "id": "20260916-006",
@@ -1447,7 +1861,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-006-960.webp",
     "imageLarge": "/photos/optimized/20260916-006-1600.webp",
     "date": "2026-09-16",
-    "order": 159
+    "order": 205
   },
   {
     "id": "20260916-005",
@@ -1456,7 +1870,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-005-960.webp",
     "imageLarge": "/photos/optimized/20260916-005-1600.webp",
     "date": "2026-09-16",
-    "order": 160
+    "order": 206
   },
   {
     "id": "20260916-004",
@@ -1465,7 +1879,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-004-960.webp",
     "imageLarge": "/photos/optimized/20260916-004-1600.webp",
     "date": "2026-09-16",
-    "order": 161
+    "order": 207
   },
   {
     "id": "20260916-003",
@@ -1474,7 +1888,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-003-960.webp",
     "imageLarge": "/photos/optimized/20260916-003-1600.webp",
     "date": "2026-09-16",
-    "order": 162
+    "order": 208
   },
   {
     "id": "20260916-002",
@@ -1483,7 +1897,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-002-960.webp",
     "imageLarge": "/photos/optimized/20260916-002-1600.webp",
     "date": "2026-09-16",
-    "order": 163
+    "order": 209
   },
   {
     "id": "20260916-001",
@@ -1492,7 +1906,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260916-001-960.webp",
     "imageLarge": "/photos/optimized/20260916-001-1600.webp",
     "date": "2026-09-16",
-    "order": 164
+    "order": 210
   },
   {
     "id": "20260915-075",
@@ -1501,7 +1915,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-075-960.webp",
     "imageLarge": "/photos/optimized/20260915-075-1600.webp",
     "date": "2026-09-15",
-    "order": 165
+    "order": 211
   },
   {
     "id": "20260915-074",
@@ -1510,7 +1924,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-074-960.webp",
     "imageLarge": "/photos/optimized/20260915-074-1600.webp",
     "date": "2026-09-15",
-    "order": 166
+    "order": 212
   },
   {
     "id": "20260915-073",
@@ -1519,7 +1933,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-073-960.webp",
     "imageLarge": "/photos/optimized/20260915-073-1600.webp",
     "date": "2026-09-15",
-    "order": 167
+    "order": 213
   },
   {
     "id": "20260915-072",
@@ -1528,7 +1942,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-072-960.webp",
     "imageLarge": "/photos/optimized/20260915-072-1600.webp",
     "date": "2026-09-15",
-    "order": 168
+    "order": 214
   },
   {
     "id": "20260915-071",
@@ -1537,7 +1951,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-071-960.webp",
     "imageLarge": "/photos/optimized/20260915-071-1600.webp",
     "date": "2026-09-15",
-    "order": 169
+    "order": 215
   },
   {
     "id": "20260915-070",
@@ -1546,7 +1960,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-070-960.webp",
     "imageLarge": "/photos/optimized/20260915-070-1600.webp",
     "date": "2026-09-15",
-    "order": 170
+    "order": 216
   },
   {
     "id": "20260915-069",
@@ -1555,7 +1969,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-069-960.webp",
     "imageLarge": "/photos/optimized/20260915-069-1600.webp",
     "date": "2026-09-15",
-    "order": 171
+    "order": 217
   },
   {
     "id": "20260915-068",
@@ -1564,7 +1978,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-068-960.webp",
     "imageLarge": "/photos/optimized/20260915-068-1600.webp",
     "date": "2026-09-15",
-    "order": 172
+    "order": 218
   },
   {
     "id": "20260915-067",
@@ -1573,7 +1987,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-067-960.webp",
     "imageLarge": "/photos/optimized/20260915-067-1600.webp",
     "date": "2026-09-15",
-    "order": 173
+    "order": 219
   },
   {
     "id": "20260915-066",
@@ -1582,7 +1996,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-066-960.webp",
     "imageLarge": "/photos/optimized/20260915-066-1600.webp",
     "date": "2026-09-15",
-    "order": 174
+    "order": 220
   },
   {
     "id": "20260915-065",
@@ -1591,7 +2005,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-065-960.webp",
     "imageLarge": "/photos/optimized/20260915-065-1600.webp",
     "date": "2026-09-15",
-    "order": 175
+    "order": 221
   },
   {
     "id": "20260915-064",
@@ -1600,7 +2014,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-064-960.webp",
     "imageLarge": "/photos/optimized/20260915-064-1600.webp",
     "date": "2026-09-15",
-    "order": 176
+    "order": 222
   },
   {
     "id": "20260915-063",
@@ -1609,7 +2023,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-063-960.webp",
     "imageLarge": "/photos/optimized/20260915-063-1600.webp",
     "date": "2026-09-15",
-    "order": 177
+    "order": 223
   },
   {
     "id": "20260915-062",
@@ -1618,7 +2032,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-062-960.webp",
     "imageLarge": "/photos/optimized/20260915-062-1600.webp",
     "date": "2026-09-15",
-    "order": 178
+    "order": 224
   },
   {
     "id": "20260915-061",
@@ -1627,7 +2041,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-061-960.webp",
     "imageLarge": "/photos/optimized/20260915-061-1600.webp",
     "date": "2026-09-15",
-    "order": 179
+    "order": 225
   },
   {
     "id": "20260915-060",
@@ -1636,7 +2050,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-060-960.webp",
     "imageLarge": "/photos/optimized/20260915-060-1600.webp",
     "date": "2026-09-15",
-    "order": 180
+    "order": 226
   },
   {
     "id": "20260915-059",
@@ -1645,7 +2059,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-059-960.webp",
     "imageLarge": "/photos/optimized/20260915-059-1600.webp",
     "date": "2026-09-15",
-    "order": 181
+    "order": 227
   },
   {
     "id": "20260915-058",
@@ -1654,7 +2068,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-058-960.webp",
     "imageLarge": "/photos/optimized/20260915-058-1600.webp",
     "date": "2026-09-15",
-    "order": 182
+    "order": 228
   },
   {
     "id": "20260915-057",
@@ -1663,7 +2077,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-057-960.webp",
     "imageLarge": "/photos/optimized/20260915-057-1600.webp",
     "date": "2026-09-15",
-    "order": 183
+    "order": 229
   },
   {
     "id": "20260915-056",
@@ -1672,7 +2086,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-056-960.webp",
     "imageLarge": "/photos/optimized/20260915-056-1600.webp",
     "date": "2026-09-15",
-    "order": 184
+    "order": 230
   },
   {
     "id": "20260915-055",
@@ -1681,7 +2095,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-055-960.webp",
     "imageLarge": "/photos/optimized/20260915-055-1600.webp",
     "date": "2026-09-15",
-    "order": 185
+    "order": 231
   },
   {
     "id": "20260915-054",
@@ -1690,7 +2104,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-054-960.webp",
     "imageLarge": "/photos/optimized/20260915-054-1600.webp",
     "date": "2026-09-15",
-    "order": 186
+    "order": 232
   },
   {
     "id": "20260915-053",
@@ -1699,7 +2113,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-053-960.webp",
     "imageLarge": "/photos/optimized/20260915-053-1600.webp",
     "date": "2026-09-15",
-    "order": 187
+    "order": 233
   },
   {
     "id": "20260915-052",
@@ -1708,7 +2122,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-052-960.webp",
     "imageLarge": "/photos/optimized/20260915-052-1600.webp",
     "date": "2026-09-15",
-    "order": 188
+    "order": 234
   },
   {
     "id": "20260915-051",
@@ -1717,7 +2131,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-051-960.webp",
     "imageLarge": "/photos/optimized/20260915-051-1600.webp",
     "date": "2026-09-15",
-    "order": 189
+    "order": 235
   },
   {
     "id": "20260915-050",
@@ -1726,7 +2140,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-050-960.webp",
     "imageLarge": "/photos/optimized/20260915-050-1600.webp",
     "date": "2026-09-15",
-    "order": 190
+    "order": 236
   },
   {
     "id": "20260915-049",
@@ -1735,7 +2149,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-049-960.webp",
     "imageLarge": "/photos/optimized/20260915-049-1600.webp",
     "date": "2026-09-15",
-    "order": 191
+    "order": 237
   },
   {
     "id": "20260915-048",
@@ -1744,7 +2158,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-048-960.webp",
     "imageLarge": "/photos/optimized/20260915-048-1600.webp",
     "date": "2026-09-15",
-    "order": 192
+    "order": 238
   },
   {
     "id": "20260915-047",
@@ -1753,7 +2167,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-047-960.webp",
     "imageLarge": "/photos/optimized/20260915-047-1600.webp",
     "date": "2026-09-15",
-    "order": 193
+    "order": 239
   },
   {
     "id": "20260915-046",
@@ -1762,7 +2176,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-046-960.webp",
     "imageLarge": "/photos/optimized/20260915-046-1600.webp",
     "date": "2026-09-15",
-    "order": 194
+    "order": 240
   },
   {
     "id": "20260915-045",
@@ -1771,7 +2185,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-045-960.webp",
     "imageLarge": "/photos/optimized/20260915-045-1600.webp",
     "date": "2026-09-15",
-    "order": 195
+    "order": 241
   },
   {
     "id": "20260915-044",
@@ -1780,7 +2194,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-044-960.webp",
     "imageLarge": "/photos/optimized/20260915-044-1600.webp",
     "date": "2026-09-15",
-    "order": 196
+    "order": 242
   },
   {
     "id": "20260915-043",
@@ -1789,7 +2203,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-043-960.webp",
     "imageLarge": "/photos/optimized/20260915-043-1600.webp",
     "date": "2026-09-15",
-    "order": 197
+    "order": 243
   },
   {
     "id": "20260915-042",
@@ -1798,7 +2212,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-042-960.webp",
     "imageLarge": "/photos/optimized/20260915-042-1600.webp",
     "date": "2026-09-15",
-    "order": 198
+    "order": 244
   },
   {
     "id": "20260915-041",
@@ -1807,7 +2221,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-041-960.webp",
     "imageLarge": "/photos/optimized/20260915-041-1600.webp",
     "date": "2026-09-15",
-    "order": 199
+    "order": 245
   },
   {
     "id": "20260915-040",
@@ -1816,7 +2230,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-040-960.webp",
     "imageLarge": "/photos/optimized/20260915-040-1600.webp",
     "date": "2026-09-15",
-    "order": 200
+    "order": 246
   },
   {
     "id": "20260915-039",
@@ -1825,7 +2239,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-039-960.webp",
     "imageLarge": "/photos/optimized/20260915-039-1600.webp",
     "date": "2026-09-15",
-    "order": 201
+    "order": 247
   },
   {
     "id": "20260915-038",
@@ -1834,7 +2248,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-038-960.webp",
     "imageLarge": "/photos/optimized/20260915-038-1600.webp",
     "date": "2026-09-15",
-    "order": 202
+    "order": 248
   },
   {
     "id": "20260915-037",
@@ -1843,7 +2257,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-037-960.webp",
     "imageLarge": "/photos/optimized/20260915-037-1600.webp",
     "date": "2026-09-15",
-    "order": 203
+    "order": 249
   },
   {
     "id": "20260915-036",
@@ -1852,7 +2266,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-036-960.webp",
     "imageLarge": "/photos/optimized/20260915-036-1600.webp",
     "date": "2026-09-15",
-    "order": 204
+    "order": 250
   },
   {
     "id": "20260915-035",
@@ -1861,7 +2275,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-035-960.webp",
     "imageLarge": "/photos/optimized/20260915-035-1600.webp",
     "date": "2026-09-15",
-    "order": 205
+    "order": 251
   },
   {
     "id": "20260915-034",
@@ -1870,7 +2284,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-034-960.webp",
     "imageLarge": "/photos/optimized/20260915-034-1600.webp",
     "date": "2026-09-15",
-    "order": 206
+    "order": 252
   },
   {
     "id": "20260915-033",
@@ -1879,7 +2293,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-033-960.webp",
     "imageLarge": "/photos/optimized/20260915-033-1600.webp",
     "date": "2026-09-15",
-    "order": 207
+    "order": 253
   },
   {
     "id": "20260915-032",
@@ -1888,7 +2302,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-032-960.webp",
     "imageLarge": "/photos/optimized/20260915-032-1600.webp",
     "date": "2026-09-15",
-    "order": 208
+    "order": 254
   },
   {
     "id": "20260915-031",
@@ -1897,7 +2311,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-031-960.webp",
     "imageLarge": "/photos/optimized/20260915-031-1600.webp",
     "date": "2026-09-15",
-    "order": 209
+    "order": 255
   },
   {
     "id": "20260915-030",
@@ -1906,7 +2320,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-030-960.webp",
     "imageLarge": "/photos/optimized/20260915-030-1600.webp",
     "date": "2026-09-15",
-    "order": 210
+    "order": 256
   },
   {
     "id": "20260915-029",
@@ -1915,7 +2329,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-029-960.webp",
     "imageLarge": "/photos/optimized/20260915-029-1600.webp",
     "date": "2026-09-15",
-    "order": 211
+    "order": 257
   },
   {
     "id": "20260915-028",
@@ -1924,7 +2338,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-028-960.webp",
     "imageLarge": "/photos/optimized/20260915-028-1600.webp",
     "date": "2026-09-15",
-    "order": 212
+    "order": 258
   },
   {
     "id": "20260915-027",
@@ -1933,7 +2347,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-027-960.webp",
     "imageLarge": "/photos/optimized/20260915-027-1600.webp",
     "date": "2026-09-15",
-    "order": 213
+    "order": 259
   },
   {
     "id": "20260915-026",
@@ -1942,7 +2356,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-026-960.webp",
     "imageLarge": "/photos/optimized/20260915-026-1600.webp",
     "date": "2026-09-15",
-    "order": 214
+    "order": 260
   },
   {
     "id": "20260915-025",
@@ -1951,7 +2365,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-025-960.webp",
     "imageLarge": "/photos/optimized/20260915-025-1600.webp",
     "date": "2026-09-15",
-    "order": 215
+    "order": 261
   },
   {
     "id": "20260915-024",
@@ -1960,7 +2374,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-024-960.webp",
     "imageLarge": "/photos/optimized/20260915-024-1600.webp",
     "date": "2026-09-15",
-    "order": 216
+    "order": 262
   },
   {
     "id": "20260915-023",
@@ -1969,7 +2383,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-023-960.webp",
     "imageLarge": "/photos/optimized/20260915-023-1600.webp",
     "date": "2026-09-15",
-    "order": 217
+    "order": 263
   },
   {
     "id": "20260915-022",
@@ -1978,7 +2392,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-022-960.webp",
     "imageLarge": "/photos/optimized/20260915-022-1600.webp",
     "date": "2026-09-15",
-    "order": 218
+    "order": 264
   },
   {
     "id": "20260915-021",
@@ -1987,7 +2401,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-021-960.webp",
     "imageLarge": "/photos/optimized/20260915-021-1600.webp",
     "date": "2026-09-15",
-    "order": 219
+    "order": 265
   },
   {
     "id": "20260915-020",
@@ -1996,7 +2410,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-020-960.webp",
     "imageLarge": "/photos/optimized/20260915-020-1600.webp",
     "date": "2026-09-15",
-    "order": 220
+    "order": 266
   },
   {
     "id": "20260915-019",
@@ -2005,7 +2419,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-019-960.webp",
     "imageLarge": "/photos/optimized/20260915-019-1600.webp",
     "date": "2026-09-15",
-    "order": 221
+    "order": 267
   },
   {
     "id": "20260915-018",
@@ -2014,7 +2428,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-018-960.webp",
     "imageLarge": "/photos/optimized/20260915-018-1600.webp",
     "date": "2026-09-15",
-    "order": 222
+    "order": 268
   },
   {
     "id": "20260915-017",
@@ -2023,7 +2437,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-017-960.webp",
     "imageLarge": "/photos/optimized/20260915-017-1600.webp",
     "date": "2026-09-15",
-    "order": 223
+    "order": 269
   },
   {
     "id": "20260915-016",
@@ -2032,7 +2446,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-016-960.webp",
     "imageLarge": "/photos/optimized/20260915-016-1600.webp",
     "date": "2026-09-15",
-    "order": 224
+    "order": 270
   },
   {
     "id": "20260915-015",
@@ -2041,7 +2455,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-015-960.webp",
     "imageLarge": "/photos/optimized/20260915-015-1600.webp",
     "date": "2026-09-15",
-    "order": 225
+    "order": 271
   },
   {
     "id": "20260915-014",
@@ -2050,7 +2464,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-014-960.webp",
     "imageLarge": "/photos/optimized/20260915-014-1600.webp",
     "date": "2026-09-15",
-    "order": 226
+    "order": 272
   },
   {
     "id": "20260915-013",
@@ -2059,7 +2473,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-013-960.webp",
     "imageLarge": "/photos/optimized/20260915-013-1600.webp",
     "date": "2026-09-15",
-    "order": 227
+    "order": 273
   },
   {
     "id": "20260915-012",
@@ -2068,7 +2482,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-012-960.webp",
     "imageLarge": "/photos/optimized/20260915-012-1600.webp",
     "date": "2026-09-15",
-    "order": 228
+    "order": 274
   },
   {
     "id": "20260915-011",
@@ -2077,7 +2491,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-011-960.webp",
     "imageLarge": "/photos/optimized/20260915-011-1600.webp",
     "date": "2026-09-15",
-    "order": 229
+    "order": 275
   },
   {
     "id": "20260915-010",
@@ -2086,7 +2500,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-010-960.webp",
     "imageLarge": "/photos/optimized/20260915-010-1600.webp",
     "date": "2026-09-15",
-    "order": 230
+    "order": 276
   },
   {
     "id": "20260915-009",
@@ -2095,7 +2509,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-009-960.webp",
     "imageLarge": "/photos/optimized/20260915-009-1600.webp",
     "date": "2026-09-15",
-    "order": 231
+    "order": 277
   },
   {
     "id": "20260915-008",
@@ -2104,7 +2518,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-008-960.webp",
     "imageLarge": "/photos/optimized/20260915-008-1600.webp",
     "date": "2026-09-15",
-    "order": 232
+    "order": 278
   },
   {
     "id": "20260915-007",
@@ -2113,7 +2527,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-007-960.webp",
     "imageLarge": "/photos/optimized/20260915-007-1600.webp",
     "date": "2026-09-15",
-    "order": 233
+    "order": 279
   },
   {
     "id": "20260915-006",
@@ -2122,7 +2536,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-006-960.webp",
     "imageLarge": "/photos/optimized/20260915-006-1600.webp",
     "date": "2026-09-15",
-    "order": 234
+    "order": 280
   },
   {
     "id": "20260915-005",
@@ -2131,7 +2545,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-005-960.webp",
     "imageLarge": "/photos/optimized/20260915-005-1600.webp",
     "date": "2026-09-15",
-    "order": 235
+    "order": 281
   },
   {
     "id": "20260915-004",
@@ -2140,7 +2554,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-004-960.webp",
     "imageLarge": "/photos/optimized/20260915-004-1600.webp",
     "date": "2026-09-15",
-    "order": 236
+    "order": 282
   },
   {
     "id": "20260915-003",
@@ -2149,7 +2563,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-003-960.webp",
     "imageLarge": "/photos/optimized/20260915-003-1600.webp",
     "date": "2026-09-15",
-    "order": 237
+    "order": 283
   },
   {
     "id": "20260915-002",
@@ -2158,7 +2572,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-002-960.webp",
     "imageLarge": "/photos/optimized/20260915-002-1600.webp",
     "date": "2026-09-15",
-    "order": 238
+    "order": 284
   },
   {
     "id": "20260915-001",
@@ -2167,7 +2581,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260915-001-960.webp",
     "imageLarge": "/photos/optimized/20260915-001-1600.webp",
     "date": "2026-09-15",
-    "order": 239
+    "order": 285
   },
   {
     "id": "20260914-036",
@@ -2176,7 +2590,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-036-960.webp",
     "imageLarge": "/photos/optimized/20260914-036-1600.webp",
     "date": "2026-09-14",
-    "order": 240
+    "order": 286
   },
   {
     "id": "20260914-035",
@@ -2185,7 +2599,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-035-960.webp",
     "imageLarge": "/photos/optimized/20260914-035-1600.webp",
     "date": "2026-09-14",
-    "order": 241
+    "order": 287
   },
   {
     "id": "20260914-034",
@@ -2194,7 +2608,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-034-960.webp",
     "imageLarge": "/photos/optimized/20260914-034-1600.webp",
     "date": "2026-09-14",
-    "order": 242
+    "order": 288
   },
   {
     "id": "20260914-033",
@@ -2203,7 +2617,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-033-960.webp",
     "imageLarge": "/photos/optimized/20260914-033-1600.webp",
     "date": "2026-09-14",
-    "order": 243
+    "order": 289
   },
   {
     "id": "20260914-032",
@@ -2212,7 +2626,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-032-960.webp",
     "imageLarge": "/photos/optimized/20260914-032-1600.webp",
     "date": "2026-09-14",
-    "order": 244
+    "order": 290
   },
   {
     "id": "20260914-031",
@@ -2221,7 +2635,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-031-960.webp",
     "imageLarge": "/photos/optimized/20260914-031-1600.webp",
     "date": "2026-09-14",
-    "order": 245
+    "order": 291
   },
   {
     "id": "20260914-030",
@@ -2230,7 +2644,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-030-960.webp",
     "imageLarge": "/photos/optimized/20260914-030-1600.webp",
     "date": "2026-09-14",
-    "order": 246
+    "order": 292
   },
   {
     "id": "20260914-029",
@@ -2239,7 +2653,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-029-960.webp",
     "imageLarge": "/photos/optimized/20260914-029-1600.webp",
     "date": "2026-09-14",
-    "order": 247
+    "order": 293
   },
   {
     "id": "20260914-028",
@@ -2248,7 +2662,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-028-960.webp",
     "imageLarge": "/photos/optimized/20260914-028-1600.webp",
     "date": "2026-09-14",
-    "order": 248
+    "order": 294
   },
   {
     "id": "20260914-027",
@@ -2257,7 +2671,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-027-960.webp",
     "imageLarge": "/photos/optimized/20260914-027-1600.webp",
     "date": "2026-09-14",
-    "order": 249
+    "order": 295
   },
   {
     "id": "20260914-026",
@@ -2266,7 +2680,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-026-960.webp",
     "imageLarge": "/photos/optimized/20260914-026-1600.webp",
     "date": "2026-09-14",
-    "order": 250
+    "order": 296
   },
   {
     "id": "20260914-025",
@@ -2275,7 +2689,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-025-960.webp",
     "imageLarge": "/photos/optimized/20260914-025-1600.webp",
     "date": "2026-09-14",
-    "order": 251
+    "order": 297
   },
   {
     "id": "20260914-024",
@@ -2284,7 +2698,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-024-960.webp",
     "imageLarge": "/photos/optimized/20260914-024-1600.webp",
     "date": "2026-09-14",
-    "order": 252
+    "order": 298
   },
   {
     "id": "20260914-023",
@@ -2293,7 +2707,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-023-960.webp",
     "imageLarge": "/photos/optimized/20260914-023-1600.webp",
     "date": "2026-09-14",
-    "order": 253
+    "order": 299
   },
   {
     "id": "20260914-022",
@@ -2302,7 +2716,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-022-960.webp",
     "imageLarge": "/photos/optimized/20260914-022-1600.webp",
     "date": "2026-09-14",
-    "order": 254
+    "order": 300
   },
   {
     "id": "20260914-021",
@@ -2311,7 +2725,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-021-960.webp",
     "imageLarge": "/photos/optimized/20260914-021-1600.webp",
     "date": "2026-09-14",
-    "order": 255
+    "order": 301
   },
   {
     "id": "20260914-020",
@@ -2320,7 +2734,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-020-960.webp",
     "imageLarge": "/photos/optimized/20260914-020-1600.webp",
     "date": "2026-09-14",
-    "order": 256
+    "order": 302
   },
   {
     "id": "20260914-019",
@@ -2329,7 +2743,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-019-960.webp",
     "imageLarge": "/photos/optimized/20260914-019-1600.webp",
     "date": "2026-09-14",
-    "order": 257
+    "order": 303
   },
   {
     "id": "20260914-018",
@@ -2338,7 +2752,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-018-960.webp",
     "imageLarge": "/photos/optimized/20260914-018-1600.webp",
     "date": "2026-09-14",
-    "order": 258
+    "order": 304
   },
   {
     "id": "20260914-017",
@@ -2347,7 +2761,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-017-960.webp",
     "imageLarge": "/photos/optimized/20260914-017-1600.webp",
     "date": "2026-09-14",
-    "order": 259
+    "order": 305
   },
   {
     "id": "20260914-016",
@@ -2356,7 +2770,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-016-960.webp",
     "imageLarge": "/photos/optimized/20260914-016-1600.webp",
     "date": "2026-09-14",
-    "order": 260
+    "order": 306
   },
   {
     "id": "20260914-015",
@@ -2365,7 +2779,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-015-960.webp",
     "imageLarge": "/photos/optimized/20260914-015-1600.webp",
     "date": "2026-09-14",
-    "order": 261
+    "order": 307
   },
   {
     "id": "20260914-014",
@@ -2374,7 +2788,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-014-960.webp",
     "imageLarge": "/photos/optimized/20260914-014-1600.webp",
     "date": "2026-09-14",
-    "order": 262
+    "order": 308
   },
   {
     "id": "20260914-013",
@@ -2383,7 +2797,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-013-960.webp",
     "imageLarge": "/photos/optimized/20260914-013-1600.webp",
     "date": "2026-09-14",
-    "order": 263
+    "order": 309
   },
   {
     "id": "20260914-012",
@@ -2392,7 +2806,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-012-960.webp",
     "imageLarge": "/photos/optimized/20260914-012-1600.webp",
     "date": "2026-09-14",
-    "order": 264
+    "order": 310
   },
   {
     "id": "20260914-011",
@@ -2401,7 +2815,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-011-960.webp",
     "imageLarge": "/photos/optimized/20260914-011-1600.webp",
     "date": "2026-09-14",
-    "order": 265
+    "order": 311
   },
   {
     "id": "20260914-010",
@@ -2410,7 +2824,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-010-960.webp",
     "imageLarge": "/photos/optimized/20260914-010-1600.webp",
     "date": "2026-09-14",
-    "order": 266
+    "order": 312
   },
   {
     "id": "20260914-009",
@@ -2419,7 +2833,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-009-960.webp",
     "imageLarge": "/photos/optimized/20260914-009-1600.webp",
     "date": "2026-09-14",
-    "order": 267
+    "order": 313
   },
   {
     "id": "20260914-008",
@@ -2428,7 +2842,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-008-960.webp",
     "imageLarge": "/photos/optimized/20260914-008-1600.webp",
     "date": "2026-09-14",
-    "order": 268
+    "order": 314
   },
   {
     "id": "20260914-007",
@@ -2437,7 +2851,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-007-960.webp",
     "imageLarge": "/photos/optimized/20260914-007-1600.webp",
     "date": "2026-09-14",
-    "order": 269
+    "order": 315
   },
   {
     "id": "20260914-006",
@@ -2446,7 +2860,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-006-960.webp",
     "imageLarge": "/photos/optimized/20260914-006-1600.webp",
     "date": "2026-09-14",
-    "order": 270
+    "order": 316
   },
   {
     "id": "20260914-005",
@@ -2455,7 +2869,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-005-960.webp",
     "imageLarge": "/photos/optimized/20260914-005-1600.webp",
     "date": "2026-09-14",
-    "order": 271
+    "order": 317
   },
   {
     "id": "20260914-004",
@@ -2464,7 +2878,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-004-960.webp",
     "imageLarge": "/photos/optimized/20260914-004-1600.webp",
     "date": "2026-09-14",
-    "order": 272
+    "order": 318
   },
   {
     "id": "20260914-003",
@@ -2473,7 +2887,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-003-960.webp",
     "imageLarge": "/photos/optimized/20260914-003-1600.webp",
     "date": "2026-09-14",
-    "order": 273
+    "order": 319
   },
   {
     "id": "20260914-002",
@@ -2482,7 +2896,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-002-960.webp",
     "imageLarge": "/photos/optimized/20260914-002-1600.webp",
     "date": "2026-09-14",
-    "order": 274
+    "order": 320
   },
   {
     "id": "20260914-001",
@@ -2491,7 +2905,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260914-001-960.webp",
     "imageLarge": "/photos/optimized/20260914-001-1600.webp",
     "date": "2026-09-14",
-    "order": 275
+    "order": 321
   },
   {
     "id": "20260913-047",
@@ -2500,7 +2914,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-047-960.webp",
     "imageLarge": "/photos/optimized/20260913-047-1600.webp",
     "date": "2026-09-13",
-    "order": 276
+    "order": 322
   },
   {
     "id": "20260913-046",
@@ -2509,7 +2923,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-046-960.webp",
     "imageLarge": "/photos/optimized/20260913-046-1600.webp",
     "date": "2026-09-13",
-    "order": 277
+    "order": 323
   },
   {
     "id": "20260913-045",
@@ -2518,7 +2932,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-045-960.webp",
     "imageLarge": "/photos/optimized/20260913-045-1600.webp",
     "date": "2026-09-13",
-    "order": 278
+    "order": 324
   },
   {
     "id": "20260913-044",
@@ -2527,7 +2941,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-044-960.webp",
     "imageLarge": "/photos/optimized/20260913-044-1600.webp",
     "date": "2026-09-13",
-    "order": 279
+    "order": 325
   },
   {
     "id": "20260913-043",
@@ -2536,7 +2950,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-043-960.webp",
     "imageLarge": "/photos/optimized/20260913-043-1600.webp",
     "date": "2026-09-13",
-    "order": 280
+    "order": 326
   },
   {
     "id": "20260913-042",
@@ -2545,7 +2959,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-042-960.webp",
     "imageLarge": "/photos/optimized/20260913-042-1600.webp",
     "date": "2026-09-13",
-    "order": 281
+    "order": 327
   },
   {
     "id": "20260913-041",
@@ -2554,7 +2968,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-041-960.webp",
     "imageLarge": "/photos/optimized/20260913-041-1600.webp",
     "date": "2026-09-13",
-    "order": 282
+    "order": 328
   },
   {
     "id": "20260913-040",
@@ -2563,7 +2977,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-040-960.webp",
     "imageLarge": "/photos/optimized/20260913-040-1600.webp",
     "date": "2026-09-13",
-    "order": 283
+    "order": 329
   },
   {
     "id": "20260913-039",
@@ -2572,7 +2986,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-039-960.webp",
     "imageLarge": "/photos/optimized/20260913-039-1600.webp",
     "date": "2026-09-13",
-    "order": 284
+    "order": 330
   },
   {
     "id": "20260913-038",
@@ -2581,7 +2995,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-038-960.webp",
     "imageLarge": "/photos/optimized/20260913-038-1600.webp",
     "date": "2026-09-13",
-    "order": 285
+    "order": 331
   },
   {
     "id": "20260913-037",
@@ -2590,7 +3004,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-037-960.webp",
     "imageLarge": "/photos/optimized/20260913-037-1600.webp",
     "date": "2026-09-13",
-    "order": 286
+    "order": 332
   },
   {
     "id": "20260913-036",
@@ -2599,7 +3013,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-036-960.webp",
     "imageLarge": "/photos/optimized/20260913-036-1600.webp",
     "date": "2026-09-13",
-    "order": 287
+    "order": 333
   },
   {
     "id": "20260913-035",
@@ -2608,7 +3022,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-035-960.webp",
     "imageLarge": "/photos/optimized/20260913-035-1600.webp",
     "date": "2026-09-13",
-    "order": 288
+    "order": 334
   },
   {
     "id": "20260913-034",
@@ -2617,7 +3031,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-034-960.webp",
     "imageLarge": "/photos/optimized/20260913-034-1600.webp",
     "date": "2026-09-13",
-    "order": 289
+    "order": 335
   },
   {
     "id": "20260913-033",
@@ -2626,7 +3040,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-033-960.webp",
     "imageLarge": "/photos/optimized/20260913-033-1600.webp",
     "date": "2026-09-13",
-    "order": 290
+    "order": 336
   },
   {
     "id": "20260913-032",
@@ -2635,7 +3049,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-032-960.webp",
     "imageLarge": "/photos/optimized/20260913-032-1600.webp",
     "date": "2026-09-13",
-    "order": 291
+    "order": 337
   },
   {
     "id": "20260913-031",
@@ -2644,7 +3058,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-031-960.webp",
     "imageLarge": "/photos/optimized/20260913-031-1600.webp",
     "date": "2026-09-13",
-    "order": 292
+    "order": 338
   },
   {
     "id": "20260913-030",
@@ -2653,7 +3067,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-030-960.webp",
     "imageLarge": "/photos/optimized/20260913-030-1600.webp",
     "date": "2026-09-13",
-    "order": 293
+    "order": 339
   },
   {
     "id": "20260913-029",
@@ -2662,7 +3076,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-029-960.webp",
     "imageLarge": "/photos/optimized/20260913-029-1600.webp",
     "date": "2026-09-13",
-    "order": 294
+    "order": 340
   },
   {
     "id": "20260913-028",
@@ -2671,7 +3085,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-028-960.webp",
     "imageLarge": "/photos/optimized/20260913-028-1600.webp",
     "date": "2026-09-13",
-    "order": 295
+    "order": 341
   },
   {
     "id": "20260913-027",
@@ -2680,7 +3094,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-027-960.webp",
     "imageLarge": "/photos/optimized/20260913-027-1600.webp",
     "date": "2026-09-13",
-    "order": 296
+    "order": 342
   },
   {
     "id": "20260913-026",
@@ -2689,7 +3103,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-026-960.webp",
     "imageLarge": "/photos/optimized/20260913-026-1600.webp",
     "date": "2026-09-13",
-    "order": 297
+    "order": 343
   },
   {
     "id": "20260913-025",
@@ -2698,7 +3112,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-025-960.webp",
     "imageLarge": "/photos/optimized/20260913-025-1600.webp",
     "date": "2026-09-13",
-    "order": 298
+    "order": 344
   },
   {
     "id": "20260913-024",
@@ -2707,7 +3121,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-024-960.webp",
     "imageLarge": "/photos/optimized/20260913-024-1600.webp",
     "date": "2026-09-13",
-    "order": 299
+    "order": 345
   },
   {
     "id": "20260913-023",
@@ -2716,7 +3130,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-023-960.webp",
     "imageLarge": "/photos/optimized/20260913-023-1600.webp",
     "date": "2026-09-13",
-    "order": 300
+    "order": 346
   },
   {
     "id": "20260913-022",
@@ -2725,7 +3139,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-022-960.webp",
     "imageLarge": "/photos/optimized/20260913-022-1600.webp",
     "date": "2026-09-13",
-    "order": 301
+    "order": 347
   },
   {
     "id": "20260913-021",
@@ -2734,7 +3148,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-021-960.webp",
     "imageLarge": "/photos/optimized/20260913-021-1600.webp",
     "date": "2026-09-13",
-    "order": 302
+    "order": 348
   },
   {
     "id": "20260913-020",
@@ -2743,7 +3157,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-020-960.webp",
     "imageLarge": "/photos/optimized/20260913-020-1600.webp",
     "date": "2026-09-13",
-    "order": 303
+    "order": 349
   },
   {
     "id": "20260913-019",
@@ -2752,7 +3166,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-019-960.webp",
     "imageLarge": "/photos/optimized/20260913-019-1600.webp",
     "date": "2026-09-13",
-    "order": 304
+    "order": 350
   },
   {
     "id": "20260913-018",
@@ -2761,7 +3175,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-018-960.webp",
     "imageLarge": "/photos/optimized/20260913-018-1600.webp",
     "date": "2026-09-13",
-    "order": 305
+    "order": 351
   },
   {
     "id": "20260913-017",
@@ -2770,7 +3184,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-017-960.webp",
     "imageLarge": "/photos/optimized/20260913-017-1600.webp",
     "date": "2026-09-13",
-    "order": 306
+    "order": 352
   },
   {
     "id": "20260913-016",
@@ -2779,7 +3193,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-016-960.webp",
     "imageLarge": "/photos/optimized/20260913-016-1600.webp",
     "date": "2026-09-13",
-    "order": 307
+    "order": 353
   },
   {
     "id": "20260913-015",
@@ -2788,7 +3202,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-015-960.webp",
     "imageLarge": "/photos/optimized/20260913-015-1600.webp",
     "date": "2026-09-13",
-    "order": 308
+    "order": 354
   },
   {
     "id": "20260913-014",
@@ -2797,7 +3211,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-014-960.webp",
     "imageLarge": "/photos/optimized/20260913-014-1600.webp",
     "date": "2026-09-13",
-    "order": 309
+    "order": 355
   },
   {
     "id": "20260913-013",
@@ -2806,7 +3220,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-013-960.webp",
     "imageLarge": "/photos/optimized/20260913-013-1600.webp",
     "date": "2026-09-13",
-    "order": 310
+    "order": 356
   },
   {
     "id": "20260913-012",
@@ -2815,7 +3229,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-012-960.webp",
     "imageLarge": "/photos/optimized/20260913-012-1600.webp",
     "date": "2026-09-13",
-    "order": 311
+    "order": 357
   },
   {
     "id": "20260913-011",
@@ -2824,7 +3238,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-011-960.webp",
     "imageLarge": "/photos/optimized/20260913-011-1600.webp",
     "date": "2026-09-13",
-    "order": 312
+    "order": 358
   },
   {
     "id": "20260913-010",
@@ -2833,7 +3247,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-010-960.webp",
     "imageLarge": "/photos/optimized/20260913-010-1600.webp",
     "date": "2026-09-13",
-    "order": 313
+    "order": 359
   },
   {
     "id": "20260913-009",
@@ -2842,7 +3256,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-009-960.webp",
     "imageLarge": "/photos/optimized/20260913-009-1600.webp",
     "date": "2026-09-13",
-    "order": 314
+    "order": 360
   },
   {
     "id": "20260913-008",
@@ -2851,7 +3265,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-008-960.webp",
     "imageLarge": "/photos/optimized/20260913-008-1600.webp",
     "date": "2026-09-13",
-    "order": 315
+    "order": 361
   },
   {
     "id": "20260913-007",
@@ -2860,7 +3274,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-007-960.webp",
     "imageLarge": "/photos/optimized/20260913-007-1600.webp",
     "date": "2026-09-13",
-    "order": 316
+    "order": 362
   },
   {
     "id": "20260913-006",
@@ -2869,7 +3283,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-006-960.webp",
     "imageLarge": "/photos/optimized/20260913-006-1600.webp",
     "date": "2026-09-13",
-    "order": 317
+    "order": 363
   },
   {
     "id": "20260913-005",
@@ -2878,7 +3292,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-005-960.webp",
     "imageLarge": "/photos/optimized/20260913-005-1600.webp",
     "date": "2026-09-13",
-    "order": 318
+    "order": 364
   },
   {
     "id": "20260913-004",
@@ -2887,7 +3301,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-004-960.webp",
     "imageLarge": "/photos/optimized/20260913-004-1600.webp",
     "date": "2026-09-13",
-    "order": 319
+    "order": 365
   },
   {
     "id": "20260913-003",
@@ -2896,7 +3310,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-003-960.webp",
     "imageLarge": "/photos/optimized/20260913-003-1600.webp",
     "date": "2026-09-13",
-    "order": 320
+    "order": 366
   },
   {
     "id": "20260913-002",
@@ -2905,7 +3319,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-002-960.webp",
     "imageLarge": "/photos/optimized/20260913-002-1600.webp",
     "date": "2026-09-13",
-    "order": 321
+    "order": 367
   },
   {
     "id": "20260913-001",
@@ -2914,7 +3328,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260913-001-960.webp",
     "imageLarge": "/photos/optimized/20260913-001-1600.webp",
     "date": "2026-09-13",
-    "order": 322
+    "order": 368
   },
   {
     "id": "20260912-053",
@@ -2923,7 +3337,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-053-960.webp",
     "imageLarge": "/photos/optimized/20260912-053-1600.webp",
     "date": "2026-09-12",
-    "order": 323
+    "order": 369
   },
   {
     "id": "20260912-052",
@@ -2932,7 +3346,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-052-960.webp",
     "imageLarge": "/photos/optimized/20260912-052-1600.webp",
     "date": "2026-09-12",
-    "order": 324
+    "order": 370
   },
   {
     "id": "20260912-051",
@@ -2941,7 +3355,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-051-960.webp",
     "imageLarge": "/photos/optimized/20260912-051-1600.webp",
     "date": "2026-09-12",
-    "order": 325
+    "order": 371
   },
   {
     "id": "20260912-050",
@@ -2950,7 +3364,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-050-960.webp",
     "imageLarge": "/photos/optimized/20260912-050-1600.webp",
     "date": "2026-09-12",
-    "order": 326
+    "order": 372
   },
   {
     "id": "20260912-049",
@@ -2959,7 +3373,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-049-960.webp",
     "imageLarge": "/photos/optimized/20260912-049-1600.webp",
     "date": "2026-09-12",
-    "order": 327
+    "order": 373
   },
   {
     "id": "20260912-048",
@@ -2968,7 +3382,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-048-960.webp",
     "imageLarge": "/photos/optimized/20260912-048-1600.webp",
     "date": "2026-09-12",
-    "order": 328
+    "order": 374
   },
   {
     "id": "20260912-047",
@@ -2977,7 +3391,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-047-960.webp",
     "imageLarge": "/photos/optimized/20260912-047-1600.webp",
     "date": "2026-09-12",
-    "order": 329
+    "order": 375
   },
   {
     "id": "20260912-046",
@@ -2986,7 +3400,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-046-960.webp",
     "imageLarge": "/photos/optimized/20260912-046-1600.webp",
     "date": "2026-09-12",
-    "order": 330
+    "order": 376
   },
   {
     "id": "20260912-045",
@@ -2995,7 +3409,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-045-960.webp",
     "imageLarge": "/photos/optimized/20260912-045-1600.webp",
     "date": "2026-09-12",
-    "order": 331
+    "order": 377
   },
   {
     "id": "20260912-044",
@@ -3004,7 +3418,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-044-960.webp",
     "imageLarge": "/photos/optimized/20260912-044-1600.webp",
     "date": "2026-09-12",
-    "order": 332
+    "order": 378
   },
   {
     "id": "20260912-043",
@@ -3013,7 +3427,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-043-960.webp",
     "imageLarge": "/photos/optimized/20260912-043-1600.webp",
     "date": "2026-09-12",
-    "order": 333
+    "order": 379
   },
   {
     "id": "20260912-042",
@@ -3022,7 +3436,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-042-960.webp",
     "imageLarge": "/photos/optimized/20260912-042-1600.webp",
     "date": "2026-09-12",
-    "order": 334
+    "order": 380
   },
   {
     "id": "20260912-041",
@@ -3031,7 +3445,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-041-960.webp",
     "imageLarge": "/photos/optimized/20260912-041-1600.webp",
     "date": "2026-09-12",
-    "order": 335
+    "order": 381
   },
   {
     "id": "20260912-040",
@@ -3040,7 +3454,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-040-960.webp",
     "imageLarge": "/photos/optimized/20260912-040-1600.webp",
     "date": "2026-09-12",
-    "order": 336
+    "order": 382
   },
   {
     "id": "20260912-039",
@@ -3049,7 +3463,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-039-960.webp",
     "imageLarge": "/photos/optimized/20260912-039-1600.webp",
     "date": "2026-09-12",
-    "order": 337
+    "order": 383
   },
   {
     "id": "20260912-038",
@@ -3058,7 +3472,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-038-960.webp",
     "imageLarge": "/photos/optimized/20260912-038-1600.webp",
     "date": "2026-09-12",
-    "order": 338
+    "order": 384
   },
   {
     "id": "20260912-037",
@@ -3067,7 +3481,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-037-960.webp",
     "imageLarge": "/photos/optimized/20260912-037-1600.webp",
     "date": "2026-09-12",
-    "order": 339
+    "order": 385
   },
   {
     "id": "20260912-036",
@@ -3076,7 +3490,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-036-960.webp",
     "imageLarge": "/photos/optimized/20260912-036-1600.webp",
     "date": "2026-09-12",
-    "order": 340
+    "order": 386
   },
   {
     "id": "20260912-035",
@@ -3085,7 +3499,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-035-960.webp",
     "imageLarge": "/photos/optimized/20260912-035-1600.webp",
     "date": "2026-09-12",
-    "order": 341
+    "order": 387
   },
   {
     "id": "20260912-034",
@@ -3094,7 +3508,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-034-960.webp",
     "imageLarge": "/photos/optimized/20260912-034-1600.webp",
     "date": "2026-09-12",
-    "order": 342
+    "order": 388
   },
   {
     "id": "20260912-033",
@@ -3103,7 +3517,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-033-960.webp",
     "imageLarge": "/photos/optimized/20260912-033-1600.webp",
     "date": "2026-09-12",
-    "order": 343
+    "order": 389
   },
   {
     "id": "20260912-032",
@@ -3112,7 +3526,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-032-960.webp",
     "imageLarge": "/photos/optimized/20260912-032-1600.webp",
     "date": "2026-09-12",
-    "order": 344
+    "order": 390
   },
   {
     "id": "20260912-031",
@@ -3121,7 +3535,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-031-960.webp",
     "imageLarge": "/photos/optimized/20260912-031-1600.webp",
     "date": "2026-09-12",
-    "order": 345
+    "order": 391
   },
   {
     "id": "20260912-030",
@@ -3130,7 +3544,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-030-960.webp",
     "imageLarge": "/photos/optimized/20260912-030-1600.webp",
     "date": "2026-09-12",
-    "order": 346
+    "order": 392
   },
   {
     "id": "20260912-029",
@@ -3139,7 +3553,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-029-960.webp",
     "imageLarge": "/photos/optimized/20260912-029-1600.webp",
     "date": "2026-09-12",
-    "order": 347
+    "order": 393
   },
   {
     "id": "20260912-028",
@@ -3148,7 +3562,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-028-960.webp",
     "imageLarge": "/photos/optimized/20260912-028-1600.webp",
     "date": "2026-09-12",
-    "order": 348
+    "order": 394
   },
   {
     "id": "20260912-027",
@@ -3157,7 +3571,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-027-960.webp",
     "imageLarge": "/photos/optimized/20260912-027-1600.webp",
     "date": "2026-09-12",
-    "order": 349
+    "order": 395
   },
   {
     "id": "20260912-026",
@@ -3166,7 +3580,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-026-960.webp",
     "imageLarge": "/photos/optimized/20260912-026-1600.webp",
     "date": "2026-09-12",
-    "order": 350
+    "order": 396
   },
   {
     "id": "20260912-025",
@@ -3175,7 +3589,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-025-960.webp",
     "imageLarge": "/photos/optimized/20260912-025-1600.webp",
     "date": "2026-09-12",
-    "order": 351
+    "order": 397
   },
   {
     "id": "20260912-024",
@@ -3184,7 +3598,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-024-960.webp",
     "imageLarge": "/photos/optimized/20260912-024-1600.webp",
     "date": "2026-09-12",
-    "order": 352
+    "order": 398
   },
   {
     "id": "20260912-023",
@@ -3193,7 +3607,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-023-960.webp",
     "imageLarge": "/photos/optimized/20260912-023-1600.webp",
     "date": "2026-09-12",
-    "order": 353
+    "order": 399
   },
   {
     "id": "20260912-022",
@@ -3202,7 +3616,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-022-960.webp",
     "imageLarge": "/photos/optimized/20260912-022-1600.webp",
     "date": "2026-09-12",
-    "order": 354
+    "order": 400
   },
   {
     "id": "20260912-021",
@@ -3211,7 +3625,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-021-960.webp",
     "imageLarge": "/photos/optimized/20260912-021-1600.webp",
     "date": "2026-09-12",
-    "order": 355
+    "order": 401
   },
   {
     "id": "20260912-020",
@@ -3220,7 +3634,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-020-960.webp",
     "imageLarge": "/photos/optimized/20260912-020-1600.webp",
     "date": "2026-09-12",
-    "order": 356
+    "order": 402
   },
   {
     "id": "20260912-019",
@@ -3229,7 +3643,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-019-960.webp",
     "imageLarge": "/photos/optimized/20260912-019-1600.webp",
     "date": "2026-09-12",
-    "order": 357
+    "order": 403
   },
   {
     "id": "20260912-018",
@@ -3238,7 +3652,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-018-960.webp",
     "imageLarge": "/photos/optimized/20260912-018-1600.webp",
     "date": "2026-09-12",
-    "order": 358
+    "order": 404
   },
   {
     "id": "20260912-017",
@@ -3247,7 +3661,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-017-960.webp",
     "imageLarge": "/photos/optimized/20260912-017-1600.webp",
     "date": "2026-09-12",
-    "order": 359
+    "order": 405
   },
   {
     "id": "20260912-016",
@@ -3256,7 +3670,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-016-960.webp",
     "imageLarge": "/photos/optimized/20260912-016-1600.webp",
     "date": "2026-09-12",
-    "order": 360
+    "order": 406
   },
   {
     "id": "20260912-015",
@@ -3265,7 +3679,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-015-960.webp",
     "imageLarge": "/photos/optimized/20260912-015-1600.webp",
     "date": "2026-09-12",
-    "order": 361
+    "order": 407
   },
   {
     "id": "20260912-014",
@@ -3274,7 +3688,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-014-960.webp",
     "imageLarge": "/photos/optimized/20260912-014-1600.webp",
     "date": "2026-09-12",
-    "order": 362
+    "order": 408
   },
   {
     "id": "20260912-013",
@@ -3283,7 +3697,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-013-960.webp",
     "imageLarge": "/photos/optimized/20260912-013-1600.webp",
     "date": "2026-09-12",
-    "order": 363
+    "order": 409
   },
   {
     "id": "20260912-012",
@@ -3292,7 +3706,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-012-960.webp",
     "imageLarge": "/photos/optimized/20260912-012-1600.webp",
     "date": "2026-09-12",
-    "order": 364
+    "order": 410
   },
   {
     "id": "20260912-011",
@@ -3301,7 +3715,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-011-960.webp",
     "imageLarge": "/photos/optimized/20260912-011-1600.webp",
     "date": "2026-09-12",
-    "order": 365
+    "order": 411
   },
   {
     "id": "20260912-010",
@@ -3310,7 +3724,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-010-960.webp",
     "imageLarge": "/photos/optimized/20260912-010-1600.webp",
     "date": "2026-09-12",
-    "order": 366
+    "order": 412
   },
   {
     "id": "20260912-009",
@@ -3319,7 +3733,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-009-960.webp",
     "imageLarge": "/photos/optimized/20260912-009-1600.webp",
     "date": "2026-09-12",
-    "order": 367
+    "order": 413
   },
   {
     "id": "20260912-008",
@@ -3328,7 +3742,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-008-960.webp",
     "imageLarge": "/photos/optimized/20260912-008-1600.webp",
     "date": "2026-09-12",
-    "order": 368
+    "order": 414
   },
   {
     "id": "20260912-007",
@@ -3337,7 +3751,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-007-960.webp",
     "imageLarge": "/photos/optimized/20260912-007-1600.webp",
     "date": "2026-09-12",
-    "order": 369
+    "order": 415
   },
   {
     "id": "20260912-006",
@@ -3346,7 +3760,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-006-960.webp",
     "imageLarge": "/photos/optimized/20260912-006-1600.webp",
     "date": "2026-09-12",
-    "order": 370
+    "order": 416
   },
   {
     "id": "20260912-005",
@@ -3355,7 +3769,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-005-960.webp",
     "imageLarge": "/photos/optimized/20260912-005-1600.webp",
     "date": "2026-09-12",
-    "order": 371
+    "order": 417
   },
   {
     "id": "20260912-004",
@@ -3364,7 +3778,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-004-960.webp",
     "imageLarge": "/photos/optimized/20260912-004-1600.webp",
     "date": "2026-09-12",
-    "order": 372
+    "order": 418
   },
   {
     "id": "20260912-003",
@@ -3373,7 +3787,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-003-960.webp",
     "imageLarge": "/photos/optimized/20260912-003-1600.webp",
     "date": "2026-09-12",
-    "order": 373
+    "order": 419
   },
   {
     "id": "20260912-002",
@@ -3382,7 +3796,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-002-960.webp",
     "imageLarge": "/photos/optimized/20260912-002-1600.webp",
     "date": "2026-09-12",
-    "order": 374
+    "order": 420
   },
   {
     "id": "20260912-001",
@@ -3391,7 +3805,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260912-001-960.webp",
     "imageLarge": "/photos/optimized/20260912-001-1600.webp",
     "date": "2026-09-12",
-    "order": 375
+    "order": 421
   },
   {
     "id": "20260911-003",
@@ -3400,7 +3814,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260911-003-960.webp",
     "imageLarge": "/photos/optimized/20260911-003-1600.webp",
     "date": "2026-09-11",
-    "order": 376
+    "order": 422
   },
   {
     "id": "20260911-002",
@@ -3409,7 +3823,7 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260911-002-960.webp",
     "imageLarge": "/photos/optimized/20260911-002-1600.webp",
     "date": "2026-09-11",
-    "order": 377
+    "order": 423
   },
   {
     "id": "20260911-001",
@@ -3418,6 +3832,6 @@ export const generatedPhotoWorks: GeneratedPhotoWork[] = [
     "imageMedium": "/photos/optimized/20260911-001-960.webp",
     "imageLarge": "/photos/optimized/20260911-001-1600.webp",
     "date": "2026-09-11",
-    "order": 378
+    "order": 424
   }
 ];
