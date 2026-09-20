@@ -659,6 +659,12 @@ const [
   let currentPage = 1;
   let filtersActivated = false;
 
+  // 当前页面实际使用的数据。
+  // 初始化时先使用 localStorage 缓存，云端请求成功后立即切换为 D1 数据。
+  let activeStore: PhotoStore = {};
+  let cloudStoreLoaded = false;
+  let cloudRefreshInProgress = false;
+
   const DEFAULT_DATE =
     dateControl?.dataset.defaultDate ?? '';
 
@@ -864,18 +870,28 @@ const [
   }
 
   async function refreshFromCloud(): Promise<void> {
+    if (cloudRefreshInProgress) {
+      return;
+    }
+
+    cloudRefreshInProgress = true;
+
     try {
       const cloudStore = await fetchCloudStore();
 
       /*
-       * Exhibition 是只读展示页。
+       * 云端请求成功后，立即把当前页面的数据源切换到 D1。
        *
-       * Cloudflare D1 是跨设备的唯一正式数据源。
-       * 因此网络请求成功后，不再让 Exhibition 的旧
-       * localStorage 数据参与合并，也不再用本地数据
-       * 覆盖云端结果。
-       *
-       * localStorage 只作为下一次打开页面前的临时缓存。
+       * 注意：这里不能再调用 readStore()，也不能把 localStorage
+       * 与 cloudStore 做反向覆盖，否则同一设备上的旧缓存会重新
+       * 把云端最新数据盖回去。
+       */
+      activeStore = cloudStore;
+      cloudStoreLoaded = true;
+
+      /*
+       * localStorage 现在只承担“缓存”的角色。
+       * 它保存的是刚刚确认过的云端数据，而不是新的数据源。
        */
       localStorage.setItem(
         STORAGE_KEY,
@@ -883,19 +899,24 @@ const [
       );
 
       /*
-       * 直接使用刚刚从 D1 获取的 cloudStore 更新页面。
-       * 这样 PC / 手机 / Netlify / Cloudflare 都会看到
-       * 同一份云端正式数据。
+       * 直接使用 D1 返回的数据更新 DOM。
+       * 这是跨设备同步的正式展示路径。
        */
-      applyMetadata(cloudStore);
+      applyMetadata(activeStore);
       updateFilterState();
       currentPage = 1;
       render();
     } catch (error) {
+      /*
+       * 云端请求失败时保留当前缓存页面，不让页面闪退。
+       * activeStore 在这种情况下保持原值。
+       */
       console.warn(
         '[Exhibition] Failed to sync cloud photo metadata:',
         error
       );
+    } finally {
+      cloudRefreshInProgress = false;
     }
   }
 
@@ -946,7 +967,7 @@ const [
     return card.dataset.date ?? '';
   }
 
-  function applyMetadata(store: PhotoStore = readStore()): void {
+  function applyMetadata(store: PhotoStore = activeStore): void {
 
     cards.forEach((card: HTMLElement) => {
       const id = card.dataset.id ?? '';
@@ -1030,10 +1051,9 @@ const [
     const grid =
       document.querySelector<HTMLElement>('#works-grid');
 
-
-const originalOrder = new Map(
-  cards.map((card, index) => [card, index])
-);
+    const originalOrder = new Map(
+      cards.map((card, index) => [card, index])
+    );
 
     const sortedCards = getCardsInDomOrder().sort(
       (a: HTMLElement, b: HTMLElement) => {
@@ -1699,24 +1719,34 @@ const originalOrder = new Map(
   );
 
   function refreshFromStorage(): void {
-    applyMetadata();
+    /*
+     * 一旦本次页面已经成功拿到云端数据，localStorage 就不再有资格
+     * 覆盖当前页面。否则旧缓存可能在 pageshow / astro:page-load /
+     * storage 事件之后把刚刚拿到的 D1 数据重新覆盖。
+     */
+    if (cloudStoreLoaded) {
+      return;
+    }
 
+    activeStore = readStore();
+
+    applyMetadata(activeStore);
     updateFilterState();
-
     currentPage = 1;
-
     render();
   }
 
   /*
-   * Admin 页面修改 localStorage 后，
-   * Exhibition 页面打开时 / 返回时重新读取。
+   * Admin 页面如果在同一个浏览器标签组里修改了 localStorage，
+   * 只有在云端数据尚未成功加载前，Exhibition 才允许使用这份缓存。
+   * 云端成功加载后，D1 始终优先。
    */
   window.addEventListener(
     'storage',
     (event: StorageEvent) => {
       if (
-        event.key === STORAGE_KEY
+        event.key === STORAGE_KEY &&
+        !cloudStoreLoaded
       ) {
         refreshFromStorage();
       }
@@ -1726,7 +1756,10 @@ const originalOrder = new Map(
   window.addEventListener(
     'pageshow',
     () => {
-      refreshFromStorage();
+      if (!cloudStoreLoaded) {
+        refreshFromStorage();
+      }
+
       void refreshFromCloud();
     }
   );
@@ -1734,7 +1767,10 @@ const originalOrder = new Map(
   document.addEventListener(
     'astro:page-load',
     () => {
-      refreshFromStorage();
+      if (!cloudStoreLoaded) {
+        refreshFromStorage();
+      }
+
       void refreshFromCloud();
     }
   );
@@ -1755,7 +1791,8 @@ const originalOrder = new Map(
     setDateInputs('');
   }
 
-  applyMetadata();
+  activeStore = readStore();
+  applyMetadata(activeStore);
   updateFilterState();
   render();
 
