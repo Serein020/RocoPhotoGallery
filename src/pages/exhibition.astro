@@ -163,10 +163,6 @@ const [
 							ALL
 						</option>
 
-						<option value="0">
-							0 PEOPLE
-						</option>
-
 						<option value="1">
 							1 PERSON
 						</option>
@@ -288,7 +284,7 @@ const [
 						type="button"
 						class="work-link lightbox-trigger"
 						data-lightbox-index={index}
-						data-lightbox-src={`/photos/optimized/${work.id}-1600.webp`}
+						data-lightbox-src={work.imageLarge}
 						data-lightbox-alt={work.id}
 						data-lightbox-title={work.id}
 						data-lightbox-date={work.date}
@@ -303,16 +299,16 @@ const [
 
 									<source
 										media="(max-width: 760px)"
-										srcset={`/photos/optimized/${work.id}-480.webp`}
+										srcset={work.imageSmall}
 									/>
 
 									<source
 										media="(max-width: 1200px)"
-										srcset={`/photos/optimized/${work.id}-960.webp`}
+										srcset={work.imageMedium}
 									/>
 
 									<img
-										src={`/photos/optimized/${work.id}-1600.webp`}
+										src={work.imageLarge}
 										alt={work.id}
 										loading={index < 6 ? 'eager' : 'lazy'}
 										decoding="async"
@@ -412,33 +408,10 @@ const [
 			</button>
 
 
-			<div class="page-jump">
-
-				<label
-					class="page-jump-label"
-					for="page-input"
-				>
-					PAGE
-				</label>
-
-				<input
-					class="page-input"
-					id="page-input"
-					type="number"
-					inputmode="numeric"
-					min="1"
-					value="1"
-					aria-label="Page number"
-				/>
-
-				<span
-					class="page-total"
-					id="page-total"
-				>
-					/ 1
-				</span>
-
-			</div>
+			<div
+				class="page-numbers"
+				id="page-numbers"
+			></div>
 
 
 			<button
@@ -591,12 +564,16 @@ const [
   const STORAGE_KEY = 'roco-photo-admin-draft-v1';
   const PAGE_SIZE = 20;
 
+  const CLOUDFLARE_API =
+    'https://rocophotogallery.weykeiii.workers.dev';
+
   type PhotoData = {
     id: string;
     image?: string;
     date?: string;
     people?: number | null;
     JINIES?: boolean | null;
+    updatedAt?: string;
   };
 
   type PhotoStore = Record<string, PhotoData>;
@@ -654,12 +631,6 @@ const [
 
   const pagination =
     document.querySelector<HTMLElement>('#pagination');
-
-  const pageInput =
-    document.querySelector<HTMLInputElement>('#page-input');
-
-  const pageTotal =
-    document.querySelector<HTMLElement>('#page-total');
 
   const lightbox =
     document.querySelector<HTMLElement>('#lightbox');
@@ -772,6 +743,150 @@ const [
     store: PhotoStore
   ): PhotoData | undefined {
     return store[id];
+  }
+
+  async function fetchCloudStore(): Promise<PhotoStore> {
+    const response = await fetch(
+      `${CLOUDFLARE_API}/api/photos`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+        cache: 'no-store',
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `GET /api/photos failed: ${response.status}`
+      );
+    }
+
+    const result: unknown = await response.json();
+
+    if (
+      !result ||
+      typeof result !== 'object' ||
+      !('photos' in result) ||
+      !result.photos ||
+      typeof result.photos !== 'object'
+    ) {
+      throw new Error(
+        'Cloud photo metadata returned an invalid response.'
+      );
+    }
+
+    const cloudPhotos =
+      result.photos as Record<string, unknown>;
+
+    return Object.entries(cloudPhotos).reduce<PhotoStore>(
+      (store: PhotoStore, [id, value]: [string, unknown]) => {
+        if (!value || typeof value !== 'object') {
+          return store;
+        }
+
+        const row = value as Record<string, unknown>;
+
+        store[id] = {
+          id,
+          image:
+            typeof row.image === 'string'
+              ? row.image
+              : undefined,
+          date:
+            typeof row.date === 'string'
+              ? row.date
+              : undefined,
+          people:
+            typeof row.people === 'number'
+              ? row.people
+              : null,
+          JINIES:
+            row.jinies === 1 ||
+            row.jinies === true
+              ? true
+              : row.jinies === 0 ||
+                row.jinies === false
+              ? false
+              : null,
+          updatedAt:
+            typeof row.updatedAt === 'string'
+              ? row.updatedAt
+              : undefined,
+        };
+
+        return store;
+      },
+      {}
+    );
+  }
+
+  function getUpdatedTimestamp(
+    photo: PhotoData | undefined
+  ): number {
+    if (!photo?.updatedAt) {
+      return 0;
+    }
+
+    const timestamp = Date.parse(photo.updatedAt);
+
+    return Number.isNaN(timestamp)
+      ? 0
+      : timestamp;
+  }
+
+  function mergeStores(
+    localStore: PhotoStore,
+    cloudStore: PhotoStore
+  ): PhotoStore {
+    const merged: PhotoStore = {
+      ...localStore,
+    };
+
+    /*
+     * Exhibition 是只读展示页。
+     * 跨设备同步时，Cloudflare D1 是最终数据源。
+     * 因此只要云端存在某张照片的记录，就直接以云端记录覆盖本地旧缓存。
+     */
+    Object.entries(cloudStore).forEach(
+      ([id, cloudPhoto]) => {
+        const localPhoto = merged[id];
+
+        merged[id] = {
+          ...localPhoto,
+          ...cloudPhoto,
+        };
+      }
+    );
+
+    return merged;
+  }
+
+  async function refreshFromCloud(): Promise<void> {
+    try {
+      const localStore = readStore();
+      const cloudStore = await fetchCloudStore();
+      const mergedStore = mergeStores(
+        localStore,
+        cloudStore
+      );
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(mergedStore)
+      );
+
+      applyMetadata();
+      updateFilterState();
+      currentPage = 1;
+      render();
+    } catch (error) {
+      console.warn(
+        '[Exhibition] Failed to sync cloud photo metadata:',
+        error
+      );
+    }
   }
 
   function getPeopleLabel(
@@ -1044,10 +1159,6 @@ const originalOrder = new Map(
 
     const people = card.dataset.people ?? '';
 
-    if (value === '0') {
-      return people === '0';
-    }
-
     if (value === '1') {
       return people === '1';
     }
@@ -1132,42 +1243,6 @@ const originalOrder = new Map(
       `${total} ${total === 1 ? 'WORK' : 'WORKS'}`;
   }
 
-  function goToPage(
-    page: number,
-    totalPages: number
-  ): void {
-    const targetPage = Math.min(
-      totalPages,
-      Math.max(1, Math.trunc(page))
-    );
-
-    currentPage = targetPage;
-
-    if (pageInput) {
-      pageInput.value = String(currentPage);
-    }
-
-    render();
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-
-  function syncPageInput(
-    totalPages: number
-  ): void {
-    if (pageInput) {
-      pageInput.max = String(totalPages);
-      pageInput.value = String(currentPage);
-    }
-
-    if (pageTotal) {
-      pageTotal.textContent = `/ ${totalPages}`;
-    }
-  }
-
   function renderPagination(
     total: number
   ): void {
@@ -1175,28 +1250,82 @@ const originalOrder = new Map(
       return;
     }
 
-    const totalPages = Math.max(
-      1,
-      Math.ceil(total / PAGE_SIZE)
+    pagination.innerHTML = '';
+
+    const totalPages =
+      Math.ceil(total / PAGE_SIZE);
+
+    if (totalPages <= 1) {
+      pagination.hidden = true;
+      return;
+    }
+
+    pagination.hidden = false;
+
+    const createPageButton = (
+      label: string,
+      page: number,
+      disabled = false
+    ): HTMLButtonElement => {
+      const button =
+        document.createElement('button');
+
+      button.type = 'button';
+      button.className = 'page-button';
+      button.textContent = label;
+      button.disabled = disabled;
+
+      if (page === currentPage) {
+        button.classList.add('is-active');
+        button.setAttribute(
+          'aria-current',
+          'page'
+        );
+      }
+
+      button.addEventListener(
+        'click',
+        () => {
+          currentPage = page;
+          render();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+      );
+
+      return button;
+    };
+
+    pagination.appendChild(
+      createPageButton(
+        '←',
+        currentPage - 1,
+        currentPage <= 1
+      )
     );
 
-    pagination.hidden = totalPages <= 1;
-
-    syncPageInput(totalPages);
-
-    const previousPage =
-      document.querySelector<HTMLButtonElement>('#previous-page');
-
-    const nextPage =
-      document.querySelector<HTMLButtonElement>('#next-page');
-
-    if (previousPage) {
-      previousPage.disabled = currentPage <= 1;
+    for (
+      let page = 1;
+      page <= totalPages;
+      page += 1
+    ) {
+      pagination.appendChild(
+        createPageButton(
+          String(page),
+          page
+        )
+      );
     }
 
-    if (nextPage) {
-      nextPage.disabled = currentPage >= totalPages;
-    }
+    pagination.appendChild(
+      createPageButton(
+        '→',
+        currentPage + 1,
+        currentPage >= totalPages
+      )
+    );
   }
 
   function render(): void {
@@ -1478,64 +1607,6 @@ const originalOrder = new Map(
     resetFilters
   );
 
-  document
-    .querySelector<HTMLButtonElement>('#previous-page')
-    ?.addEventListener('click', () => {
-      if (currentPage > 1) {
-        goToPage(currentPage - 1, Math.max(
-          1,
-          Math.ceil(getFilteredCards().length / PAGE_SIZE)
-        ));
-      }
-    });
-
-  document
-    .querySelector<HTMLButtonElement>('#next-page')
-    ?.addEventListener('click', () => {
-      const totalPages = Math.max(
-        1,
-        Math.ceil(getFilteredCards().length / PAGE_SIZE)
-      );
-
-      if (currentPage < totalPages) {
-        goToPage(currentPage + 1, totalPages);
-      }
-    });
-
-  pageInput?.addEventListener(
-    'change',
-    () => {
-      const total = getFilteredCards().length;
-      const totalPages = Math.max(
-        1,
-        Math.ceil(total / PAGE_SIZE)
-      );
-      const requestedPage = Number.parseInt(
-        pageInput.value,
-        10
-      );
-
-      if (!Number.isFinite(requestedPage)) {
-        pageInput.value = String(currentPage);
-        return;
-      }
-
-      goToPage(requestedPage, totalPages);
-    }
-  );
-
-  pageInput?.addEventListener(
-    'keydown',
-    (event: KeyboardEvent) => {
-      if (event.key !== 'Enter') {
-        return;
-      }
-
-      event.preventDefault();
-      pageInput.dispatchEvent(new Event('change'));
-    }
-  );
-
   /*
    * Lightbox open
    */
@@ -1647,6 +1718,7 @@ const originalOrder = new Map(
     'pageshow',
     () => {
       refreshFromStorage();
+      void refreshFromCloud();
     }
   );
 
@@ -1654,6 +1726,7 @@ const originalOrder = new Map(
     'astro:page-load',
     () => {
       refreshFromStorage();
+      void refreshFromCloud();
     }
   );
 
@@ -1676,6 +1749,8 @@ const originalOrder = new Map(
   applyMetadata();
   updateFilterState();
   render();
+
+  void refreshFromCloud();
 </script>
 
 <style>
@@ -2700,75 +2775,64 @@ const originalOrder = new Map(
 	}
 
 
-	.page-jump {
+	.page-numbers {
 		display: flex;
 
-		align-items: center;
+		align-items:
+			center;
 
-		justify-content: center;
-
-		gap: 8px;
-
-		min-width: 150px;
+		gap: 6px;
 	}
 
 
-	.page-jump-label {
-		font-size: 8px;
+	.page-number {
+		display: grid;
 
-		font-weight: 900;
+		place-items:
+			center;
 
-		letter-spacing: 0.14em;
+		width: 30px;
 
-		opacity: 0.42;
-	}
+		height: 30px;
 
+		padding: 0;
 
-	.page-input {
-		width: 54px;
+		border: 0;
 
-		height: 34px;
+		border-radius: 50%;
 
-		padding: 0 6px;
+		background:
+			transparent;
 
-		border: 2px solid #171717;
+		color:
+			#171717;
 
-		border-radius: 7px 8px 6px 7px;
-
-		background: #fff8e8;
-
-		color: #171717;
-
-		font-size: 11px;
-
-		font-weight: 900;
-
-		text-align: center;
-
-		outline: none;
-	}
-
-
-	.page-input:focus {
-		box-shadow: 3px 3px 0 rgba(23, 23, 23, 0.12);
-	}
-
-
-	.page-input::-webkit-inner-spin-button,
-	.page-input::-webkit-outer-spin-button {
-		margin: 0;
-		appearance: none;
-	}
-
-
-	.page-total {
 		font-size: 9px;
 
 		font-weight: 900;
 
-		letter-spacing: 0.06em;
+		cursor: pointer;
+	}
 
-		opacity: 0.45;
+
+	.page-number.active {
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+	}
+
+
+	.page-ellipsis {
+		width: 23px;
+
+		text-align:
+			center;
+
+		font-size: 10px;
+
+		opacity: 0.4;
 	}
 
 
@@ -3508,36 +3572,24 @@ const originalOrder = new Map(
 		}
 
 
-		.page-jump {
+		.page-numbers {
 
-			min-width: 0;
-
-			gap: 6px;
-
-		}
-
-
-		.page-jump-label {
-
-			font-size: 7px;
+			gap:
+				2px;
 
 		}
 
 
-		.page-input {
+		.page-number {
 
-			width: 48px;
+			width:
+				27px;
 
-			height: 32px;
+			height:
+				27px;
 
-			font-size: 10px;
-
-		}
-
-
-		.page-total {
-
-			font-size: 8px;
+			font-size:
+				8px;
 
 		}
 
@@ -3800,6 +3852,15 @@ const originalOrder = new Map(
 
 		}
 
+
+		.page-number:nth-child(
+			n + 6
+		) {
+
+			display:
+				none;
+
+		}
 
 	}
 
