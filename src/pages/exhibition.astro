@@ -1279,7 +1279,24 @@ const [
       return;
     }
 
-    pagination.innerHTML = '';
+    const previousButton =
+      pagination.querySelector<HTMLButtonElement>(
+        '#previous-page'
+      );
+
+    const nextButton =
+      pagination.querySelector<HTMLButtonElement>(
+        '#next-page'
+      );
+
+    const pageNumbers =
+      pagination.querySelector<HTMLElement>(
+        '#page-numbers'
+      );
+
+    if (!previousButton || !nextButton || !pageNumbers) {
+      return;
+    }
 
     const totalPages =
       Math.ceil(total / PAGE_SIZE);
@@ -1291,70 +1308,108 @@ const [
 
     pagination.hidden = false;
 
-    const createPageButton = (
-      label: string,
-      page: number,
-      disabled = false
-    ): HTMLButtonElement => {
+    previousButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage >= totalPages;
+
+    previousButton.onclick = () => {
+      if (currentPage <= 1) {
+        return;
+      }
+
+      currentPage -= 1;
+      render();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+
+    nextButton.onclick = () => {
+      if (currentPage >= totalPages) {
+        return;
+      }
+
+      currentPage += 1;
+      render();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+
+    pageNumbers.innerHTML = '';
+
+    const appendPage = (page: number) => {
       const button =
         document.createElement('button');
 
       button.type = 'button';
-      button.className = 'page-button';
-      button.textContent = label;
-      button.disabled = disabled;
+      button.className = 'page-number';
+      button.textContent = String(page);
 
       if (page === currentPage) {
-        button.classList.add('is-active');
+        button.classList.add('active');
         button.setAttribute(
           'aria-current',
           'page'
         );
       }
 
-      button.addEventListener(
-        'click',
-        () => {
-          currentPage = page;
-          render();
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
+      button.addEventListener('click', () => {
+        if (page === currentPage) {
+          return;
         }
-      );
 
-      return button;
+        currentPage = page;
+        render();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+
+      pageNumbers.appendChild(button);
     };
 
-    pagination.appendChild(
-      createPageButton(
-        '←',
-        currentPage - 1,
-        currentPage <= 1
-      )
+    const appendEllipsis = () => {
+      const span = document.createElement('span');
+      span.className = 'page-ellipsis';
+      span.textContent = '…';
+      pageNumbers.appendChild(span);
+    };
+
+    if (totalPages <= 7) {
+      for (let page = 1; page <= totalPages; page += 1) {
+        appendPage(page);
+      }
+      return;
+    }
+
+    appendPage(1);
+
+    if (currentPage > 4) {
+      appendEllipsis();
+    }
+
+    const startPage = Math.max(2, currentPage - 1);
+    const endPage = Math.min(
+      totalPages - 1,
+      currentPage + 1
     );
 
     for (
-      let page = 1;
-      page <= totalPages;
+      let page = startPage;
+      page <= endPage;
       page += 1
     ) {
-      pagination.appendChild(
-        createPageButton(
-          String(page),
-          page
-        )
-      );
+      appendPage(page);
     }
 
-    pagination.appendChild(
-      createPageButton(
-        '→',
-        currentPage + 1,
-        currentPage >= totalPages
-      )
-    );
+    if (currentPage < totalPages - 3) {
+      appendEllipsis();
+    }
+
+    appendPage(totalPages);
   }
 
   function render(): void {
