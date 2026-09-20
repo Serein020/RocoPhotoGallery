@@ -401,23 +401,32 @@ const [
 			<button
 				class="page-arrow"
 				type="button"
-				id="previous-page"
 				aria-label="Previous page"
+				disabled
 			>
 				←
 			</button>
 
 
 			<div
-				class="page-numbers"
-				id="page-numbers"
-			></div>
+				class="page-indicator"
+				aria-label="Current page"
+			>
+				<input
+					class="page-current-input"
+					type="number"
+					value="1"
+					min="1"
+					aria-label="Current page"
+				/>
+				<span class="page-slash">/</span>
+				<span class="page-total">1</span>
+			</div>
 
 
 			<button
 				class="page-arrow"
 				type="button"
-				id="next-page"
 				aria-label="Next page"
 			>
 				→
@@ -567,6 +576,11 @@ const [
   const CLOUDFLARE_API =
     'https://rocophotogallery.weykeiii.workers.dev';
 
+  const PHOTO_API =
+    window.location.hostname.endsWith('.netlify.app')
+      ? ''
+      : CLOUDFLARE_API;
+
   type PhotoData = {
     id: string;
     image?: string;
@@ -659,12 +673,6 @@ const [
   let currentPage = 1;
   let filtersActivated = false;
 
-  // 当前页面实际使用的数据。
-  // 初始化时先使用 localStorage 缓存，云端请求成功后立即切换为 D1 数据。
-  let activeStore: PhotoStore = {};
-  let cloudStoreLoaded = false;
-  let cloudRefreshInProgress = false;
-
   const DEFAULT_DATE =
     dateControl?.dataset.defaultDate ?? '';
 
@@ -753,7 +761,7 @@ const [
 
   async function fetchCloudStore(): Promise<PhotoStore> {
     const response = await fetch(
-      `${CLOUDFLARE_API}/api/photos?t=${Date.now()}`,
+      `${PHOTO_API}/api/photos?t=${Date.now()}`,
       {
         method: 'GET',
         headers: {
@@ -870,28 +878,18 @@ const [
   }
 
   async function refreshFromCloud(): Promise<void> {
-    if (cloudRefreshInProgress) {
-      return;
-    }
-
-    cloudRefreshInProgress = true;
-
     try {
       const cloudStore = await fetchCloudStore();
 
       /*
-       * 云端请求成功后，立即把当前页面的数据源切换到 D1。
+       * Exhibition 是只读展示页。
        *
-       * 注意：这里不能再调用 readStore()，也不能把 localStorage
-       * 与 cloudStore 做反向覆盖，否则同一设备上的旧缓存会重新
-       * 把云端最新数据盖回去。
-       */
-      activeStore = cloudStore;
-      cloudStoreLoaded = true;
-
-      /*
-       * localStorage 现在只承担“缓存”的角色。
-       * 它保存的是刚刚确认过的云端数据，而不是新的数据源。
+       * Cloudflare D1 是跨设备的唯一正式数据源。
+       * 因此网络请求成功后，不再让 Exhibition 的旧
+       * localStorage 数据参与合并，也不再用本地数据
+       * 覆盖云端结果。
+       *
+       * localStorage 只作为下一次打开页面前的临时缓存。
        */
       localStorage.setItem(
         STORAGE_KEY,
@@ -899,24 +897,19 @@ const [
       );
 
       /*
-       * 直接使用 D1 返回的数据更新 DOM。
-       * 这是跨设备同步的正式展示路径。
+       * 直接使用刚刚从 D1 获取的 cloudStore 更新页面。
+       * 这样 PC / 手机 / Netlify / Cloudflare 都会看到
+       * 同一份云端正式数据。
        */
-      applyMetadata(activeStore);
+      applyMetadata(cloudStore);
       updateFilterState();
       currentPage = 1;
       render();
     } catch (error) {
-      /*
-       * 云端请求失败时保留当前缓存页面，不让页面闪退。
-       * activeStore 在这种情况下保持原值。
-       */
       console.warn(
         '[Exhibition] Failed to sync cloud photo metadata:',
         error
       );
-    } finally {
-      cloudRefreshInProgress = false;
     }
   }
 
@@ -967,7 +960,7 @@ const [
     return card.dataset.date ?? '';
   }
 
-  function applyMetadata(store: PhotoStore = activeStore): void {
+  function applyMetadata(store: PhotoStore = readStore()): void {
 
     cards.forEach((card: HTMLElement) => {
       const id = card.dataset.id ?? '';
@@ -1018,11 +1011,11 @@ const [
       }
 
       if (JINIES === true) {
-        card.setAttribute('data-jinies', 'yes');
+        card.dataset.JINIES = 'yes';
       } else if (JINIES === false) {
-        card.setAttribute('data-jinies', 'no');
+        card.dataset.JINIES = 'no';
       } else {
-        card.removeAttribute('data-jinies');
+        delete card.dataset.JINIES;
       }
 
       /*
@@ -1051,9 +1044,10 @@ const [
     const grid =
       document.querySelector<HTMLElement>('#works-grid');
 
-    const originalOrder = new Map(
-      cards.map((card, index) => [card, index])
-    );
+
+const originalOrder = new Map(
+  cards.map((card, index) => [card, index])
+);
 
     const sortedCards = getCardsInDomOrder().sort(
       (a: HTMLElement, b: HTMLElement) => {
@@ -1212,7 +1206,7 @@ const [
       return true;
     }
 
-    const JINIES = card.getAttribute('data-jinies') ?? '';
+    const JINIES = card.dataset.JINIES ?? '';
 
     if (value === 'yes') {
       return JINIES === 'yes';
@@ -1279,24 +1273,7 @@ const [
       return;
     }
 
-    const previousButton =
-      pagination.querySelector<HTMLButtonElement>(
-        '#previous-page'
-      );
-
-    const nextButton =
-      pagination.querySelector<HTMLButtonElement>(
-        '#next-page'
-      );
-
-    const pageNumbers =
-      pagination.querySelector<HTMLElement>(
-        '#page-numbers'
-      );
-
-    if (!previousButton || !nextButton || !pageNumbers) {
-      return;
-    }
+    pagination.innerHTML = '';
 
     const totalPages =
       Math.ceil(total / PAGE_SIZE);
@@ -1308,108 +1285,134 @@ const [
 
     pagination.hidden = false;
 
-    previousButton.disabled = currentPage <= 1;
-    nextButton.disabled = currentPage >= totalPages;
-
-    previousButton.onclick = () => {
-      if (currentPage <= 1) {
-        return;
-      }
-
-      currentPage -= 1;
-      render();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    };
-
-    nextButton.onclick = () => {
-      if (currentPage >= totalPages) {
-        return;
-      }
-
-      currentPage += 1;
-      render();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    };
-
-    pageNumbers.innerHTML = '';
-
-    const appendPage = (page: number) => {
+    const createArrow = (
+      label: string,
+      page: number,
+      disabled: boolean
+    ): HTMLButtonElement => {
       const button =
         document.createElement('button');
 
       button.type = 'button';
-      button.className = 'page-number';
-      button.textContent = String(page);
+      button.className = 'page-arrow';
+      button.textContent = label;
+      button.disabled = disabled;
 
-      if (page === currentPage) {
-        button.classList.add('active');
-        button.setAttribute(
-          'aria-current',
-          'page'
-        );
-      }
-
-      button.addEventListener('click', () => {
-        if (page === currentPage) {
-          return;
+      button.addEventListener(
+        'click',
+        () => {
+          currentPage = page;
+          render();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
         }
+      );
 
-        currentPage = page;
-        render();
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      });
-
-      pageNumbers.appendChild(button);
+      return button;
     };
 
-    const appendEllipsis = () => {
-      const span = document.createElement('span');
-      span.className = 'page-ellipsis';
-      span.textContent = '…';
-      pageNumbers.appendChild(span);
-    };
+    const pageInput =
+      document.createElement('input');
 
-    if (totalPages <= 7) {
-      for (let page = 1; page <= totalPages; page += 1) {
-        appendPage(page);
-      }
-      return;
-    }
-
-    appendPage(1);
-
-    if (currentPage > 4) {
-      appendEllipsis();
-    }
-
-    const startPage = Math.max(2, currentPage - 1);
-    const endPage = Math.min(
-      totalPages - 1,
-      currentPage + 1
+    pageInput.type = 'number';
+    pageInput.className = 'page-current-input';
+    pageInput.min = '1';
+    pageInput.max = String(totalPages);
+    pageInput.value = String(currentPage);
+    pageInput.inputMode = 'numeric';
+    pageInput.setAttribute(
+      'aria-label',
+      'Current page'
+    );
+    pageInput.setAttribute(
+      'aria-current',
+      'page'
     );
 
-    for (
-      let page = startPage;
-      page <= endPage;
-      page += 1
-    ) {
-      appendPage(page);
-    }
+    const jumpToPage = (): void => {
+      const requestedPage = Number.parseInt(
+        pageInput.value,
+        10
+      );
 
-    if (currentPage < totalPages - 3) {
-      appendEllipsis();
-    }
+      if (
+        Number.isNaN(requestedPage) ||
+        requestedPage < 1 ||
+        requestedPage > totalPages
+      ) {
+        pageInput.value = String(currentPage);
+        return;
+      }
 
-    appendPage(totalPages);
+      currentPage = requestedPage;
+      render();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+
+    pageInput.addEventListener(
+      'change',
+      jumpToPage
+    );
+
+    pageInput.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          jumpToPage();
+        }
+      }
+    );
+
+    const pageIndicator =
+      document.createElement('div');
+
+    pageIndicator.className = 'page-indicator';
+	const pageLabel =
+	document.createElement('span');
+	pageLabel.className = 'page-label';
+	pageLabel.textContent = 'PAGE';
+	
+
+    const slash =
+      document.createElement('span');
+
+    slash.className = 'page-slash';
+    slash.textContent = '/';
+
+    const pageTotal =
+      document.createElement('span');
+
+    pageTotal.className = 'page-total';
+    pageTotal.textContent = String(totalPages);
+
+    pageIndicator.appendChild(pageLabel);
+	pageIndicator.appendChild(pageInput);
+	pageIndicator.appendChild(slash);
+	pageIndicator.appendChild(pageTotal);
+
+    pagination.appendChild(
+      createArrow(
+        '←',
+        currentPage - 1,
+        currentPage <= 1
+      )
+    );
+
+    pagination.appendChild(pageIndicator);
+
+    pagination.appendChild(
+      createArrow(
+        '→',
+        currentPage + 1,
+        currentPage >= totalPages
+      )
+    );
   }
 
   function render(): void {
@@ -1774,34 +1777,24 @@ const [
   );
 
   function refreshFromStorage(): void {
-    /*
-     * 一旦本次页面已经成功拿到云端数据，localStorage 就不再有资格
-     * 覆盖当前页面。否则旧缓存可能在 pageshow / astro:page-load /
-     * storage 事件之后把刚刚拿到的 D1 数据重新覆盖。
-     */
-    if (cloudStoreLoaded) {
-      return;
-    }
+    applyMetadata();
 
-    activeStore = readStore();
-
-    applyMetadata(activeStore);
     updateFilterState();
+
     currentPage = 1;
+
     render();
   }
 
   /*
-   * Admin 页面如果在同一个浏览器标签组里修改了 localStorage，
-   * 只有在云端数据尚未成功加载前，Exhibition 才允许使用这份缓存。
-   * 云端成功加载后，D1 始终优先。
+   * Admin 页面修改 localStorage 后，
+   * Exhibition 页面打开时 / 返回时重新读取。
    */
   window.addEventListener(
     'storage',
     (event: StorageEvent) => {
       if (
-        event.key === STORAGE_KEY &&
-        !cloudStoreLoaded
+        event.key === STORAGE_KEY
       ) {
         refreshFromStorage();
       }
@@ -1811,10 +1804,7 @@ const [
   window.addEventListener(
     'pageshow',
     () => {
-      if (!cloudStoreLoaded) {
-        refreshFromStorage();
-      }
-
+      refreshFromStorage();
       void refreshFromCloud();
     }
   );
@@ -1822,10 +1812,7 @@ const [
   document.addEventListener(
     'astro:page-load',
     () => {
-      if (!cloudStoreLoaded) {
-        refreshFromStorage();
-      }
-
+      refreshFromStorage();
       void refreshFromCloud();
     }
   );
@@ -1846,8 +1833,7 @@ const [
     setDateInputs('');
   }
 
-  activeStore = readStore();
-  applyMetadata(activeStore);
+  applyMetadata();
   updateFilterState();
   render();
 
@@ -2813,128 +2799,98 @@ const [
 	   PAGINATION
 	============================================================= */
 
-	.pagination {
-		display: flex;
-
-		align-items:
-			center;
-
-		justify-content:
-			center;
-
-		gap: 18px;
-
-		margin-top: 85px;
-	}
+	:global(.pagination) {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 18px;
+	margin-top: 70px;
+}
 
 
-	.page-arrow {
-		display: grid;
-
-		place-items:
-			center;
-
-		width: 42px;
-
-		height: 42px;
-
-		background:
-			#fff8e8;
-
-		color:
-			#171717;
-
-		border:
-			2px solid #171717;
-
-		border-radius: 50%;
-
-		font-size: 17px;
-
-		cursor: pointer;
-
-		box-shadow:
-			3px 4px 0
-			rgba(
-				23,
-				23,
-				23,
-				0.1
-			);
-	}
+:global(.page-arrow) {
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	border-radius: 50%;
+	border: 2px solid #171717;
+	background: #fffaf0;
+	color: #171717;
+	font-size: 14px;
+	font-weight: 400;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+}
 
 
-	.page-arrow:disabled {
-		cursor:
-			default;
-
-		opacity:
-			0.25;
-
-		box-shadow:
-			none;
-	}
+.page-arrow:disabled {
+	cursor: default;
+	opacity: 0.25;
+	box-shadow: none;
+}
 
 
-	.page-numbers {
-		display: flex;
-
-		align-items:
-			center;
-
-		gap: 6px;
-	}
+:global(.page-indicator) {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
 
 
-	.page-number {
-		display: grid;
-
-		place-items:
-			center;
-
-		width: 30px;
-
-		height: 30px;
-
-		padding: 0;
-
-		border: 0;
-
-		border-radius: 50%;
-
-		background:
-			transparent;
-
-		color:
-			#171717;
-
-		font-size: 9px;
-
-		font-weight: 900;
-
-		cursor: pointer;
-	}
+:global(.page-current-input) {
+	width: 50px;
+	height: 30px;
+	padding: 0;
+	border: 2px solid #171717;
+	border-radius: 7px;
+	background: #fffaf0;
+	color: #171717;
+	font-size: 14px;
+	font-weight: 800;
+	text-align: center;
+	text-align-last: center;
+	line-height: 11px;
+	box-sizing: border-box;
+}
 
 
-	.page-number.active {
-		background:
-			#171717;
+.page-current-input:focus {
+	box-shadow:
+		2px 3px 0
+		rgba(
+			23,
+			23,
+			23,
+			0.18
+		);
+}
 
-		color:
-			#fff8e8;
-	}
+
+.page-current-input::-webkit-inner-spin-button,
+.page-current-input::-webkit-outer-spin-button {
+	margin: 0;
+	-webkit-appearance: none;
+}
 
 
-	.page-ellipsis {
-		width: 23px;
+.page-current-input {
+	-moz-appearance: textfield;
+}
 
-		text-align:
-			center;
 
-		font-size: 10px;
+.page-slash {
+	font-size: 7px;
+	font-weight: 900;
+}
 
-		opacity: 0.4;
-	}
+
+.page-total {
+	min-width: 8px;
+	text-align: left;
+	font-size: 10px;
+}
 
 
 	/* =============================================================
@@ -3651,48 +3607,54 @@ const [
 
 		/* PAGINATION */
 
-		.pagination {
+		/* PAGINATION */
 
-			margin-top:
-				58px;
-
-			gap:
-				12px;
-
-		}
+.pagination {
+	margin-top: 60px;
+	gap: 10px;
+}
 
 
-		.page-arrow {
-
-			width:
-				38px;
-
-			height:
-				38px;
-
-		}
+.page-arrow {
+	width: 26px;
+	height: 26px;
+	border-width: 2px;
+	font-size: 12px;
+}
 
 
-		.page-numbers {
-
-			gap:
-				2px;
-
-		}
+.page-indicator {
+	gap: 5px;
+	font-size: 8px;
+}
 
 
-		.page-number {
+.page-current-input {
+	width: 28px;
+	height: 22px;
 
-			width:
-				27px;
+	border-width: 2px;
+	border-radius: 7px;
 
-			height:
-				27px;
+	font-size: 11px;
+	font-weight: 800;
 
-			font-size:
-				8px;
+	line-height: 20px;
 
-		}
+	padding: 0;
+
+	text-align: center;
+	text-align-last: center;
+
+	text-indent: 0;
+}
+
+
+.page-slash,
+.page-total {
+	font-size: 8px;
+}
+
 
 
 		/* =========================================================
@@ -3953,15 +3915,6 @@ const [
 
 		}
 
-
-		.page-number:nth-child(
-			n + 6
-		) {
-
-			display:
-				none;
-
-		}
 
 	}
 
