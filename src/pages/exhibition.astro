@@ -1018,11 +1018,11 @@ const [
       }
 
       if (JINIES === true) {
-        card.dataset.JINIES = 'yes';
+        card.setAttribute('data-jinies', 'yes');
       } else if (JINIES === false) {
-        card.dataset.JINIES = 'no';
+        card.setAttribute('data-jinies', 'no');
       } else {
-        delete card.dataset.JINIES;
+        card.removeAttribute('data-jinies');
       }
 
       /*
@@ -1212,7 +1212,7 @@ const [
       return true;
     }
 
-    const JINIES = card.dataset.JINIES ?? '';
+    const JINIES = card.getAttribute('data-jinies') ?? '';
 
     if (value === 'yes') {
       return JINIES === 'yes';
