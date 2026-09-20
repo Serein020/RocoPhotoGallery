@@ -865,19 +865,29 @@ const [
 
   async function refreshFromCloud(): Promise<void> {
     try {
-      const localStore = readStore();
       const cloudStore = await fetchCloudStore();
-      const mergedStore = mergeStores(
-        localStore,
-        cloudStore
-      );
 
+      /*
+       * Exhibition 是只读展示页。
+       *
+       * Cloudflare D1 是跨设备的唯一正式数据源。
+       * 因此网络请求成功后，不再让 Exhibition 的旧
+       * localStorage 数据参与合并，也不再用本地数据
+       * 覆盖云端结果。
+       *
+       * localStorage 只作为下一次打开页面前的临时缓存。
+       */
       localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify(mergedStore)
+        JSON.stringify(cloudStore)
       );
 
-      applyMetadata(mergedStore);
+      /*
+       * 直接使用刚刚从 D1 获取的 cloudStore 更新页面。
+       * 这样 PC / 手机 / Netlify / Cloudflare 都会看到
+       * 同一份云端正式数据。
+       */
+      applyMetadata(cloudStore);
       updateFilterState();
       currentPage = 1;
       render();
