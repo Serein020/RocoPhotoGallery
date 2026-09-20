@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "generate:photos": "node scripts/generate-photo-data.mjs",
-    "build": "npm run generate:photos && astro build",
+    "build": "node scripts/build.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

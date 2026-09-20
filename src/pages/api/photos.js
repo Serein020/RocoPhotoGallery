@@ -33,6 +33,14 @@ function json(data, status = 200, request) {
   });
 }
 
+function getErrorDetail(error) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return String(error);
+}
+
 export async function OPTIONS({ request }) {
   return new Response(null, {
     status: 204,
@@ -84,6 +92,7 @@ export async function GET({ request }) {
     return json(
       {
         error: 'Failed to load photo metadata.',
+        detail: getErrorDetail(error),
       },
       500,
       request,
@@ -179,6 +188,7 @@ export async function PUT({ request }) {
     return json(
       {
         error: 'Failed to save photo metadata.',
+        detail: getErrorDetail(error),
       },
       500,
       request,
@@ -215,6 +225,7 @@ export async function DELETE({ request }) {
     return json(
       {
         error: 'Failed to clear photo metadata.',
+        detail: getErrorDetail(error),
       },
       500,
       request,

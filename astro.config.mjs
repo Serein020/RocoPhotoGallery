@@ -6,7 +6,7 @@ import vue from '@astrojs/vue';
 
 import cloudflare from '@astrojs/cloudflare';
 
-const isNetlify = process.env.NETLIFY === 'true';
+const isNetlify = Boolean(process.env.NETLIFY);
 
 export default defineConfig({
   output: isNetlify ? 'static' : 'server',
