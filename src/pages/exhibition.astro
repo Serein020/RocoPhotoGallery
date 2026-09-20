@@ -877,7 +877,7 @@ const [
         JSON.stringify(mergedStore)
       );
 
-      applyMetadata();
+      applyMetadata(mergedStore);
       updateFilterState();
       currentPage = 1;
       render();
@@ -936,8 +936,7 @@ const [
     return card.dataset.date ?? '';
   }
 
-  function applyMetadata(): void {
-    const store = readStore();
+  function applyMetadata(store: PhotoStore = readStore()): void {
 
     cards.forEach((card: HTMLElement) => {
       const id = card.dataset.id ?? '';
