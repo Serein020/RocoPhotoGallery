@@ -163,6 +163,10 @@ const [
 							ALL
 						</option>
 
+						<option value="0">
+							0 PEOPLE
+						</option>
+
 						<option value="1">
 							1 PERSON
 						</option>
@@ -611,7 +615,8 @@ const [
     );
   }
 
-  const dateControl = document.querySelector<HTMLElement>('.date-control');
+  const dateControl =
+    document.querySelector<HTMLElement>('.date-control');
 
   const dateYear =
     document.querySelector<HTMLInputElement>('#date-year');
@@ -960,7 +965,9 @@ const [
     return card.dataset.date ?? '';
   }
 
-  function applyMetadata(store: PhotoStore = readStore()): void {
+  function applyMetadata(
+    store: PhotoStore = readStore()
+  ): void {
 
     cards.forEach((card: HTMLElement) => {
       const id = card.dataset.id ?? '';
@@ -1044,10 +1051,9 @@ const [
     const grid =
       document.querySelector<HTMLElement>('#works-grid');
 
-
-const originalOrder = new Map(
-  cards.map((card, index) => [card, index])
-);
+    const originalOrder = new Map(
+      cards.map((card, index) => [card, index])
+    );
 
     const sortedCards = getCardsInDomOrder().sort(
       (a: HTMLElement, b: HTMLElement) => {
@@ -1181,6 +1187,10 @@ const originalOrder = new Map(
     }
 
     const people = card.dataset.people ?? '';
+
+    if (value === '0') {
+      return people === '0';
+    }
 
     if (value === '1') {
       return people === '1';
@@ -1373,11 +1383,12 @@ const originalOrder = new Map(
       document.createElement('div');
 
     pageIndicator.className = 'page-indicator';
-	const pageLabel =
-	document.createElement('span');
-	pageLabel.className = 'page-label';
-	pageLabel.textContent = 'PAGE';
-	
+
+    const pageLabel =
+      document.createElement('span');
+
+    pageLabel.className = 'page-label';
+    pageLabel.textContent = 'PAGE';
 
     const slash =
       document.createElement('span');
@@ -1392,9 +1403,9 @@ const originalOrder = new Map(
     pageTotal.textContent = String(totalPages);
 
     pageIndicator.appendChild(pageLabel);
-	pageIndicator.appendChild(pageInput);
-	pageIndicator.appendChild(slash);
-	pageIndicator.appendChild(pageTotal);
+    pageIndicator.appendChild(pageInput);
+    pageIndicator.appendChild(slash);
+    pageIndicator.appendChild(pageTotal);
 
     pagination.appendChild(
       createArrow(
@@ -2800,97 +2811,97 @@ const originalOrder = new Map(
 	============================================================= */
 
 	:global(.pagination) {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 18px;
-	margin-top: 70px;
-}
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 18px;
+		margin-top: 70px;
+	}
 
 
-:global(.page-arrow) {
-	width: 30px;
-	height: 30px;
-	padding: 0;
-	border-radius: 50%;
-	border: 2px solid #171717;
-	background: #fffaf0;
-	color: #171717;
-	font-size: 14px;
-	font-weight: 400;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	line-height: 1;
-}
+	:global(.page-arrow) {
+		width: 30px;
+		height: 30px;
+		padding: 0;
+		border-radius: 50%;
+		border: 2px solid #171717;
+		background: #fffaf0;
+		color: #171717;
+		font-size: 14px;
+		font-weight: 400;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+	}
 
 
-.page-arrow:disabled {
-	cursor: default;
-	opacity: 0.25;
-	box-shadow: none;
-}
+	.page-arrow:disabled {
+		cursor: default;
+		opacity: 0.25;
+		box-shadow: none;
+	}
 
 
-:global(.page-indicator) {
-	display: flex;
-	align-items: center;
-	gap: 6px;
-}
+	:global(.page-indicator) {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
 
 
-:global(.page-current-input) {
-	width: 50px;
-	height: 30px;
-	padding: 0;
-	border: 2px solid #171717;
-	border-radius: 7px;
-	background: #fffaf0;
-	color: #171717;
-	font-size: 14px;
-	font-weight: 800;
-	text-align: center;
-	text-align-last: center;
-	line-height: 11px;
-	box-sizing: border-box;
-}
+	:global(.page-current-input) {
+		width: 50px;
+		height: 30px;
+		padding: 0;
+		border: 2px solid #171717;
+		border-radius: 7px;
+		background: #fffaf0;
+		color: #171717;
+		font-size: 14px;
+		font-weight: 800;
+		text-align: center;
+		text-align-last: center;
+		line-height: 11px;
+		box-sizing: border-box;
+	}
 
 
-.page-current-input:focus {
-	box-shadow:
-		2px 3px 0
-		rgba(
-			23,
-			23,
-			23,
-			0.18
-		);
-}
+	.page-current-input:focus {
+		box-shadow:
+			2px 3px 0
+			rgba(
+				23,
+				23,
+				23,
+				0.18
+			);
+	}
 
 
-.page-current-input::-webkit-inner-spin-button,
-.page-current-input::-webkit-outer-spin-button {
-	margin: 0;
-	-webkit-appearance: none;
-}
+	.page-current-input::-webkit-inner-spin-button,
+	.page-current-input::-webkit-outer-spin-button {
+		margin: 0;
+		-webkit-appearance: none;
+	}
 
 
-.page-current-input {
-	-moz-appearance: textfield;
-}
+	.page-current-input {
+		-moz-appearance: textfield;
+	}
 
 
-.page-slash {
-	font-size: 7px;
-	font-weight: 900;
-}
+	.page-slash {
+		font-size: 7px;
+		font-weight: 900;
+	}
 
 
-.page-total {
-	min-width: 8px;
-	text-align: left;
-	font-size: 10px;
-}
+	.page-total {
+		min-width: 8px;
+		text-align: left;
+		font-size: 10px;
+	}
 
 
 	/* =============================================================
@@ -3198,9 +3209,6 @@ const originalOrder = new Map(
 
 	/* =============================================================
 	   SUPER THICK ARROWS
-	   
-	   不做圆形按钮。
-	   直接使用两根超粗线条组成箭头。
 	============================================================= */
 
 	.lightbox-arrow {
@@ -3607,53 +3615,51 @@ const originalOrder = new Map(
 
 		/* PAGINATION */
 
-		/* PAGINATION */
-
-.pagination {
-	margin-top: 60px;
-	gap: 10px;
-}
+		.pagination {
+			margin-top: 60px;
+			gap: 10px;
+		}
 
 
-.page-arrow {
-	width: 26px;
-	height: 26px;
-	border-width: 2px;
-	font-size: 12px;
-}
+		.page-arrow {
+			width: 26px;
+			height: 26px;
+			border-width: 2px;
+			font-size: 12px;
+		}
 
 
-.page-indicator {
-	gap: 5px;
-	font-size: 8px;
-}
+		.page-indicator {
+			gap: 5px;
+			font-size: 8px;
+		}
 
 
-.page-current-input {
-	width: 28px;
-	height: 22px;
+		.page-current-input {
+			width: 28px;
+			height: 22px;
 
-	border-width: 2px;
-	border-radius: 7px;
+			border-width: 2px;
+			border-radius: 7px;
 
-	font-size: 11px;
-	font-weight: 800;
+			font-size: 11px;
+			font-weight: 800;
 
-	line-height: 20px;
+			line-height: 20px;
 
-	padding: 0;
+			padding: 0;
 
-	text-align: center;
-	text-align-last: center;
+			text-align: center;
+			text-align-last: center;
 
-	text-indent: 0;
-}
+			text-indent: 0;
+		}
 
 
-.page-slash,
-.page-total {
-	font-size: 8px;
-}
+		.page-slash,
+		.page-total {
+			font-size: 8px;
+		}
 
 
 
