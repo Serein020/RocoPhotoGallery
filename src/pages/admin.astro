@@ -1,355 +1,327 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
 import { photoWorks } from '../data/photo';
 
-const defaultDate = photoWorks[0]?.date ?? '';
-
-const [
-	defaultYear = '',
-	defaultMonth = '',
-	defaultDay = '',
-] = defaultDate.split('-');
+const photos = photoWorks;
 ---
 
-<Layout
-	title="Exhibition — Roco Photo Gallery"
-	description="Browse the complete collection of game photography."
->
-	<div class="page">
+<Layout title="ADMIN — ROCO PHOTO GALLERY">
+	<main class="admin-page">
 
-		<!-- =========================================================
-		     HEADER
-		========================================================= -->
+		<header class="admin-header">
 
-		<header class="site-header">
+			<div class="admin-brand">
 
-			<a
-				href="/"
-				class="brand"
-				aria-label="Roco Photo Gallery"
-			>
-				<span class="brand-name">
+				<a
+					href="/"
+					class="brand-name"
+				>
 					ROCO
-				</span>
+				</a>
 
 				<span class="brand-caption">
-					GAME PHOTOGRAPHY
-				</span>
-			</a>
-
-
-			<a
-				class="back-link"
-				href="/"
-			>
-				<span class="back-arrow">
-					←
+					PHOTO GALLERY / ADMIN
 				</span>
 
-				<span>
-					HOME
-				</span>
-			</a>
+			</div>
+
+
+			<div class="admin-header-actions">
+
+				<a
+					href="/exhibition/"
+					class="header-link"
+				>
+					EXHIBITION
+				</a>
+
+				<button
+					type="button"
+					class="save-button"
+					id="save-draft"
+				>
+					SAVE
+				</button>
+
+			</div>
 
 		</header>
 
 
-		<!-- =========================================================
-		     FILTERS
-		========================================================= -->
+		<section class="admin-intro">
 
-		<section
-			class="filter-section"
-			aria-label="Filter works"
-		>
+			<div class="intro-copy">
 
-			<!-- DATE -->
+				<p class="eyebrow">
+					PHOTO METADATA
+				</p>
 
-			<div class="filter-item date-filter">
+				<h1>
+					ADMIN
+				</h1>
 
-				<label for="date-day">
-					DATE
-				</label>
-
-
-				<div
-					class="filter-control date-control"
-					data-default-date={defaultDate}
-				>
-
-					<div class="date-segments">
-
-						<input
-							id="date-year"
-							type="number"
-							inputmode="numeric"
-							min="1000"
-							max="9999"
-							value={defaultYear}
-							aria-label="Year"
-							tabindex="3"
-						/>
-
-						<span
-							class="date-separator"
-							aria-hidden="true"
-						>
-							-
-						</span>
-
-						<input
-							id="date-month"
-							type="number"
-							inputmode="numeric"
-							min="1"
-							max="12"
-							value={defaultMonth}
-							aria-label="Month"
-							tabindex="2"
-						/>
-
-						<span
-							class="date-separator"
-							aria-hidden="true"
-						>
-							-
-						</span>
-
-						<input
-							id="date-day"
-							type="number"
-							inputmode="numeric"
-							min="1"
-							max="31"
-							value={defaultDay}
-							aria-label="Day"
-							tabindex="1"
-						/>
-
-					</div>
-
-
-					<button
-						class="clear-filter"
-						type="button"
-						id="clear-date"
-						aria-label="Clear date"
-					>
-						×
-					</button>
-
-				</div>
+				<p class="intro-description">
+					Edit photo date, people count and JINIES status.
+				</p>
 
 			</div>
 
 
-			<!-- ROCO -->
+			<div class="admin-meta">
 
-			<div class="filter-item">
+				<div class="meta-item">
 
-				<label for="people-filter">
-					ROCO
-				</label>
+					<span class="meta-label">
+						PHOTOS
+					</span>
+
+					<strong>
+						{photos.length}
+					</strong>
+
+				</div>
 
 
-				<div class="filter-control">
+				<div class="meta-item">
 
-					<select
-						id="people-filter"
-						aria-label="Filter by number of people"
-					>
+					<span class="meta-label">
+						STATUS
+					</span>
 
-						<option value="all">
-							ALL
-						</option>
-
-						<option value="0">
-							0 PEOPLE
-						</option>
-
-						<option value="1">
-							1 PERSON
-						</option>
-
-						<option value="2">
-							2 PEOPLE
-						</option>
-
-						<option value="2+">
-							2+ PEOPLE
-						</option>
-
-					</select>
+					<strong id="draft-status">
+						READY
+					</strong>
 
 				</div>
 
 			</div>
-
-
-			<!-- JINIES -->
-
-			<div class="filter-item">
-
-				<label for="JINIES-filter">
-					JINIES
-				</label>
-
-
-				<div class="filter-control">
-
-					<select
-						id="JINIES-filter"
-						aria-label="Filter by Jinies"
-					>
-
-						<option value="all">
-							ALL
-						</option>
-
-						<option value="yes">
-							WITH JINIES
-						</option>
-
-						<option value="no">
-							WITHOUT JINIES
-						</option>
-
-					</select>
-
-				</div>
-
-			</div>
-
-
-			<!-- RESET -->
-
-			<button
-				class="reset-button"
-				type="button"
-				id="reset-filters"
-			>
-				RESET
-			</button>
 
 		</section>
 
 
-		<!-- =========================================================
-		     RESULT BAR
-		========================================================= -->
+		<section class="progress-section">
 
-		<section
-			class="result-bar"
-			aria-live="polite"
-		>
+			<div class="progress-top">
 
-			<div class="result-count">
-
-				<span class="result-count-label">
-					WORKS
+				<span>
+					COMPLETION
 				</span>
 
-				<strong id="result-count">
-					{photoWorks.length}
+				<strong id="progress-number">
+					0%
 				</strong>
 
 			</div>
 
 
-			<div
-				class="result-status"
-				id="result-status"
-			>
-				ALL WORKS
+			<div class="progress-track">
+
+				<div
+					class="progress-fill"
+					id="progress-fill"
+				></div>
+
 			</div>
 
 		</section>
 
 
-		<!-- =========================================================
-		     WORK GRID
-		========================================================= -->
+		<section class="toolbar">
 
-		<main
-			class="works-grid"
-			id="works-grid"
-		>
+			<div class="keyboard-hints">
 
-			{photoWorks.map((work, index) => (
+				<span>
+					0 = 0
+				</span>
+
+				<span>
+					1 = 1
+				</span>
+
+				<span>
+					2 = 2
+				</span>
+
+				<span>
+					3 = 2+
+				</span>
+
+				<span>
+					R = JINIES
+				</span>
+
+				<span>
+					← →
+				</span>
+
+			</div>
+
+
+			<div class="toolbar-actions">
+
+				<button
+					type="button"
+					class="toolbar-button"
+					id="clear-draft"
+				>
+					CLEAR
+				</button>
+
+				<button
+					type="button"
+					class="toolbar-button"
+					id="export-json"
+				>
+					EXPORT JSON
+				</button>
+
+			</div>
+
+		</section>
+
+
+		<section class="photo-grid">
+
+			{photos.map((photo) => (
 
 				<article
-					class={`work-card color-${index % 6}`}
-					data-id={work.id}
-					data-date={work.date}
-					data-order={index + 1}
+					class="photo-card"
+					data-id={photo.id}
 				>
 
-					<button
-						type="button"
-						class="work-link lightbox-trigger"
-						data-lightbox-index={index}
-						data-lightbox-src={work.imageLarge}
-						data-lightbox-alt={work.id}
-						data-lightbox-title={work.id}
-						data-lightbox-date={work.date}
-						aria-label={`View ${work.id}`}
-					>
+					<div class="photo-card-image">
 
-						<div class="paper-frame">
+						<img
+							src={photo.image}
+							alt={photo.id}
+							loading="lazy"
+							decoding="async"
+						/>
 
-							<div class="photo-image">
+						<span class="photo-card-index">
+							{String(photo.order).padStart(3, '0')}
+						</span>
 
-								<picture>
+					</div>
 
-									<source
-										media="(max-width: 760px)"
-										srcset={work.imageSmall}
-									/>
 
-									<source
-										media="(max-width: 1200px)"
-										srcset={work.imageMedium}
-									/>
+					<div class="photo-card-body">
 
-									<img
-										src={work.imageLarge}
-										alt={work.id}
-										loading={index < 6 ? 'eager' : 'lazy'}
-										decoding="async"
-										fetchpriority={index < 6 ? 'high' : 'auto'}
-									/>
+						<div class="photo-card-heading">
 
-								</picture>
+							<strong>
+								{photo.id}
+							</strong>
 
-								<span class="photo-index">
-									{String(index + 1).padStart(2, '0')}
+							<span class="card-status">
+								<span class="status-dot"></span>
+								<span class="status-text">
+									READY
 								</span>
+							</span>
+
+						</div>
+
+
+						<div class="field-group">
+
+							<label
+								for={`date-${photo.id}`}
+							>
+								DATE
+							</label>
+
+							<input
+								id={`date-${photo.id}`}
+								class="date-input"
+								type="date"
+								data-field="date"
+								data-original-date={photo.date}
+								value={photo.date}
+							/>
+
+						</div>
+
+
+						<div class="field-group">
+
+							<span class="field-label">
+								PEOPLE
+							</span>
+
+							<div class="choice-row">
+
+								<button
+									type="button"
+									class="choice-button"
+									data-field="people"
+									data-value="0"
+								>
+									0
+								</button>
+
+								<button
+									type="button"
+									class="choice-button"
+									data-field="people"
+									data-value="1"
+								>
+									1
+								</button>
+
+								<button
+									type="button"
+									class="choice-button"
+									data-field="people"
+									data-value="2"
+								>
+									2
+								</button>
+
+								<button
+									type="button"
+									class="choice-button"
+									data-field="people"
+									data-value="3"
+								>
+									2+
+								</button>
 
 							</div>
 
 						</div>
 
-					</button>
 
+						<div class="field-group">
 
-					<div class="work-info">
+							<span class="field-label">
+								JINIES
+							</span>
 
-						<div>
+							<div class="choice-row">
 
-							<h2>
-								{work.id}
-							</h2>
+								<button
+									type="button"
+									class="choice-button"
+									data-field="JINIES"
+									data-value="no"
+								>
+									NO
+								</button>
 
-							<p data-meta>
-								ROCO — &nbsp; / &nbsp; JINIES —
-							</p>
+								<button
+									type="button"
+									class="choice-button"
+									data-field="JINIES"
+									data-value="yes"
+								>
+									YES
+								</button>
+
+							</div>
 
 						</div>
-
-
-						<time datetime={work.date}>
-							{work.date}
-						</time>
 
 					</div>
 
@@ -357,424 +329,649 @@ const [
 
 			))}
 
-		</main>
-
-
-		<!-- =========================================================
-		     EMPTY STATE
-		========================================================= -->
-
-		<section
-			class="empty-state"
-			id="empty-state"
-			hidden
-		>
-
-			<div class="empty-doodle">
-				○
-			</div>
-
-			<h2>
-				No works found.
-			</h2>
-
-			<p>
-				Try another date or change one of the filters.
-			</p>
-
-			<button
-				type="button"
-				id="empty-reset"
-			>
-				RESET FILTERS
-			</button>
-
 		</section>
 
 
-		<!-- =========================================================
-		     PAGINATION
-		========================================================= -->
-
-		<nav
-			class="pagination"
-			id="pagination"
-			aria-label="Pagination"
-		>
+		<nav class="quick-nav">
 
 			<button
-				class="page-arrow"
 				type="button"
-				aria-label="Previous page"
-				disabled
+				class="nav-button"
+				id="prev-card"
 			>
-				←
+				← PREV
 			</button>
 
-
-			<div
-				class="page-indicator"
-				aria-label="Current page"
-			>
-				<input
-					class="page-current-input"
-					type="number"
-					value="1"
-					min="1"
-					aria-label="Current page"
-				/>
-				<span class="page-slash">/</span>
-				<span class="page-total">1</span>
-			</div>
-
-
 			<button
-				class="page-arrow"
 				type="button"
-				aria-label="Next page"
+				class="nav-button"
+				id="next-card"
 			>
-				→
+				NEXT →
 			</button>
 
 		</nav>
 
 
-		<!-- =========================================================
-		     LIGHTBOX
-		========================================================= -->
+		<footer class="admin-footer">
 
-		<div
-			class="lightbox"
-			id="lightbox"
-			aria-hidden="true"
-			role="dialog"
-			aria-modal="true"
-			aria-label="Image viewer"
-		>
+			<span>
+				ROCO PHOTO GALLERY
+			</span>
 
-			<div
-				class="lightbox-backdrop"
-				data-lightbox-close
-			></div>
-
-
-			<div class="lightbox-shell">
-
-				<!-- CLOSE -->
-
-				<button
-					type="button"
-					class="lightbox-close"
-					id="lightbox-close"
-					aria-label="Close image viewer"
-				>
-					×
-				</button>
-
-
-				<!-- PREVIOUS -->
-
-				<button
-					type="button"
-					class="lightbox-arrow lightbox-prev"
-					id="lightbox-prev"
-					aria-label="Previous photo"
-				>
-					<span
-						class="arrow-line arrow-line-prev"
-						aria-hidden="true"
-					></span>
-				</button>
-
-
-				<!-- IMAGE -->
-
-				<div class="lightbox-content">
-
-					<div class="lightbox-image-wrap">
-
-						<img
-							id="lightbox-image"
-							src=""
-							alt=""
-							loading="eager"
-							decoding="async"
-						/>
-
-					</div>
-
-
-					<div class="lightbox-caption">
-
-						<strong id="lightbox-title"></strong>
-
-						<span id="lightbox-date"></span>
-
-						<span id="lightbox-counter"></span>
-
-					</div>
-
-				</div>
-
-
-				<!-- NEXT -->
-
-				<button
-					type="button"
-					class="lightbox-arrow lightbox-next"
-					id="lightbox-next"
-					aria-label="Next photo"
-				>
-					<span
-						class="arrow-line arrow-line-next"
-						aria-hidden="true"
-					></span>
-				</button>
-
-			</div>
-
-		</div>
-
-
-		<!-- =========================================================
-		     FOOTER
-		========================================================= -->
-
-		<footer class="footer">
-
-			<div class="footer-brand">
-
-				<span>
-					ROCO
-				</span>
-
-				<small>
-					GAME PHOTOGRAPHY
-				</small>
-
-			</div>
-
-
-			<div class="footer-note">
-
-				<span>
-					PERSONAL ARCHIVE
-				</span>
-
-				<span>
-					{photoWorks.length} WORKS
-				</span>
-
-			</div>
+			<span>
+				CLOUD METADATA / D1
+			</span>
 
 		</footer>
 
-	</div>
+	</main>
 </Layout>
 
 
-<script>
+<script is:inline>
   const STORAGE_KEY = 'roco-photo-admin-draft-v1';
-  const PAGE_SIZE = 20;
 
   const CLOUDFLARE_API =
     'https://rocophotogallery.weykeiii.workers.dev';
 
-  const PHOTO_API =
-    window.location.hostname.endsWith('.netlify.app')
-      ? ''
-      : CLOUDFLARE_API;
-
-  type PhotoData = {
-    id: string;
-    image?: string;
-    date?: string;
-    people?: number | null;
-    JINIES?: boolean | null;
-    updatedAt?: string;
-  };
-
-  type PhotoStore = Record<string, PhotoData>;
-
-  type LightboxItem = {
-    card: HTMLElement;
-    trigger: HTMLButtonElement;
-    src: string;
-    alt: string;
-    title: string;
-    date: string;
-  };
-
-  const cards: HTMLElement[] = Array.from(
-    document.querySelectorAll<HTMLElement>('.work-card')
+  const cards = Array.from(
+    document.querySelectorAll('.photo-card')
   );
 
-  function getCardsInDomOrder(): HTMLElement[] {
-    return Array.from(
-      document.querySelectorAll<HTMLElement>('.work-card')
-    );
+  const dirtyCards = new Set();
+
+  let statusTimer = null;
+  let focusedCardIndex = 0;
+  let saveQueue = Promise.resolve();
+
+  function getApiBaseUrl() {
+    const hostname =
+      window.location.hostname;
+
+    if (
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1'
+    ) {
+      return 'http://localhost:8787';
+    }
+
+    if (
+      hostname === 'rocophotogallery.weykeiii.workers.dev'
+    ) {
+      return '';
+    }
+
+    return CLOUDFLARE_API;
   }
 
-  const dateControl =
-    document.querySelector<HTMLElement>('.date-control');
-
-  const dateYear =
-    document.querySelector<HTMLInputElement>('#date-year');
-
-  const dateMonth =
-    document.querySelector<HTMLInputElement>('#date-month');
-
-  const dateDay =
-    document.querySelector<HTMLInputElement>('#date-day');
-
-  const clearDateButton =
-    document.querySelector<HTMLButtonElement>('#clear-date');
-
-  const peopleSelect =
-    document.querySelector<HTMLSelectElement>('#people-filter');
-
-  const JINIESSelect =
-    document.querySelector<HTMLSelectElement>('#JINIES-filter');
-
-  const resetButton =
-    document.querySelector<HTMLButtonElement>('#reset-filters');
-
-  const resultCount =
-    document.querySelector<HTMLElement>('#result-count');
-
-  const resultStatus =
-    document.querySelector<HTMLElement>('#result-status');
-
-  const emptyState =
-    document.querySelector<HTMLElement>('#empty-state');
-
-  const pagination =
-    document.querySelector<HTMLElement>('#pagination');
-
-  const lightbox =
-    document.querySelector<HTMLElement>('#lightbox');
-
-  const lightboxImage =
-    document.querySelector<HTMLImageElement>('#lightbox-image');
-
-  const lightboxTitle =
-    document.querySelector<HTMLElement>('#lightbox-title');
-
-  const lightboxDate =
-    document.querySelector<HTMLElement>('#lightbox-date');
-
-  const lightboxCounter =
-    document.querySelector<HTMLElement>('#lightbox-counter');
-
-  const lightboxPrevious =
-    document.querySelector<HTMLButtonElement>('#lightbox-prev');
-
-  const lightboxNext =
-    document.querySelector<HTMLButtonElement>('#lightbox-next');
-
-  const lightboxClose =
-    document.querySelector<HTMLButtonElement>('#lightbox-close');
-
-  let currentPage = 1;
-  let filtersActivated = false;
-
-  const DEFAULT_DATE =
-    dateControl?.dataset.defaultDate ?? '';
-
-  let lightboxItems: LightboxItem[] = [];
-  let currentLightboxIndex = 0;
-
-  function isValidDate(value: string): boolean {
-    return /^\d{4}-\d{2}-\d{2}$/.test(value);
+  function getApiUrl() {
+    return `${getApiBaseUrl()}/api/photos`;
   }
 
-  function readStore(): PhotoStore {
+
+  function readStore() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw =
+        localStorage.getItem(
+          STORAGE_KEY
+        );
 
       if (!raw) {
         return {};
       }
 
-      const parsed: unknown = JSON.parse(raw);
-
-      /*
-       * 兼容两种格式：
-       *
-       * 旧格式：
-       * [
-       *   { id: "...", date: "...", people: 1, JINIES: false }
-       * ]
-       *
-       * 新格式：
-       * {
-       *   "20260915-016": {
-       *      id: "...",
-       *      date: "...",
-       *      people: 1,
-       *      JINIES: false
-       *   }
-       * }
-       */
-
-      if (Array.isArray(parsed)) {
-        return parsed.reduce<PhotoStore>(
-          (store: PhotoStore, item: unknown) => {
-            if (
-              item &&
-              typeof item === 'object' &&
-              'id' in item
-            ) {
-              const row = item as PhotoData;
-
-              if (typeof row.id === 'string') {
-                store[row.id] = row;
-              }
-            }
-
-            return store;
-          },
-          {}
-        );
-      }
+      const parsed =
+        JSON.parse(raw);
 
       if (
         parsed &&
         typeof parsed === 'object' &&
         !Array.isArray(parsed)
       ) {
-        return parsed as PhotoStore;
+        return parsed;
       }
 
-      return {};
+      /*
+       * 兼容旧版本：
+       * 如果 localStorage 里还是数组，
+       * 自动转换成 object。
+       */
+      if (Array.isArray(parsed)) {
+        const store = {};
+
+        for (const item of parsed) {
+          if (
+            item &&
+            typeof item.id === 'string'
+          ) {
+            store[item.id] = item;
+          }
+        }
+
+        return store;
+      }
     } catch (error) {
       console.warn(
-        '[Exhibition] Failed to read localStorage:',
+        '[ROCO ADMIN] Failed to read localStorage:',
+        error
+      );
+    }
+
+    return {};
+  }
+
+
+  function writeStore(store) {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(store)
+      );
+
+      return true;
+    } catch (error) {
+      console.error(
+        '[ROCO ADMIN] Failed to write localStorage:',
         error
       );
 
-      return {};
+      return false;
     }
   }
 
-  function getSavedData(
-    id: string,
-    store: PhotoStore
-  ): PhotoData | undefined {
-    return store[id];
+
+  function getImageSource(card) {
+    const image =
+      card.querySelector('img');
+
+    if (image) {
+      const src =
+        image.getAttribute('src');
+
+      if (src) {
+        return src;
+      }
+    }
+
+    const id =
+      card.dataset.id || '';
+
+    return `/photos/pics/${id}.png`;
   }
 
-  async function fetchCloudStore(): Promise<PhotoStore> {
-    const response = await fetch(
-      `${PHOTO_API}/api/photos?t=${Date.now()}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
+
+  function getCardData(card) {
+    const id =
+      card.dataset.id || '';
+
+    if (!id) {
+      return null;
+    }
+
+    const dateInput =
+      card.querySelector('.date-input');
+
+    const activePeople =
+      card.querySelector(
+        '.choice-button[data-field="people"].active'
+      );
+
+    const activeJINIES =
+      card.querySelector(
+        '.choice-button[data-field="JINIES"].active'
+      );
+
+    let people = null;
+
+    if (activePeople) {
+      const value =
+        activePeople.dataset.value;
+
+      if (value === '0') {
+        people = 0;
+      } else if (value === '1') {
+        people = 1;
+      } else if (value === '2') {
+        people = 2;
+      } else if (value === '3') {
+        people = 3;
+      }
+    }
+
+    let JINIES = null;
+
+    if (activeJINIES) {
+      const value =
+        activeJINIES.dataset.value;
+
+      if (value === 'yes') {
+        JINIES = true;
+      } else if (value === 'no') {
+        JINIES = false;
+      }
+    }
+
+    return {
+      id,
+      image: getImageSource(card),
+      date:
+        dateInput
+          ? dateInput.value
+          : '',
+      people,
+      JINIES
+    };
+  }
+
+
+  function normalizeCloudPhoto(photo) {
+    if (
+      !photo ||
+      typeof photo !== 'object' ||
+      !photo.id
+    ) {
+      return null;
+    }
+
+    let people = null;
+
+    if (
+      typeof photo.people === 'number'
+    ) {
+      people =
+        photo.people >= 3
+          ? 3
+          : photo.people;
+    }
+
+    /*
+     * D1 中的 INTEGER 字段会返回：
+     *
+     * 1 = true
+     * 0 = false
+     *
+     * 所以这里同时兼容：
+     * true / false / 1 / 0
+     */
+    let JINIES = null;
+
+    if (
+      photo.jinies === true ||
+      photo.jinies === 1 ||
+      photo.jinies === '1'
+    ) {
+      JINIES = true;
+    } else if (
+      photo.jinies === false ||
+      photo.jinies === 0 ||
+      photo.jinies === '0'
+    ) {
+      JINIES = false;
+    }
+
+    return {
+      id: photo.id,
+
+      image:
+        photo.image || '',
+
+      date:
+        typeof photo.date === 'string'
+          ? photo.date
+          : '',
+
+      people,
+
+      JINIES,
+
+      updatedAt:
+        photo.updatedAt ||
+        photo.updated_at ||
+        null
+    };
+  }
+
+
+  function normalizeLocalPhoto(photo) {
+    if (
+      !photo ||
+      typeof photo !== 'object' ||
+      !photo.id
+    ) {
+      return null;
+    }
+
+    let JINIES = null;
+
+    if (
+      photo.JINIES === true ||
+      photo.JINIES === 1 ||
+      photo.JINIES === '1'
+    ) {
+      JINIES = true;
+    } else if (
+      photo.JINIES === false ||
+      photo.JINIES === 0 ||
+      photo.JINIES === '0'
+    ) {
+      JINIES = false;
+    }
+
+    return {
+      id: photo.id,
+
+      image:
+        photo.image || '',
+
+      date:
+        typeof photo.date === 'string'
+          ? photo.date
+          : '',
+
+      people:
+        typeof photo.people === 'number'
+          ? (
+              photo.people >= 3
+                ? 3
+                : photo.people
+            )
+          : null,
+
+      JINIES,
+
+      updatedAt:
+        photo.updatedAt || null
+    };
+  }
+
+
+  function isNewer(candidate, current) {
+    if (!candidate) {
+      return false;
+    }
+
+    if (!current) {
+      return true;
+    }
+
+    if (!candidate.updatedAt) {
+      return false;
+    }
+
+    if (!current.updatedAt) {
+      return true;
+    }
+
+    const candidateTime =
+      new Date(
+        candidate.updatedAt
+      ).getTime();
+
+    const currentTime =
+      new Date(
+        current.updatedAt
+      ).getTime();
+
+    if (
+      Number.isNaN(candidateTime)
+    ) {
+      return false;
+    }
+
+    if (
+      Number.isNaN(currentTime)
+    ) {
+      return true;
+    }
+
+    return (
+      candidateTime >
+      currentTime
+    );
+  }
+
+
+  function updateProgress() {
+    const progressNumber =
+      document.querySelector(
+        '#progress-number'
+      );
+
+    const progressFill =
+      document.querySelector(
+        '#progress-fill'
+      );
+
+    let complete = 0;
+
+    for (const card of cards) {
+      const data =
+        getCardData(card);
+
+      if (
+        data &&
+        data.date &&
+        data.people !== null &&
+        data.JINIES !== null
+      ) {
+        complete += 1;
+      }
+    }
+
+    const total =
+      cards.length;
+
+    const percent =
+      total > 0
+        ? Math.round(
+            (complete / total) * 100
+          )
+        : 0;
+
+    if (progressNumber) {
+      progressNumber.textContent =
+        `${percent}%`;
+    }
+
+    if (progressFill) {
+      progressFill.style.width =
+        `${percent}%`;
+    }
+
+    for (const card of cards) {
+      const data =
+        getCardData(card);
+
+      const completeCard =
+        Boolean(
+          data &&
+          data.date &&
+          data.people !== null &&
+          data.JINIES !== null
+        );
+
+      const dot =
+        card.querySelector(
+          '.status-dot'
+        );
+
+      const text =
+        card.querySelector(
+          '.status-text'
+        );
+
+      if (dot) {
+        dot.classList.toggle(
+          'complete',
+          completeCard
+        );
+      }
+
+      if (text) {
+        text.textContent =
+          completeCard
+            ? 'DONE'
+            : 'READY';
+      }
+    }
+  }
+
+
+  function showStatus(message) {
+    const status =
+      document.querySelector(
+        '#draft-status'
+      );
+
+    if (!status) {
+      return;
+    }
+
+    status.textContent =
+      message;
+
+    if (statusTimer) {
+      clearTimeout(
+        statusTimer
+      );
+    }
+
+    statusTimer =
+      setTimeout(
+        function () {
+          status.textContent =
+            'READY';
         },
-        cache: 'no-store',
+        1800
+      );
+  }
+
+
+  function markCardDirty(card) {
+    const id =
+      card.dataset.id || '';
+
+    if (!id) {
+      return;
+    }
+
+    dirtyCards.add(id);
+
+    updateProgress();
+  }
+
+
+  function setChoiceWithoutSave(
+    card,
+    field,
+    value
+  ) {
+    const buttons =
+      card.querySelectorAll(
+        `.choice-button[data-field="${field}"]`
+      );
+
+    buttons.forEach(
+      function (button) {
+        button.classList.toggle(
+          'active',
+          button.dataset.value === value
+        );
       }
     );
+  }
+
+
+  function applyPhotoData(
+    card,
+    saved
+  ) {
+    if (!saved) {
+      return;
+    }
+
+    const dateInput =
+      card.querySelector(
+        '.date-input'
+      );
+
+    if (
+      dateInput &&
+      typeof saved.date === 'string'
+    ) {
+      dateInput.value =
+        saved.date;
+    }
+
+    if (
+      saved.people === 0
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '0'
+      );
+    } else if (
+      saved.people === 1
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '1'
+      );
+    } else if (
+      saved.people === 2
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '2'
+      );
+    } else if (
+      typeof saved.people === 'number' &&
+      saved.people >= 3
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'people',
+        '3'
+      );
+    }
+
+    if (
+      saved.JINIES === true
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'JINIES',
+        'yes'
+      );
+    } else if (
+      saved.JINIES === false
+    ) {
+      setChoiceWithoutSave(
+        card,
+        'JINIES',
+        'no'
+      );
+    }
+  }
+
+
+  async function fetchCloudStore() {
+    const response =
+      await fetch(
+        getApiUrl(),
+        {
+          method: 'GET',
+
+          headers: {
+            Accept:
+              'application/json'
+          }
+        }
+      );
 
     if (!response.ok) {
       throw new Error(
@@ -782,1156 +979,1076 @@ const [
       );
     }
 
-    const result: unknown = await response.json();
+    const result =
+      await response.json();
 
-    if (
-      !result ||
-      typeof result !== 'object' ||
-      !('photos' in result) ||
-      !result.photos ||
-      typeof result.photos !== 'object'
+    const cloudStore = {};
+
+    for (
+      const [
+        id,
+        photo
+      ] of Object.entries(
+        result.photos || {}
+      )
     ) {
-      throw new Error(
-        'Cloud photo metadata returned an invalid response.'
-      );
+      const normalized =
+        normalizeCloudPhoto(
+          {
+            ...photo,
+            id
+          }
+        );
+
+      if (normalized) {
+        cloudStore[id] =
+          normalized;
+      }
     }
 
-    const cloudPhotos =
-      result.photos as Record<string, unknown>;
-
-    return Object.entries(cloudPhotos).reduce<PhotoStore>(
-      (store: PhotoStore, [id, value]: [string, unknown]) => {
-        if (!value || typeof value !== 'object') {
-          return store;
-        }
-
-        const row = value as Record<string, unknown>;
-
-        store[id] = {
-          id,
-          image:
-            typeof row.image === 'string'
-              ? row.image
-              : undefined,
-          date:
-            typeof row.date === 'string'
-              ? row.date
-              : undefined,
-          people:
-            typeof row.people === 'number'
-              ? row.people
-              : null,
-          JINIES:
-            row.jinies === 1 ||
-            row.jinies === true
-              ? true
-              : row.jinies === 0 ||
-                row.jinies === false
-              ? false
-              : null,
-          updatedAt:
-            typeof row.updatedAt === 'string'
-              ? row.updatedAt
-              : undefined,
-        };
-
-        return store;
-      },
-      {}
-    );
+    return cloudStore;
   }
 
-  function getUpdatedTimestamp(
-    photo: PhotoData | undefined
-  ): number {
-    if (!photo?.updatedAt) {
-      return 0;
-    }
-
-    const timestamp = Date.parse(photo.updatedAt);
-
-    return Number.isNaN(timestamp)
-      ? 0
-      : timestamp;
-  }
 
   function mergeStores(
-    localStore: PhotoStore,
-    cloudStore: PhotoStore
-  ): PhotoStore {
-    const merged: PhotoStore = {
-      ...localStore,
-    };
+    localStore,
+    cloudStore
+  ) {
+    const merged = {};
 
     /*
-     * Exhibition 是只读展示页。
-     * 跨设备同步时，Cloudflare D1 是最终数据源。
-     * 因此只要云端存在某张照片的记录，就直接以云端记录覆盖本地旧缓存。
+     * 先把本地数据规范化。
      */
-    Object.entries(cloudStore).forEach(
-      ([id, cloudPhoto]) => {
-        const localPhoto = merged[id];
+    for (
+      const [
+        id,
+        localPhoto
+      ] of Object.entries(
+        localStore
+      )
+    ) {
+      const normalized =
+        normalizeLocalPhoto(
+          localPhoto
+        );
 
-        merged[id] = {
-          ...localPhoto,
-          ...cloudPhoto,
-        };
+      if (normalized) {
+        merged[id] =
+          normalized;
       }
-    );
+    }
+
+    /*
+     * 云端数据只有在：
+     *
+     * 1. 本地不存在
+     * 2. 云端 updatedAt 更新
+     *
+     * 时才覆盖本地。
+     */
+    for (
+      const [
+        id,
+        cloudPhoto
+      ] of Object.entries(
+        cloudStore
+      )
+    ) {
+      const localPhoto =
+        merged[id];
+
+      if (
+        !localPhoto ||
+        isNewer(
+          cloudPhoto,
+          localPhoto
+        )
+      ) {
+        merged[id] =
+          cloudPhoto;
+      }
+    }
 
     return merged;
   }
 
-  async function refreshFromCloud(): Promise<void> {
-    try {
-      const cloudStore = await fetchCloudStore();
 
-      /*
-       * Exhibition 是只读展示页。
-       *
-       * Cloudflare D1 是跨设备的唯一正式数据源。
-       * 因此网络请求成功后，不再让 Exhibition 的旧
-       * localStorage 数据参与合并，也不再用本地数据
-       * 覆盖云端结果。
-       *
-       * localStorage 只作为下一次打开页面前的临时缓存。
-       */
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(cloudStore)
-      );
+  async function loadDraft() {
+    const localStore =
+      readStore();
 
-      /*
-       * 直接使用刚刚从 D1 获取的 cloudStore 更新页面。
-       * 这样 PC / 手机 / Netlify / Cloudflare 都会看到
-       * 同一份云端正式数据。
-       */
-      applyMetadata(cloudStore);
-      updateFilterState();
-      currentPage = 1;
-      render();
-    } catch (error) {
-      console.warn(
-        '[Exhibition] Failed to sync cloud photo metadata:',
-        error
-      );
-    }
-  }
-
-  function getPeopleLabel(
-    people: number | null | undefined
-  ): string {
-    if (people === 0) {
-      return '0 PEOPLE';
-    }
-
-    if (people === 1) {
-      return '1 PERSON';
-    }
-
-    if (people === 2) {
-      return '2 PEOPLE';
-    }
-
-    if (people === 3) {
-      return '2+ PEOPLE';
-    }
-
-    return 'ROCO —';
-  }
-
-  function getJINIESLabel(
-    JINIES: boolean | null | undefined
-  ): string {
-    if (JINIES === true) {
-      return 'JINIES';
-    }
-
-    if (JINIES === false) {
-      return 'NO JINIES';
-    }
-
-    return 'JINIES —';
-  }
-
-  function getDateValue(
-    card: HTMLElement,
-    saved: PhotoData | undefined
-  ): string {
-    if (saved?.date && isValidDate(saved.date)) {
-      return saved.date;
-    }
-
-    return card.dataset.date ?? '';
-  }
-
-  function applyMetadata(
-    store: PhotoStore = readStore()
-  ): void {
-
-    cards.forEach((card: HTMLElement) => {
-      const id = card.dataset.id ?? '';
+    /*
+     * 第一阶段：
+     * 立即显示本地缓存。
+     *
+     * 这样网络较慢时页面不会空着。
+     */
+    for (const card of cards) {
+      const id =
+        card.dataset.id || '';
 
       if (!id) {
-        return;
+        continue;
       }
 
-      const saved = getSavedData(id, store);
+      const saved =
+        localStore[id];
 
-      const meta =
-        card.querySelector<HTMLElement>('[data-meta]');
-
-      const time =
-        card.querySelector<HTMLTimeElement>('time');
-
-      const trigger =
-        card.querySelector<HTMLButtonElement>(
-          '.lightbox-trigger'
+      if (saved) {
+        applyPhotoData(
+          card,
+          saved
         );
-
-      if (!meta) {
-        return;
       }
+    }
 
-      const people = saved?.people ?? null;
-      const JINIES = saved?.JINIES ?? null;
+    updateProgress();
 
-      /*
-       * 更新人物 / JINIES 文案
-       */
-      meta.textContent =
-        `${getPeopleLabel(people)} / ${getJINIESLabel(JINIES)}`;
-
-      /*
-       * 更新 data 属性
-       */
-      if (people === 0) {
-        card.dataset.people = '0';
-      } else if (people === 1) {
-        card.dataset.people = '1';
-      } else if (people === 2) {
-        card.dataset.people = '2';
-      } else if (people === 3) {
-        card.dataset.people = '2+';
-      } else {
-        delete card.dataset.people;
-      }
-
-      if (JINIES === true) {
-        card.dataset.JINIES = 'yes';
-      } else if (JINIES === false) {
-        card.dataset.JINIES = 'no';
-      } else {
-        delete card.dataset.JINIES;
-      }
-
-      /*
-       * 更新日期
-       */
-      const finalDate = getDateValue(card, saved);
-
-      if (finalDate) {
-        card.dataset.date = finalDate;
-
-        if (time) {
-          time.dateTime = finalDate;
-          time.textContent = finalDate;
-        }
-
-        if (trigger) {
-          trigger.dataset.lightboxDate = finalDate;
-        }
-      }
-    });
+    showStatus('SYNC...');
 
     /*
-     * 按最终日期重新排序：
-     * 最新 → 最旧
+     * 第二阶段：
+     * 从 D1 拉取最新数据。
      */
-    const grid =
-      document.querySelector<HTMLElement>('#works-grid');
+    try {
+      const cloudStore =
+        await fetchCloudStore();
 
-    const originalOrder = new Map(
-      cards.map((card, index) => [card, index])
+      const mergedStore =
+        mergeStores(
+          localStore,
+          cloudStore
+        );
+
+      /*
+       * 合并结果重新写入本地，
+       * 作为下一次打开时的缓存。
+       */
+      writeStore(
+        mergedStore
+      );
+
+      /*
+       * 将最终合并结果重新渲染到页面。
+       */
+      for (const card of cards) {
+        const id =
+          card.dataset.id || '';
+
+        if (!id) {
+          continue;
+        }
+
+        const saved =
+          mergedStore[id];
+
+        if (saved) {
+          applyPhotoData(
+            card,
+            saved
+          );
+        }
+      }
+
+      dirtyCards.clear();
+
+      updateProgress();
+
+      showStatus('SYNCED');
+
+      console.log(
+        '[ROCO ADMIN] Cloud metadata loaded:',
+        cloudStore
+      );
+    } catch (error) {
+      console.warn(
+        '[ROCO ADMIN] Cloud metadata unavailable. Using local cache:',
+        error
+      );
+
+      showStatus('LOCAL');
+    }
+  }
+
+
+  function buildCloudPayload(
+    store
+  ) {
+    const photos = {};
+
+    for (
+      const [
+        id,
+        item
+      ] of Object.entries(store)
+    ) {
+      if (
+        !item ||
+        !item.image ||
+        !item.date
+      ) {
+        continue;
+      }
+
+      photos[id] = {
+        id,
+
+        image:
+          item.image,
+
+        date:
+          item.date,
+
+        people:
+          item.people !== null &&
+          typeof item.people === 'number'
+            ? item.people
+            : null,
+
+        /*
+         * D1 INTEGER：
+         *
+         * true  -> 1
+         * false -> 0
+         */
+        jinies:
+          item.JINIES === true
+            ? 1
+            : item.JINIES === false
+              ? 0
+              : null,
+
+        updatedAt:
+          item.updatedAt ||
+          new Date().toISOString()
+      };
+    }
+
+    return photos;
+  }
+
+
+  async function pushCloudStore(
+    store
+  ) {
+    const photos =
+      buildCloudPayload(
+        store
+      );
+
+    const response =
+      await fetch(
+        getApiUrl(),
+        {
+          method: 'PUT',
+
+          headers: {
+            'Content-Type':
+              'application/json',
+
+            Accept:
+              'application/json'
+          },
+
+          body:
+            JSON.stringify({
+              photos
+            })
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        `PUT /api/photos failed: ${response.status}`
+      );
+    }
+
+    const result =
+      await response.json();
+
+    if (
+      !result ||
+      result.ok !== true
+    ) {
+      throw new Error(
+        'Cloud save returned an invalid response.'
+      );
+    }
+
+    return result;
+  }
+
+
+  function saveDraft(
+    message
+  ) {
+    if (!message) {
+      message = 'SAVED';
+    }
+
+    const existingStore =
+      readStore();
+
+    const now =
+      new Date().toISOString();
+
+    /*
+     * 只给本次实际修改的卡片
+     * 更新 updatedAt。
+     */
+    for (
+      const id of dirtyCards
+    ) {
+      const card =
+        cards.find(
+          function (item) {
+            return (
+              item.dataset.id === id
+            );
+          }
+        );
+
+      if (!card) {
+        continue;
+      }
+
+      const data =
+        getCardData(card);
+
+      if (!data) {
+        continue;
+      }
+
+      existingStore[id] = {
+        ...data,
+        updatedAt: now
+      };
+    }
+
+    /*
+     * 先写 localStorage。
+     *
+     * 即使云端暂时不可用，
+     * 用户刚刚的修改也不会丢失。
+     */
+    writeStore(
+      existingStore
     );
 
-    const sortedCards = getCardsInDomOrder().sort(
-      (a: HTMLElement, b: HTMLElement) => {
-        const dateA = a.dataset.date ?? '';
-        const dateB = b.dataset.date ?? '';
+    const storeToSave = {
+      ...existingStore
+    };
 
-        const validA = isValidDate(dateA);
-        const validB = isValidDate(dateB);
+    dirtyCards.clear();
 
-        if (validA && validB) {
-          if (dateA !== dateB) {
-            return dateB.localeCompare(dateA);
+    updateProgress();
+
+    /*
+     * 请求进入队列，
+     * 防止连续快速点击产生乱序 PUT。
+     */
+    saveQueue =
+      saveQueue.then(
+        async function () {
+          showStatus('SYNC...');
+
+          try {
+            await pushCloudStore(
+              storeToSave
+            );
+
+            showStatus(message);
+
+            console.log(
+              '[ROCO ADMIN] Cloud save complete:',
+              storeToSave
+            );
+          } catch (error) {
+            console.error(
+              '[ROCO ADMIN] Cloud save failed:',
+              error
+            );
+
+            /*
+             * localStorage 已经保存成功，
+             * 所以这里只显示 LOCAL。
+             */
+            showStatus('LOCAL');
           }
         }
+      );
 
-        if (validA && !validB) {
-          return -1;
-        }
+    return saveQueue;
+  }
 
-        if (!validA && validB) {
-          return 1;
-        }
 
-        return (
-          (originalOrder.get(a) ?? 0) -
-          (originalOrder.get(b) ?? 0)
+  function setChoice(
+    card,
+    field,
+    value
+  ) {
+    const buttons =
+      card.querySelectorAll(
+        `.choice-button[data-field="${field}"]`
+      );
+
+    buttons.forEach(
+      function (button) {
+        button.classList.toggle(
+          'active',
+          button.dataset.value === value
         );
       }
     );
 
-    if (!grid) {
+    markCardDirty(card);
+
+    saveDraft('SAVED');
+  }
+
+
+  async function clearDraft() {
+    const confirmed =
+      window.confirm(
+        'Clear all saved metadata?'
+      );
+
+    if (!confirmed) {
       return;
     }
 
-    sortedCards.forEach((card: HTMLElement) => {
-      grid.appendChild(card);
-    });
-  }
+    showStatus('CLEARING...');
 
-  function getCurrentDateFilter(): string {
-    if (!dateYear || !dateMonth || !dateDay) {
-      return '';
-    }
+    try {
+      const response =
+        await fetch(
+          getApiUrl(),
+          {
+            method: 'DELETE',
 
-    const year = dateYear.value.trim();
-    const month = dateMonth.value.trim();
-    const day = dateDay.value.trim();
+            headers: {
+              Accept:
+                'application/json'
+            }
+          }
+        );
 
-    if (!year && !month && !day) {
-      return '';
-    }
-
-    if (
-      year.length === 4 &&
-      month.length === 2 &&
-      day.length === 2
-    ) {
-      const value = `${year}-${month}-${day}`;
-
-      if (isValidDate(value)) {
-        return value;
-      }
-    }
-
-    return `${year}-${month}-${day}`;
-  }
-
-  function clearDateInputs(): void {
-    if (dateYear) {
-      dateYear.value = '';
-    }
-
-    if (dateMonth) {
-      dateMonth.value = '';
-    }
-
-    if (dateDay) {
-      dateDay.value = '';
-    }
-  }
-
-  function setDateInputs(value: string): void {
-    if (!dateYear || !dateMonth || !dateDay) {
-      return;
-    }
-
-    if (!value || !isValidDate(value)) {
-      clearDateInputs();
-      return;
-    }
-
-    const parts = value.split('-');
-
-    dateYear.value = parts[0] ?? '';
-    dateMonth.value = parts[1] ?? '';
-    dateDay.value = parts[2] ?? '';
-  }
-
-  function matchesDateFilter(
-    card: HTMLElement,
-    filter: string
-  ): boolean {
-    if (!filter) {
-      return true;
-    }
-
-    const cardDate = card.dataset.date ?? '';
-
-    /*
-     * 完整日期：精确匹配
-     */
-    if (filter.length === 10) {
-      return cardDate === filter;
-    }
-
-    /*
-     * 部分日期：
-     * 输入 2026 → 匹配年份
-     * 输入 2026-09 → 匹配年月
-     */
-    return cardDate.startsWith(filter);
-  }
-
-  function matchesPeopleFilter(
-    card: HTMLElement
-  ): boolean {
-    const value = peopleSelect?.value ?? 'all';
-
-    if (value === 'all') {
-      return true;
-    }
-
-    const people = card.dataset.people ?? '';
-
-    if (value === '0') {
-      return people === '0';
-    }
-
-    if (value === '1') {
-      return people === '1';
-    }
-
-    if (value === '2') {
-      return people === '2';
-    }
-
-    if (value === '2+') {
-      return people === '2+';
-    }
-
-    return true;
-  }
-
-  function matchesJINIESFilter(
-    card: HTMLElement
-  ): boolean {
-    const value = JINIESSelect?.value ?? 'all';
-
-    if (value === 'all') {
-      return true;
-    }
-
-    const JINIES = card.dataset.JINIES ?? '';
-
-    if (value === 'yes') {
-      return JINIES === 'yes';
-    }
-
-    if (value === 'no') {
-      return JINIES === 'no';
-    }
-
-    return true;
-  }
-
-  function getFilteredCards(): HTMLElement[] {
-    const dateFilter = getCurrentDateFilter();
-
-    return getCardsInDomOrder().filter(
-      (card: HTMLElement) => {
-        return (
-          matchesDateFilter(card, dateFilter) &&
-          matchesPeopleFilter(card) &&
-          matchesJINIESFilter(card)
+      if (!response.ok) {
+        throw new Error(
+          `DELETE /api/photos failed: ${response.status}`
         );
       }
-    );
-  }
 
-  function updateFilterState(): void {
-    const dateFilter = getCurrentDateFilter();
-
-    const peopleFilter =
-      peopleSelect?.value ?? 'all';
-
-    const JINIESFilter =
-      JINIESSelect?.value ?? 'all';
-
-    filtersActivated =
-      Boolean(
-        dateFilter ||
-        peopleFilter !== 'all' ||
-        JINIESFilter !== 'all'
-      );
-  }
-
-  function updateResultStatus(
-    total: number
-  ): void {
-    if (!resultStatus) {
-      return;
-    }
-
-    if (!filtersActivated) {
-      resultStatus.textContent = 'ALL WORKS';
-      return;
-    }
-
-    resultStatus.textContent =
-      `${total} ${total === 1 ? 'WORK' : 'WORKS'}`;
-  }
-
-  function renderPagination(
-    total: number
-  ): void {
-    if (!pagination) {
-      return;
-    }
-
-    pagination.innerHTML = '';
-
-    const totalPages =
-      Math.ceil(total / PAGE_SIZE);
-
-    if (totalPages <= 1) {
-      pagination.hidden = true;
-      return;
-    }
-
-    pagination.hidden = false;
-
-    const createArrow = (
-      label: string,
-      page: number,
-      disabled: boolean
-    ): HTMLButtonElement => {
-      const button =
-        document.createElement('button');
-
-      button.type = 'button';
-      button.className = 'page-arrow';
-      button.textContent = label;
-      button.disabled = disabled;
-
-      button.addEventListener(
-        'click',
-        () => {
-          currentPage = page;
-          render();
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
-        }
-      );
-
-      return button;
-    };
-
-    const pageInput =
-      document.createElement('input');
-
-    pageInput.type = 'number';
-    pageInput.className = 'page-current-input';
-    pageInput.min = '1';
-    pageInput.max = String(totalPages);
-    pageInput.value = String(currentPage);
-    pageInput.inputMode = 'numeric';
-    pageInput.setAttribute(
-      'aria-label',
-      'Current page'
-    );
-    pageInput.setAttribute(
-      'aria-current',
-      'page'
-    );
-
-    const jumpToPage = (): void => {
-      const requestedPage = Number.parseInt(
-        pageInput.value,
-        10
-      );
+      const result =
+        await response.json();
 
       if (
-        Number.isNaN(requestedPage) ||
-        requestedPage < 1 ||
-        requestedPage > totalPages
+        !result ||
+        result.ok !== true
       ) {
-        pageInput.value = String(currentPage);
-        return;
+        throw new Error(
+          'Cloud clear returned an invalid response.'
+        );
       }
 
-      currentPage = requestedPage;
-      render();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    };
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
 
-    pageInput.addEventListener(
-      'change',
-      jumpToPage
-    );
+      dirtyCards.clear();
 
-    pageInput.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.key === 'Enter') {
-          event.preventDefault();
-          jumpToPage();
+      for (const card of cards) {
+        const dateInput =
+          card.querySelector(
+            '.date-input'
+          );
+
+        if (dateInput) {
+          dateInput.value =
+            dateInput.dataset.originalDate ||
+            '';
         }
+
+        const buttons =
+          card.querySelectorAll(
+            '.choice-button'
+          );
+
+        buttons.forEach(
+          function (button) {
+            button.classList.remove(
+              'active'
+            );
+          }
+        );
       }
-    );
 
-    const pageIndicator =
-      document.createElement('div');
+      updateProgress();
 
-    pageIndicator.className = 'page-indicator';
+      showStatus('CLEARED');
 
-    const pageLabel =
-      document.createElement('span');
+      console.log(
+        '[ROCO ADMIN] Cloud metadata cleared.'
+      );
+    } catch (error) {
+      console.error(
+        '[ROCO ADMIN] Failed to clear cloud metadata:',
+        error
+      );
 
-    pageLabel.className = 'page-label';
-    pageLabel.textContent = 'PAGE';
+      /*
+       * 云端失败时仍然清理本地，
+       * 但提示用户当前只是本地清理成功。
+       */
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
 
-    const slash =
-      document.createElement('span');
+      dirtyCards.clear();
 
-    slash.className = 'page-slash';
-    slash.textContent = '/';
+      for (const card of cards) {
+        const dateInput =
+          card.querySelector(
+            '.date-input'
+          );
 
-    const pageTotal =
-      document.createElement('span');
+        if (dateInput) {
+          dateInput.value =
+            dateInput.dataset.originalDate ||
+            '';
+        }
 
-    pageTotal.className = 'page-total';
-    pageTotal.textContent = String(totalPages);
+        const buttons =
+          card.querySelectorAll(
+            '.choice-button'
+          );
 
-    pageIndicator.appendChild(pageLabel);
-    pageIndicator.appendChild(pageInput);
-    pageIndicator.appendChild(slash);
-    pageIndicator.appendChild(pageTotal);
+        buttons.forEach(
+          function (button) {
+            button.classList.remove(
+              'active'
+            );
+          }
+        );
+      }
 
-    pagination.appendChild(
-      createArrow(
-        '←',
-        currentPage - 1,
-        currentPage <= 1
-      )
-    );
+      updateProgress();
 
-    pagination.appendChild(pageIndicator);
-
-    pagination.appendChild(
-      createArrow(
-        '→',
-        currentPage + 1,
-        currentPage >= totalPages
-      )
-    );
+      showStatus('LOCAL');
+    }
   }
 
-  function render(): void {
-    const filteredCards =
-      getFilteredCards();
 
-    const total =
-      filteredCards.length;
+  function exportData() {
+    if (
+      dirtyCards.size > 0
+    ) {
+      saveDraft('SAVED');
+    }
 
-    const totalPages =
+    const store =
+      readStore();
+
+    const completeData =
+      Object.values(
+        store
+      ).filter(
+        function (item) {
+          return (
+            item &&
+            item.id &&
+            item.date &&
+            item.people !== null &&
+            item.JINIES !== null
+          );
+        }
+      );
+
+    const blob =
+      new Blob(
+        [
+          JSON.stringify(
+            completeData,
+            null,
+            2
+          )
+        ],
+        {
+          type:
+            'application/json'
+        }
+      );
+
+    const url =
+      URL.createObjectURL(
+        blob
+      );
+
+    const link =
+      document.createElement(
+        'a'
+      );
+
+    link.href =
+      url;
+
+    link.download =
+      'roco-photo-metadata.json';
+
+    document.body.appendChild(
+      link
+    );
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(
+      url
+    );
+
+    showStatus('EXPORTED');
+  }
+
+
+  function focusCard(index) {
+    if (
+      cards.length === 0
+    ) {
+      return;
+    }
+
+    focusedCardIndex =
       Math.max(
-        1,
-        Math.ceil(total / PAGE_SIZE)
+        0,
+        Math.min(
+          index,
+          cards.length - 1
+        )
       );
 
-    if (currentPage > totalPages) {
-      currentPage = totalPages;
-    }
-
-    const start =
-      (currentPage - 1) * PAGE_SIZE;
-
-    const end =
-      start + PAGE_SIZE;
-
-    const visibleCards =
-      new Set(
-        filteredCards.slice(start, end)
-      );
-
-    getCardsInDomOrder().forEach(
-      (card: HTMLElement) => {
-        card.style.display =
-          visibleCards.has(card)
-            ? ''
-            : 'none';
-      }
-    );
-
-    if (resultCount) {
-      resultCount.textContent =
-        String(total);
-    }
-
-    updateResultStatus(total);
-
-    if (emptyState) {
-      emptyState.hidden = total !== 0;
-    }
-
-    renderPagination(total);
-
-    /*
-     * 更新当前 Lightbox 数据
-     */
-    lightboxItems =
-      filteredCards.map(
-        (card: HTMLElement) => {
-          const trigger =
-            card.querySelector<HTMLButtonElement>(
-              '.lightbox-trigger'
-            );
-
-          const image =
-            card.querySelector<HTMLImageElement>(
-              'img'
-            );
-
-          return {
-            card,
-            trigger: trigger as HTMLButtonElement,
-            src:
-              trigger?.dataset.lightboxSrc ??
-              image?.src ??
-              '',
-            alt:
-              trigger?.dataset.lightboxAlt ??
-              image?.alt ??
-              '',
-            title:
-              trigger?.dataset.lightboxTitle ??
-              card.dataset.id ??
-              '',
-            date:
-              card.dataset.date ??
-              '',
-          };
-        }
-      )
-      .filter(
-        (item: LightboxItem) =>
-          Boolean(item.trigger)
-      );
-  }
-
-  function resetFilters(): void {
-    clearDateInputs();
-
-    if (peopleSelect) {
-      peopleSelect.value = 'all';
-    }
-
-    if (JINIESSelect) {
-      JINIESSelect.value = 'all';
-    }
-
-    filtersActivated = false;
-    currentPage = 1;
-
-    render();
-  }
-
-  function openLightbox(
-    index: number
-  ): void {
-    if (
-      !lightbox ||
-      !lightboxImage ||
-      !lightboxTitle ||
-      !lightboxDate ||
-      !lightboxCounter
-    ) {
-      return;
-    }
-
-    if (
-      index < 0 ||
-      index >= lightboxItems.length
-    ) {
-      return;
-    }
-
-    currentLightboxIndex = index;
-
-    const item =
-      lightboxItems[currentLightboxIndex];
-
-    if (!item) {
-      return;
-    }
-
-    lightboxImage.src = item.src;
-    lightboxImage.alt = item.alt;
-    lightboxTitle.textContent = item.title;
-    lightboxDate.textContent = item.date;
-
-    lightboxCounter.textContent =
-      `${currentLightboxIndex + 1} / ${lightboxItems.length}`;
-
-    lightbox.hidden = false;
-    lightbox.classList.add('is-open');
-    document.body.classList.add(
-      'lightbox-open'
-    );
-
-    updateLightboxButtons();
-  }
-
-  function closeLightbox(): void {
-    if (!lightbox) {
-      return;
-    }
-
-    lightbox.classList.remove('is-open');
-    lightbox.hidden = true;
-
-    document.body.classList.remove(
-      'lightbox-open'
-    );
-  }
-
-  function updateLightboxButtons(): void {
-    if (lightboxPrevious) {
-      lightboxPrevious.disabled =
-        lightboxItems.length <= 1;
-    }
-
-    if (lightboxNext) {
-      lightboxNext.disabled =
-        lightboxItems.length <= 1;
-    }
-  }
-
-  function moveLightbox(
-    direction: number
-  ): void {
-    if (lightboxItems.length <= 1) {
-      return;
-    }
-
-    currentLightboxIndex =
-      (
-        currentLightboxIndex +
-        direction +
-        lightboxItems.length
-      ) %
-      lightboxItems.length;
-
-    openLightbox(
-      currentLightboxIndex
-    );
-  }
-
-  function openFromTrigger(
-    trigger: HTMLButtonElement
-  ): void {
     const card =
-      trigger.closest<HTMLElement>(
-        '.work-card'
-      );
+      cards[
+        focusedCardIndex
+      ];
 
     if (!card) {
       return;
     }
 
-    const visibleCards =
-      getFilteredCards();
+    card.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
 
-    const index =
-      visibleCards.indexOf(card);
+    const input =
+      card.querySelector(
+        '.date-input'
+      );
 
-    if (index === -1) {
-      return;
+    if (input) {
+      input.focus();
     }
-
-    openLightbox(index);
   }
 
-  /*
-   * Filter events
-   */
-  [
-    dateYear,
-    dateMonth,
-    dateDay,
-  ].forEach(
-    (input: HTMLInputElement | null) => {
-      input?.addEventListener(
-        'input',
-        () => {
-          updateFilterState();
-          currentPage = 1;
-          render();
+
+  const saveButton =
+    document.querySelector(
+      '#save-draft'
+    );
+
+  if (saveButton) {
+    saveButton.addEventListener(
+      'click',
+      function () {
+        if (
+          dirtyCards.size > 0
+        ) {
+          saveDraft('SAVED');
+          return;
+        }
+
+        /*
+         * 即使当前没有 dirty card，
+         * SAVE 仍然会把当前 localStore
+         * 再同步一次 D1。
+         */
+        const store =
+          readStore();
+
+        showStatus('SYNC...');
+
+        saveQueue =
+          saveQueue.then(
+            async function () {
+              try {
+                await pushCloudStore(
+                  store
+                );
+
+                showStatus(
+                  'SAVED'
+                );
+              } catch (error) {
+                console.error(
+                  '[ROCO ADMIN] Manual cloud save failed:',
+                  error
+                );
+
+                showStatus(
+                  'LOCAL'
+                );
+              }
+            }
+          );
+      }
+    );
+  }
+
+
+  const clearButton =
+    document.querySelector(
+      '#clear-draft'
+    );
+
+  if (clearButton) {
+    clearButton.addEventListener(
+      'click',
+      clearDraft
+    );
+  }
+
+
+  const exportButton =
+    document.querySelector(
+      '#export-json'
+    );
+
+  if (exportButton) {
+    exportButton.addEventListener(
+      'click',
+      exportData
+    );
+  }
+
+
+  for (const card of cards) {
+    const buttons =
+      card.querySelectorAll(
+        '.choice-button'
+      );
+
+    buttons.forEach(
+      function (button) {
+        button.addEventListener(
+          'click',
+          function (event) {
+            event.preventDefault();
+
+            const field =
+              button.dataset.field;
+
+            const value =
+              button.dataset.value;
+
+            if (
+              !field ||
+              !value
+            ) {
+              return;
+            }
+
+            setChoice(
+              card,
+              field,
+              value
+            );
+          }
+        );
+      }
+    );
+
+
+    const dateInput =
+      card.querySelector(
+        '.date-input'
+      );
+
+    if (dateInput) {
+      dateInput.dataset.originalDate =
+        dateInput.value;
+
+      dateInput.addEventListener(
+        'change',
+        function () {
+          markCardDirty(card);
+
+          saveDraft('SAVED');
         }
       );
     }
-  );
+  }
 
-  peopleSelect?.addEventListener(
-    'change',
-    () => {
-      updateFilterState();
-      currentPage = 1;
-      render();
-    }
-  );
 
-  JINIESSelect?.addEventListener(
-    'change',
-    () => {
-      updateFilterState();
-      currentPage = 1;
-      render();
-    }
-  );
+  const prevButton =
+    document.querySelector(
+      '#prev-card'
+    );
 
-  clearDateButton?.addEventListener(
-    'click',
-    () => {
-      clearDateInputs();
-      updateFilterState();
-      currentPage = 1;
-      render();
-    }
-  );
-
-  resetButton?.addEventListener(
-    'click',
-    resetFilters
-  );
-
-  /*
-   * Lightbox open
-   */
-  document.addEventListener(
-    'click',
-    (event: MouseEvent) => {
-      const target =
-        event.target as HTMLElement | null;
-
-      const trigger =
-        target?.closest<HTMLButtonElement>(
-          '.lightbox-trigger'
+  if (prevButton) {
+    prevButton.addEventListener(
+      'click',
+      function () {
+        focusCard(
+          focusedCardIndex - 1
         );
+      }
+    );
+  }
 
-      if (!trigger) {
+
+  const nextButton =
+    document.querySelector(
+      '#next-card'
+    );
+
+  if (nextButton) {
+    nextButton.addEventListener(
+      'click',
+      function () {
+        focusCard(
+          focusedCardIndex + 1
+        );
+      }
+    );
+  }
+
+
+  document.addEventListener(
+    'keydown',
+    function (event) {
+      const target =
+        event.target;
+
+      if (
+        target &&
+        target.tagName === 'INPUT' &&
+        target.type === 'date' &&
+        (
+          event.key === 'ArrowLeft' ||
+          event.key === 'ArrowRight'
+        )
+      ) {
         return;
       }
 
-      event.preventDefault();
+      const card =
+        cards[
+          focusedCardIndex
+        ];
 
-      openFromTrigger(trigger);
-    }
-  );
-
-  lightboxClose?.addEventListener(
-    'click',
-    closeLightbox
-  );
-
-  lightboxPrevious?.addEventListener(
-    'click',
-    () => {
-      moveLightbox(-1);
-    }
-  );
-
-  lightboxNext?.addEventListener(
-    'click',
-    () => {
-      moveLightbox(1);
-    }
-  );
-
-  /*
-   * 点击遮罩关闭
-   */
-  lightbox?.addEventListener(
-    'click',
-    (event: MouseEvent) => {
-      if (
-        event.target === lightbox
-      ) {
-        closeLightbox();
+      if (!card) {
+        return;
       }
-    }
-  );
 
-  /*
-   * 键盘控制
-   */
-  document.addEventListener(
-    'keydown',
-    (event: KeyboardEvent) => {
+
       if (
-        lightbox &&
-        !lightbox.hidden
+        event.key === '0'
       ) {
-        if (event.key === 'Escape') {
-          closeLightbox();
-        } else if (
-          event.key === 'ArrowLeft'
-        ) {
-          moveLightbox(-1);
-        } else if (
-          event.key === 'ArrowRight'
-        ) {
-          moveLightbox(1);
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="0"]'
+          );
+
+        if (button) {
+          button.click();
         }
+
+        return;
       }
-    }
-  );
 
-  function refreshFromStorage(): void {
-    applyMetadata();
 
-    updateFilterState();
-
-    currentPage = 1;
-
-    render();
-  }
-
-  /*
-   * Admin 页面修改 localStorage 后，
-   * Exhibition 页面打开时 / 返回时重新读取。
-   */
-  window.addEventListener(
-    'storage',
-    (event: StorageEvent) => {
       if (
-        event.key === STORAGE_KEY
+        event.key === '1'
       ) {
-        refreshFromStorage();
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="1"]'
+          );
+
+        if (button) {
+          button.click();
+        }
+
+        return;
+      }
+
+
+      if (
+        event.key === '2'
+      ) {
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="2"]'
+          );
+
+        if (button) {
+          button.click();
+        }
+
+        return;
+      }
+
+
+      if (
+        event.key === '3'
+      ) {
+        event.preventDefault();
+
+        const button =
+          card.querySelector(
+            '.choice-button[data-field="people"][data-value="3"]'
+          );
+
+        if (button) {
+          button.click();
+        }
+
+        return;
+      }
+
+
+      if (
+        event.key.toLowerCase() ===
+        'r'
+      ) {
+        event.preventDefault();
+
+        const active =
+          card.querySelector(
+            '.choice-button[data-field="JINIES"].active'
+          );
+
+        const yesButton =
+          card.querySelector(
+            '.choice-button[data-field="JINIES"][data-value="yes"]'
+          );
+
+        const noButton =
+          card.querySelector(
+            '.choice-button[data-field="JINIES"][data-value="no"]'
+          );
+
+        if (
+          active === yesButton
+        ) {
+          if (noButton) {
+            noButton.click();
+          }
+        } else {
+          if (yesButton) {
+            yesButton.click();
+          }
+        }
+
+        return;
+      }
+
+
+      if (
+        event.key === 'ArrowLeft'
+      ) {
+        event.preventDefault();
+
+        focusCard(
+          focusedCardIndex - 1
+        );
+
+        return;
+      }
+
+
+      if (
+        event.key === 'ArrowRight'
+      ) {
+        event.preventDefault();
+
+        focusCard(
+          focusedCardIndex + 1
+        );
       }
     }
   );
 
-  window.addEventListener(
-    'pageshow',
-    () => {
-      refreshFromStorage();
-      void refreshFromCloud();
+
+  loadDraft();
+
+  updateProgress();
+
+  console.log(
+    '[ROCO ADMIN] Initialized.',
+    {
+      cards:
+        cards.length,
+
+      storageKey:
+        STORAGE_KEY,
+
+      api:
+        getApiUrl()
     }
   );
-
-  document.addEventListener(
-    'astro:page-load',
-    () => {
-      refreshFromStorage();
-      void refreshFromCloud();
-    }
-  );
-
-  /*
-   * 初始化
-   */
-  if (
-    DEFAULT_DATE &&
-    dateYear &&
-    dateMonth &&
-    dateDay
-  ) {
-    /*
-     * 保留原来的默认日期，
-     * 但不主动激活日期筛选。
-     */
-    setDateInputs('');
-  }
-
-  applyMetadata();
-  updateFilterState();
-  render();
-
-  void refreshFromCloud();
 </script>
 
+
 <style>
-	/* =============================================================
-	   BASE
-	============================================================= */
 
-	.page {
-		position: relative;
-
-		width:
-			min(100%, 1440px);
-
-		margin: 0 auto;
-
-		padding:
-			0 42px 70px;
-
-		overflow: hidden;
+	:global(html) {
+		background:
+			#f4efe4;
 	}
 
 
-	.page::before {
-		content: "";
-
-		position: fixed;
-		inset: 0;
-
-		pointer-events: none;
-
-		z-index: 50;
-
-		background-image:
-			radial-gradient(
-				rgba(32, 28, 16, 0.04)
-				0.55px,
-				transparent
-				0.55px
-			);
-
-		background-size:
-			7px 7px;
-
-		mix-blend-mode:
-			multiply;
-
-		opacity: 0.45;
-	}
-
-
-	.page::after {
-		content: "";
-
-		position: fixed;
-		inset: 0;
-
-		pointer-events: none;
-
-		z-index: 49;
+	:global(body) {
+		margin: 0;
 
 		background:
-			radial-gradient(
-				circle at 15% 10%,
-				rgba(255, 255, 255, 0.11),
-				transparent 27%
-			),
-			radial-gradient(
-				circle at 84% 76%,
-				rgba(255, 255, 255, 0.1),
-				transparent 25%
-			);
+			#f4efe4;
+
+		color:
+			#171717;
+
+		font-family:
+			Arial,
+			Helvetica,
+			sans-serif;
 	}
 
 
-	/* =============================================================
-	   HEADER
-	============================================================= */
+	.admin-page {
+		width:
+			min(
+				1200px,
+				calc(
+					100% - 48px
+				)
+			);
 
-	.site-header {
-		position: relative;
+		margin:
+			0 auto;
 
-		z-index: 10;
+		padding:
+			32px 0 70px;
+	}
 
+
+	.admin-header {
 		display: flex;
 
 		align-items:
@@ -1940,478 +2057,10 @@ const [
 		justify-content:
 			space-between;
 
-		padding:
-			30px 0 55px;
-	}
+		gap: 30px;
 
-
-	.brand {
-		display: inline-flex;
-
-		flex-direction:
-			column;
-
-		gap: 6px;
-
-		text-decoration: none;
-	}
-
-
-	.brand-name {
-		font-size: 25px;
-
-		font-weight: 950;
-
-		letter-spacing:
-			-0.07em;
-
-		line-height: 0.9;
-	}
-
-
-	.brand-caption {
-		font-size: 8px;
-
-		font-weight: 800;
-
-		letter-spacing:
-			0.2em;
-
-		opacity: 0.47;
-	}
-
-
-	.back-link {
-		display: inline-flex;
-
-		align-items: center;
-
-		gap: 9px;
-
-		padding:
-			8px 0;
-
-		font-size: 9px;
-
-		font-weight: 900;
-
-		letter-spacing:
-			0.12em;
-
-		text-decoration: none;
-
-		opacity: 0.58;
-
-		transition:
-			opacity 0.2s ease,
-			transform 0.2s ease;
-	}
-
-
-	.back-link:hover {
-		opacity: 1;
-
-		transform:
-			translateX(-3px);
-	}
-
-
-	.back-arrow {
-		font-size: 16px;
-
-		line-height: 1;
-	}
-
-
-	/* =============================================================
-	   FILTER
-	============================================================= */
-
-	.filter-section {
-		display: grid;
-
-		grid-template-columns:
-			minmax(220px, 1.35fr)
-			minmax(180px, 1fr)
-			minmax(180px, 1fr)
-			auto;
-
-		gap: 14px;
-
-		align-items: end;
-
-		padding: 20px;
-
-		background:
-			#fff8e8;
-
-		border:
-			2px solid #171717;
-
-		border-radius:
-			12px 17px 13px 15px;
-
-		box-shadow:
-			6px 7px 0
-			rgba(
-				23,
-				23,
-				23,
-				0.11
-			);
-	}
-
-
-	.filter-item {
-		min-width: 0;
-
-		display: flex;
-
-		flex-direction:
-			column;
-
-		gap: 7px;
-	}
-
-
-	.filter-item label {
-		font-family:
-			Arial,
-			Helvetica,
-			sans-serif;
-
-		font-size: 9px;
-
-		font-weight: 950;
-
-		letter-spacing:
-			0.17em;
-
-		opacity: 1;
-
-		color:
-			#171717;
-	}
-
-
-	/* =============================================================
-	   FILTER CONTROL
-	============================================================= */
-
-	.filter-control {
-		position: relative;
-
-		height: 46px;
-
-		background:
-			#f3ca36;
-
-		border:
-			1.5px solid #171717;
-
-		border-radius:
-			7px 9px 6px 8px;
-
-		overflow: hidden;
-	}
-
-
-	.filter-control
-	input,
-	.filter-control
-	select {
-
-		height: 100%;
-
-		border: 0;
-
-		outline: 0;
-
-		background: transparent;
-
-		color: #171717;
-
-		font-size: 10px;
-
-		font-weight: 900;
-
-		letter-spacing:
-			0.05em;
-
-		appearance: none;
-	}
-
-
-	.filter-control
-	select {
-
-		width: 100%;
-
-		padding:
-			0 13px;
-
-		cursor: pointer;
-	}
-
-
-	.filter-control:not(
-		.date-control
-	)::after {
-
-		content: "⌄";
-
-		position: absolute;
-
-		right: 12px;
-
-		top: 50%;
-
-		font-size: 14px;
-
-		line-height: 1;
-
-		transform:
-			translateY(-58%);
-
-		pointer-events:
-			none;
-	}
-
-
-	/* =============================================================
-	   DATE
-	============================================================= */
-
-	.date-control {
-		display: flex;
-
-		align-items: center;
-
-		overflow: visible;
-	}
-
-
-	.date-control::after {
-		content: "";
-
-		position: absolute;
-
-		right: 12px;
-
-		top: 50%;
-
-		width: 10px;
-
-		height: 10px;
-
-		border:
-			1.6px solid #171717;
-
-		border-radius: 2px;
-
-		transform:
-			translateY(-50%);
-
-		pointer-events: none;
-
-		opacity: 0.75;
-	}
-
-
-	.date-control::before {
-		content: "";
-
-		position: absolute;
-
-		right: 12px;
-
-		top:
-			calc(50% - 6px);
-
-		width: 6px;
-
-		height: 2px;
-
-		background:
-			#171717;
-
-		pointer-events: none;
-
-		opacity: 0.75;
-
-		z-index: 1;
-	}
-
-
-	.date-segments {
-		display: flex;
-
-		align-items: center;
-
-		gap: 0;
-
-		height: 100%;
-
-		padding-left: 13px;
-
-		padding-right: 42px;
-	}
-
-
-	.date-segments input {
-		width: auto;
-
-		height: 100%;
-
-		padding: 0;
-
-		font-family:
-			Arial,
-			Helvetica,
-			sans-serif;
-
-		font-size: 10px;
-
-		font-weight: 900;
-
-		letter-spacing:
-			0.03em;
-
-		background: transparent;
-
-		text-align: center;
-	}
-
-
-	.date-segments
-	input::-webkit-inner-spin-button,
-	.date-segments
-	input::-webkit-outer-spin-button {
-
-		margin: 0;
-
-		appearance:
-			none;
-	}
-
-
-	#date-year {
-		width: 48px;
-	}
-
-
-	#date-month,
-	#date-day {
-		width: 31px;
-	}
-
-
-	.date-separator {
-		display: inline-flex;
-
-		align-items: center;
-
-		justify-content: center;
-
-		width: 10px;
-
-		font-size: 10px;
-
-		font-weight: 900;
-	}
-
-
-	.clear-filter {
-		position: absolute;
-
-		z-index: 2;
-
-		right: 31px;
-
-		top: 50%;
-
-		display: flex;
-
-		align-items: center;
-
-		justify-content: center;
-
-		width: 22px;
-
-		height: 22px;
-
-		padding: 0;
-
-		border: 0;
-
-		background:
-			#171717;
-
-		color:
-			#fff8e8;
-
-		border-radius: 50%;
-
-		font-size: 14px;
-
-		line-height: 1;
-
-		transform:
-			translateY(-50%);
-
-		cursor: pointer;
-	}
-
-
-	/* =============================================================
-	   RESET
-	============================================================= */
-
-	.reset-button {
-		height: 46px;
-
-		padding:
-			0 18px;
-
-		background:
-			#171717;
-
-		color:
-			#fff8e8;
-
-		border:
-			2px solid #171717;
-
-		border-radius:
-			7px 9px 6px 8px;
-
-		font-size: 9px;
-
-		font-weight: 900;
-
-		letter-spacing:
-			0.13em;
-
-		cursor: pointer;
-	}
-
-
-	/* =============================================================
-	   RESULT
-	============================================================= */
-
-	.result-bar {
-		display: flex;
-
-		align-items: center;
-
-		justify-content:
-			space-between;
-
-		gap: 20px;
-
-		padding:
-			30px 0 18px;
+		padding-bottom:
+			32px;
 
 		border-bottom:
 			1.5px solid
@@ -2424,54 +2073,462 @@ const [
 	}
 
 
-	.result-count {
+	.admin-brand {
 		display: flex;
 
-		align-items: baseline;
+		flex-direction:
+			column;
 
-		gap: 8px;
+		gap: 5px;
 	}
 
 
-	.result-count-label {
-		font-size: 8px;
+	.brand-name {
+		color:
+			#171717;
 
-		font-weight: 900;
+		font-size:
+			25px;
+
+		font-weight:
+			950;
 
 		letter-spacing:
-			0.15em;
+			-0.07em;
 
-		opacity: 0.45;
+		line-height:
+			0.9;
+
+		text-decoration:
+			none;
 	}
 
 
-	.result-count strong {
-		font-size: 22px;
+	.brand-caption {
+		font-size:
+			8px;
 
-		font-weight: 950;
+		font-weight:
+			800;
 
 		letter-spacing:
-			-0.04em;
+			0.18em;
+
+		opacity:
+			0.45;
 	}
 
 
-	.result-status {
-		font-size: 8px;
+	.admin-header-actions {
+		display: flex;
 
-		font-weight: 900;
+		align-items:
+			center;
+
+		gap:
+			18px;
+	}
+
+
+	.header-link {
+		color:
+			#171717;
+
+		font-size:
+			9px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.12em;
+
+		text-decoration:
+			none;
+
+		opacity:
+			0.55;
+	}
+
+
+	.header-link:hover {
+		opacity:
+			1;
+	}
+
+
+	.save-button {
+		height:
+			42px;
+
+		padding:
+			0 20px;
+
+		border:
+			2px solid
+			#171717;
+
+		border-radius:
+			8px;
+
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+
+		font-size:
+			9px;
+
+		font-weight:
+			900;
 
 		letter-spacing:
 			0.13em;
 
-		opacity: 0.48;
+		cursor:
+			pointer;
 	}
 
 
-	/* =============================================================
-	   GRID
-	============================================================= */
+	.admin-intro {
+		display: flex;
 
-	.works-grid {
+		align-items:
+			flex-end;
+
+		justify-content:
+			space-between;
+
+		gap:
+			30px;
+
+		padding:
+			55px 0 30px;
+	}
+
+
+	.intro-copy {
+		max-width:
+			680px;
+	}
+
+
+	.eyebrow {
+		margin:
+			0 0 9px;
+
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.18em;
+
+		opacity:
+			0.45;
+	}
+
+
+	.intro-copy h1 {
+		margin:
+			0 0 10px;
+
+		font-size:
+			clamp(
+				42px,
+				7vw,
+				78px
+			);
+
+		font-weight:
+			950;
+
+		letter-spacing:
+			-0.07em;
+
+		line-height:
+			0.9;
+	}
+
+
+	.intro-description {
+		margin:
+			0;
+
+		font-size:
+			10px;
+
+		font-weight:
+			700;
+
+		letter-spacing:
+			0.04em;
+
+		opacity:
+			0.48;
+	}
+
+
+	.admin-meta {
+		display: flex;
+
+		gap:
+			35px;
+	}
+
+
+	.meta-item {
+		display: flex;
+
+		flex-direction:
+			column;
+
+		gap:
+			5px;
+	}
+
+
+	.meta-label {
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.15em;
+
+		opacity:
+			0.42;
+	}
+
+
+	.meta-item strong {
+		font-size:
+			25px;
+
+		font-weight:
+			950;
+
+		letter-spacing:
+			-0.05em;
+	}
+
+
+	.progress-section {
+		padding:
+			0 0 32px;
+	}
+
+
+	.progress-top {
+		display: flex;
+
+		align-items:
+			baseline;
+
+		justify-content:
+			space-between;
+
+		margin-bottom:
+			8px;
+
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.14em;
+
+		opacity:
+			0.5;
+	}
+
+
+	.progress-top strong {
+		font-size:
+			10px;
+
+		opacity:
+			1;
+	}
+
+
+	.progress-track {
+		width:
+			100%;
+
+		height:
+			7px;
+
+		overflow:
+			hidden;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			8px;
+
+		background:
+			#fff8e8;
+	}
+
+
+	.progress-fill {
+		width:
+			0%;
+
+		height:
+			100%;
+
+		background:
+			#171717;
+
+		transition:
+			width
+			0.25s
+			ease;
+	}
+
+
+	.toolbar {
+		display: flex;
+
+		align-items:
+			center;
+
+		justify-content:
+			space-between;
+
+		gap:
+			20px;
+
+		padding:
+			18px 0;
+
+		border-top:
+			1.5px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.16
+			);
+
+		border-bottom:
+			1.5px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.16
+			);
+	}
+
+
+	.keyboard-hints {
+		display: flex;
+
+		flex-wrap:
+			wrap;
+
+		gap:
+			8px;
+	}
+
+
+	.keyboard-hints span {
+		padding:
+			6px 8px;
+
+		background:
+			#fff8e8;
+
+		border:
+			1px solid
+			rgba(
+				23,
+				23,
+				23,
+				0.22
+			);
+
+		border-radius:
+			5px;
+
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.08em;
+
+		opacity:
+			0.62;
+	}
+
+
+	.toolbar-actions {
+		display: flex;
+
+		gap:
+			8px;
+	}
+
+
+	.toolbar-button {
+		height:
+			34px;
+
+		padding:
+			0 12px;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			6px;
+
+		background:
+			transparent;
+
+		color:
+			#171717;
+
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.1em;
+
+		cursor:
+			pointer;
+	}
+
+
+	.toolbar-button:hover {
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+	}
+
+
+	.photo-grid {
 		display: grid;
 
 		grid-template-columns:
@@ -2483,139 +2540,75 @@ const [
 				)
 			);
 
-		column-gap: 28px;
+		gap:
+			28px 20px;
 
-		row-gap: 54px;
-
-		padding-top: 38px;
+		padding-top:
+			35px;
 	}
 
 
-	.work-card {
-		position: relative;
+	.photo-card {
+		min-width:
+			0;
 
-		min-width: 0;
-	}
-
-
-	.work-link {
-		display: block;
-
-		width: 100%;
-
-		padding: 0;
-
-		background: transparent;
-
-		border: 0;
-
-		text-align: left;
-
-		cursor: zoom-in;
-	}
-
-
-	.paper-frame {
-		position: relative;
-
-		padding: 10px;
+		padding:
+			10px;
 
 		background:
 			#fff8e8;
 
 		border:
-			2px solid #171717;
+			2px solid
+			#171717;
 
 		border-radius:
 			9px 13px 10px 12px;
 
 		box-shadow:
-			5px 6px 0
+			4px 5px 0
 			rgba(
 				23,
 				23,
 				23,
 				0.1
 			);
-
-		transform-origin:
-			center;
-
-		transition:
-			transform 0.28s ease,
-			box-shadow 0.28s ease;
 	}
 
 
-	.work-card:nth-child(4n + 1)
-		.paper-frame {
-
+	.photo-card:nth-child(4n + 1) {
 		transform:
-			rotate(-0.55deg);
-
+			rotate(-0.45deg);
 	}
 
 
-	.work-card:nth-child(4n + 2)
-		.paper-frame {
-
+	.photo-card:nth-child(4n + 2) {
 		transform:
-			rotate(0.7deg);
-
+			rotate(0.55deg);
 	}
 
 
-	.work-card:nth-child(4n + 3)
-		.paper-frame {
-
+	.photo-card:nth-child(4n + 3) {
 		transform:
-			rotate(-0.35deg);
-
+			rotate(-0.3deg);
 	}
 
 
-	.work-card:nth-child(4n)
-		.paper-frame {
-
+	.photo-card:nth-child(4n) {
 		transform:
-			rotate(0.8deg);
-
+			rotate(0.65deg);
 	}
 
 
-	.work-card:hover
-		.paper-frame {
-
-		transform:
-			translateY(-7px)
-			scale(1.014)
-			rotate(0);
-
-		box-shadow:
-			8px 12px 0
-			rgba(
-				23,
-				23,
-				23,
-				0.12
-			);
-
-	}
-
-
-	/* =============================================================
-	   IMAGE
-	============================================================= */
-
-	.photo-image {
-		position: relative;
-
-		width: 100%;
+	.photo-card-image {
+		position:
+			relative;
 
 		aspect-ratio:
 			2388 / 1668;
 
-		overflow: hidden;
+		overflow:
+			hidden;
 
 		border:
 			1.5px solid
@@ -2623,7 +2616,7 @@ const [
 				23,
 				23,
 				23,
-				0.17
+				0.16
 			);
 
 		background:
@@ -2631,25 +2624,30 @@ const [
 	}
 
 
-	.photo-image img {
-		display: block;
+	.photo-card-image img {
+		display:
+			block;
 
-		width: 100%;
+		width:
+			100%;
 
-		height: 100%;
+		height:
+			100%;
 
-		object-fit: cover;
+		object-fit:
+			cover;
 	}
 
 
-	.photo-index {
-		position: absolute;
+	.photo-card-index {
+		position:
+			absolute;
 
-		top: 9px;
+		top:
+			8px;
 
-		left: 10px;
-
-		z-index: 3;
+		left:
+			8px;
 
 		padding:
 			3px 5px;
@@ -2665,691 +2663,351 @@ const [
 		color:
 			#fff8e8;
 
-		font-size: 7px;
+		font-size:
+			7px;
 
-		font-weight: 900;
-
-		letter-spacing:
-			0.12em;
-	}
-
-
-	/* =============================================================
-	   WORK INFO
-	============================================================= */
-
-	.work-info {
-		display: flex;
-
-		align-items:
-			flex-start;
-
-		justify-content:
-			space-between;
-
-		gap: 10px;
-
-		padding-top: 10px;
-	}
-
-
-	.work-info h2 {
-		margin:
-			0 0 4px;
-
-		font-size: 12px;
-
-		font-weight: 950;
-
-		line-height: 1.15;
-
-		letter-spacing:
-			-0.02em;
-	}
-
-
-	.work-info p {
-		margin: 0;
-
-		font-size: 7px;
-
-		font-weight: 800;
+		font-weight:
+			900;
 
 		letter-spacing:
 			0.08em;
-
-		opacity: 0.42;
 	}
 
 
-	.work-info time {
-		flex: 0 0 auto;
-
-		padding-top: 2px;
-
-		font-size: 8px;
-
-		font-weight: 800;
-
-		letter-spacing:
-			0.03em;
-
-		opacity: 0.4;
-	}
-
-
-	/* =============================================================
-	   EMPTY
-	============================================================= */
-
-	.empty-state {
-		padding:
-			130px 20px;
-
-		text-align:
-			center;
-	}
-
-
-	.empty-doodle {
-		margin-bottom: 15px;
-
-		font-size: 52px;
-
-		transform:
-			rotate(-12deg);
-	}
-
-
-	.empty-state h2 {
-		margin:
-			0 0 10px;
-
-		font-size: 32px;
-
-		font-weight: 950;
-	}
-
-
-	.empty-state p {
-		margin:
-			0 0 24px;
-
-		font-size: 12px;
-
-		font-weight: 600;
-
-		opacity: 0.5;
-	}
-
-
-	.empty-state button {
-		padding:
-			11px 17px;
-
-		border:
-			2px solid #171717;
-
-		border-radius: 8px;
-
-		background:
-			#171717;
-
-		color:
-			#fff8e8;
-
-		font-size: 9px;
-
-		font-weight: 900;
-
-		cursor: pointer;
-	}
-
-
-	/* =============================================================
-	   PAGINATION
-	============================================================= */
-
-	:global(.pagination) {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 18px;
-		margin-top: 70px;
-	}
-
-
-	:global(.page-arrow) {
-		width: 30px;
-		height: 30px;
-		padding: 0;
-		border-radius: 50%;
-		border: 2px solid #171717;
-		background: #fffaf0;
-		color: #171717;
-		font-size: 14px;
-		font-weight: 400;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		line-height: 1;
-	}
-
-
-	.page-arrow:disabled {
-		cursor: default;
-		opacity: 0.25;
-		box-shadow: none;
-	}
-
-
-	:global(.page-indicator) {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-	}
-
-
-	:global(.page-current-input) {
-		width: 50px;
-		height: 30px;
-		padding: 0;
-		border: 2px solid #171717;
-		border-radius: 7px;
-		background: #fffaf0;
-		color: #171717;
-		font-size: 14px;
-		font-weight: 800;
-		text-align: center;
-		text-align-last: center;
-		line-height: 11px;
-		box-sizing: border-box;
-	}
-
-
-	.page-current-input:focus {
-		box-shadow:
-			2px 3px 0
-			rgba(
-				23,
-				23,
-				23,
-				0.18
-			);
-	}
-
-
-	.page-current-input::-webkit-inner-spin-button,
-	.page-current-input::-webkit-outer-spin-button {
-		margin: 0;
-		-webkit-appearance: none;
-	}
-
-
-	.page-current-input {
-		-moz-appearance: textfield;
-	}
-
-
-	.page-slash {
-		font-size: 7px;
-		font-weight: 900;
-	}
-
-
-	.page-total {
-		min-width: 8px;
-		text-align: left;
-		font-size: 10px;
-	}
-
-
-	/* =============================================================
-	   LIGHTBOX
-	============================================================= */
-
-	body.lightbox-open {
-		overflow: hidden;
-	}
-
-
-	.lightbox {
-		position: fixed;
-
-		inset: 0;
-
-		z-index: 100;
-
-		display: grid;
-
-		place-items:
-			center;
-
-		visibility:
-			hidden;
-
-		opacity: 0;
-
-		pointer-events:
-			none;
-
-		transition:
-			opacity 0.22s ease,
-			visibility 0.22s ease;
-	}
-
-
-	.lightbox.is-open {
-		visibility:
-			visible;
-
-		opacity:
-			1;
-
-		pointer-events:
-			auto;
-	}
-
-
-	.lightbox-backdrop {
-		position: absolute;
-
-		inset: 0;
-
-		background:
-			rgba(
-				23,
-				23,
-				23,
-				0.9
-			);
-
-		backdrop-filter:
-			blur(5px);
-	}
-
-
-	.lightbox-shell {
-		position: relative;
-
-		z-index: 2;
-
-		display: grid;
-
-		grid-template-columns:
-			64px
-			minmax(
-				0,
-				1fr
-			)
-			64px;
-
-		align-items:
-			center;
-
-		gap: 22px;
-
-		width:
-			min(
-				96vw,
-				1450px
-			);
-
-		max-height:
-			94vh;
-	}
-
-
-	.lightbox-content {
-		min-width: 0;
-
-		max-height:
-			94vh;
-
-		display: flex;
+	.photo-card-body {
+		display:
+			flex;
 
 		flex-direction:
 			column;
 
+		gap:
+			14px;
+
+		padding:
+			14px 2px 3px;
+	}
+
+
+	.photo-card-heading {
+		display:
+			flex;
+
 		align-items:
 			center;
 
 		justify-content:
-			center;
+			space-between;
+
+		gap:
+			8px;
 	}
 
 
-	.lightbox-image-wrap {
-		position: relative;
+	.photo-card-heading strong {
+		min-width:
+			0;
 
-		display: flex;
+		overflow:
+			hidden;
 
-		align-items:
-			center;
+		font-size:
+			9px;
 
-		justify-content:
-			center;
-
-		max-width: 100%;
-
-		max-height:
-			calc(
-				94vh - 78px
-			);
-
-		padding: 10px;
-
-		background:
-			#fff8e8;
-
-		border:
-			2px solid #171717;
-
-		border-radius:
-			11px 16px 12px 15px;
-
-		box-shadow:
-			9px 10px 0
-			rgba(
-				0,
-				0,
-				0,
-				0.16
-			);
-	}
-
-
-	.lightbox-image-wrap img {
-		display: block;
-
-		width: auto;
-
-		height: auto;
-
-		max-width:
-			min(
-				84vw,
-				1280px
-			);
-
-		max-height:
-			calc(
-				94vh - 104px
-			);
-
-		object-fit:
-			contain;
-	}
-
-
-	.lightbox-caption {
-		display: flex;
-
-		align-items:
-			baseline;
-
-		justify-content:
-			center;
-
-		gap: 14px;
-
-		padding-top: 12px;
-
-		color:
-			#fff8e8;
-
-		font-size: 9px;
-
-		font-weight: 800;
+		font-weight:
+			950;
 
 		letter-spacing:
-			0.12em;
+			0.01em;
 
-		text-align:
-			center;
+		text-overflow:
+			ellipsis;
+
+		white-space:
+			nowrap;
 	}
 
 
-	.lightbox-caption strong {
-		font-size: 12px;
+	.card-status {
+		display:
+			inline-flex;
 
-		font-weight: 900;
+		align-items:
+			center;
+
+		gap:
+			5px;
+
+		flex:
+			0 0 auto;
+
+		font-size:
+			6px;
+
+		font-weight:
+			900;
 
 		letter-spacing:
-			-0.01em;
-	}
+			0.08em;
 
-
-	.lightbox-caption span {
 		opacity:
-			0.62;
+			0.45;
 	}
 
 
-	/* =============================================================
-	   CLOSE BUTTON
-	============================================================= */
+	.status-dot {
+		width:
+			6px;
 
-	.lightbox-close {
-		position: absolute;
-
-		right: -3px;
-
-		top: -8px;
-
-		z-index: 5;
-
-		width: 42px;
-
-		height: 42px;
-
-		display: grid;
-
-		place-items:
-			center;
-
-		appearance:
-			none;
-
-		-webkit-appearance:
-			none;
-
-		padding: 0;
-
-		border:
-			2px solid #171717;
+		height:
+			6px;
 
 		border-radius:
 			50%;
 
 		background:
-			#fff8e8;
+			#171717;
+
+		opacity:
+			0.25;
+	}
+
+
+	.status-dot.complete {
+		opacity:
+			1;
+	}
+
+
+	.field-group {
+		display:
+			flex;
+
+		flex-direction:
+			column;
+
+		gap:
+			6px;
+	}
+
+
+	.field-group label,
+	.field-label {
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.13em;
+
+		opacity:
+			0.48;
+	}
+
+
+	.date-input {
+		width:
+			100%;
+
+		height:
+			34px;
+
+		box-sizing:
+			border-box;
+
+		padding:
+			0 9px;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			6px;
+
+		background:
+			#f3ca36;
 
 		color:
 			#171717;
 
-		font-size: 25px;
+		font-family:
+			Arial,
+			Helvetica,
+			sans-serif;
 
-		font-weight: 400;
+		font-size:
+			8px;
 
-		line-height: 1;
+		font-weight:
+			900;
 
-		cursor:
-			pointer;
-
-		box-shadow:
-			4px 5px 0
-			rgba(
-				0,
-				0,
-				0,
-				0.18
-			);
-
-		transition:
-			transform 0.18s ease,
-			box-shadow 0.18s ease;
+		outline:
+			none;
 	}
 
 
-	.lightbox-close:hover {
-		transform:
-			translateY(-2px);
+	.choice-row {
+		display:
+			grid;
 
-		box-shadow:
-			4px 8px 0
-			rgba(
-				0,
-				0,
-				0,
-				0.18
+		grid-template-columns:
+			repeat(
+				3,
+				1fr
+			);
+
+		gap:
+			5px;
+	}
+
+
+	.choice-row:has(
+		[data-field="JINIES"]
+	) {
+		grid-template-columns:
+			repeat(
+				2,
+				1fr
 			);
 	}
 
 
-	/* =============================================================
-	   SUPER THICK ARROWS
-	============================================================= */
+	.choice-button {
+		height:
+			31px;
 
-	.lightbox-arrow {
-		position: relative;
+		padding:
+			0;
 
-		width: 64px;
+		border:
+			1.5px solid
+			#171717;
 
-		height: 92px;
-
-		padding: 0;
-
-		display: grid;
-
-		place-items:
-			center;
-
-		appearance:
-			none;
-
-		-webkit-appearance:
-			none;
-
-		border: 0;
+		border-radius:
+			5px;
 
 		background:
 			transparent;
 
 		color:
-			#fff8e8;
+			#171717;
+
+		font-size:
+			7px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.08em;
 
 		cursor:
 			pointer;
-
-		transition:
-			transform 0.18s ease,
-			opacity 0.18s ease;
 	}
 
 
-	.arrow-line {
-		display: block;
-
-		width: 34px;
-
-		height: 34px;
-
-		border-style:
-			solid;
-
-		border-color:
-			#fff8e8;
-
-		filter:
-			drop-shadow(
-				2px 3px 0
-				rgba(
-					0,
-					0,
-					0,
-					0.22
-				)
+	.choice-button:hover {
+		background:
+			rgba(
+				23,
+				23,
+				23,
+				0.07
 			);
 	}
 
 
-	.arrow-line-prev {
-		border-width:
-			0 0 9px 9px;
+	.choice-button.active {
+		background:
+			#171717;
 
-		transform:
-			rotate(45deg);
-	}
-
-
-	.arrow-line-next {
-		border-width:
-			0 9px 9px 0;
-
-		transform:
-			rotate(-45deg);
-	}
-
-
-	.lightbox-arrow:hover {
-		transform:
-			scale(1.13);
-	}
-
-
-	.lightbox-arrow:active {
-		transform:
-			scale(0.94);
-	}
-
-
-	.lightbox-arrow:disabled {
-		opacity:
-			0.28;
-
-		pointer-events:
-			none;
-	}
-
-
-	/* =============================================================
-	   FOCUS
-	============================================================= */
-
-	.lightbox-close:focus-visible,
-	.lightbox-arrow:focus-visible,
-	.work-link:focus-visible {
-
-		outline:
-			3px solid
+		color:
 			#fff8e8;
-
-		outline-offset:
-			5px;
 	}
 
 
-	/* =============================================================
-	   FOOTER
-	============================================================= */
-
-	.footer {
-		display: flex;
+	.quick-nav {
+		display:
+			flex;
 
 		align-items:
-			flex-end;
+			center;
+
+		justify-content:
+			center;
+
+		gap:
+			10px;
+
+		padding-top:
+			55px;
+	}
+
+
+	.nav-button {
+		height:
+			38px;
+
+		padding:
+			0 16px;
+
+		border:
+			1.5px solid
+			#171717;
+
+		border-radius:
+			7px;
+
+		background:
+			#fff8e8;
+
+		color:
+			#171717;
+
+		font-size:
+			8px;
+
+		font-weight:
+			900;
+
+		letter-spacing:
+			0.1em;
+
+		cursor:
+			pointer;
+	}
+
+
+	.nav-button:hover {
+		background:
+			#171717;
+
+		color:
+			#fff8e8;
+	}
+
+
+	.admin-footer {
+		display:
+			flex;
+
+		align-items:
+			center;
 
 		justify-content:
 			space-between;
 
-		gap: 30px;
+		gap:
+			20px;
 
 		margin-top:
-			120px;
+			75px;
 
-		padding:
-			25px 0 20px;
+		padding-top:
+			20px;
 
 		border-top:
 			1.5px solid
@@ -3357,68 +3015,26 @@ const [
 				23,
 				23,
 				23,
-				0.22
+				0.2
 			);
-	}
 
+		font-size:
+			7px;
 
-	.footer-brand {
-		display: flex;
-
-		flex-direction:
-			column;
-
-		gap: 5px;
-	}
-
-
-	.footer-brand span {
-		font-size: 15px;
-
-		font-weight: 950;
-	}
-
-
-	.footer-brand small,
-	.footer-note span {
-
-		font-size: 8px;
-
-		font-weight: 800;
+		font-weight:
+			800;
 
 		letter-spacing:
-			0.14em;
+			0.13em;
 
-		opacity: 0.44;
+		opacity:
+			0.42;
 	}
 
 
-	.footer-note {
-		display: flex;
+	@media (max-width: 900px) {
 
-		gap: 25px;
-	}
-
-
-	/* =============================================================
-	   TABLET
-	============================================================= */
-
-	@media (max-width: 1100px) {
-
-		.page {
-
-			padding-left:
-				28px;
-
-			padding-right:
-				28px;
-
-		}
-
-
-		.filter-section {
-
+		.photo-grid {
 			grid-template-columns:
 				repeat(
 					3,
@@ -3426,137 +3042,44 @@ const [
 						0,
 						1fr
 					)
-				)
-				auto;
-
-		}
-
-
-		.works-grid {
-
-			column-gap:
-				20px;
-
-			row-gap:
-				46px;
-
-		}
-
-
-		.lightbox-shell {
-
-			grid-template-columns:
-				58px
-				minmax(
-					0,
-					1fr
-				)
-				58px;
-
-			gap:
-				14px;
-
+				);
 		}
 
 	}
 
 
-	/* =============================================================
-	   MOBILE
-	============================================================= */
+	@media (max-width: 700px) {
 
-	@media (max-width: 760px) {
-
-		.page {
-
-			padding-left:
-				18px;
-
-			padding-right:
-				18px;
-
-		}
-
-
-		.site-header {
+		.admin-page {
+			width:
+				calc(
+					100% - 32px
+				);
 
 			padding-top:
 				22px;
+		}
 
+
+		.admin-header {
 			padding-bottom:
-				40px;
-
+				24px;
 		}
 
 
-		/* FILTER */
+		.admin-intro {
+			flex-direction:
+				column;
 
-		.filter-section {
-
-			grid-template-columns:
-				1fr;
-
-			gap:
-				12px;
-
-			padding:
-				15px;
-
-		}
-
-
-		.reset-button {
-
-			width:
-				100%;
-
-		}
-
-
-		/* DATE */
-
-		.date-segments {
-
-			padding-left:
-				10px;
-
-			padding-right:
-				42px;
-
-		}
-
-
-		#date-year {
-
-			width:
-				45px;
-
-		}
-
-
-		#date-month,
-		#date-day {
-
-			width:
-				29px;
-
-		}
-
-
-		/* RESULT */
-
-		.result-bar {
+			align-items:
+				flex-start;
 
 			padding-top:
-				25px;
-
+				42px;
 		}
 
 
-		/* GRID */
-
-		.works-grid {
-
+		.photo-grid {
 			grid-template-columns:
 				repeat(
 					2,
@@ -3566,361 +3089,75 @@ const [
 					)
 				);
 
-			column-gap:
-				15px;
-
-			row-gap:
-				34px;
-
-			padding-top:
-				27px;
-
-		}
-
-
-		.paper-frame {
-
-			padding:
-				7px;
-
-		}
-
-
-		.work-info h2 {
-
-			font-size:
-				10px;
-
-		}
-
-
-		.work-info p {
-
-			font-size:
-				6px;
-
-			line-height:
-				1.4;
-
-		}
-
-
-		.work-info time {
-
-			font-size:
-				7px;
-
-		}
-
-
-		/* PAGINATION */
-
-		.pagination {
-			margin-top: 60px;
-			gap: 10px;
-		}
-
-
-		.page-arrow {
-			width: 26px;
-			height: 26px;
-			border-width: 2px;
-			font-size: 12px;
-		}
-
-
-		.page-indicator {
-			gap: 5px;
-			font-size: 8px;
-		}
-
-
-		.page-current-input {
-			width: 28px;
-			height: 22px;
-
-			border-width: 2px;
-			border-radius: 7px;
-
-			font-size: 11px;
-			font-weight: 800;
-
-			line-height: 20px;
-
-			padding: 0;
-
-			text-align: center;
-			text-align-last: center;
-
-			text-indent: 0;
-		}
-
-
-		.page-slash,
-		.page-total {
-			font-size: 8px;
-		}
-
-
-
-		/* =========================================================
-		   LIGHTBOX MOBILE
-		========================================================= */
-
-		.lightbox-shell {
-
-			grid-template-columns:
-				38px
-				minmax(
-					0,
-					1fr
-				)
-				38px;
-
 			gap:
-				4px;
-
-			width:
-				98vw;
-
+				20px 12px;
 		}
 
 
-		.lightbox-image-wrap {
-
-			padding:
-				7px;
-
-			border-width:
-				1.5px;
-
-			box-shadow:
-				6px 7px 0
-				rgba(
-					0,
-					0,
-					0,
-					0.16
-				);
-
-		}
-
-
-		.lightbox-image-wrap img {
-
-			max-width:
-				80vw;
-
-			max-height:
-				78vh;
-
-		}
-
-
-		.lightbox-arrow {
-
-			width:
-				38px;
-
-			height:
-				60px;
-
-		}
-
-
-		.arrow-line {
-
-			width:
-				25px;
-
-			height:
-				25px;
-
-		}
-
-
-		.arrow-line-prev {
-
-			border-width:
-				0 0 7px 7px;
-
-		}
-
-
-		.arrow-line-next {
-
-			border-width:
-				0 7px 7px 0;
-
-		}
-
-
-		.lightbox-close {
-
-			right:
-				-3px;
-
-			top:
-				-12px;
-
-			width:
-				36px;
-
-			height:
-				36px;
-
-			font-size:
-				21px;
-
-		}
-
-
-		.lightbox-caption {
-
-			flex-wrap:
-				wrap;
-
-			gap:
-				7px 11px;
-
-			max-width:
-				82vw;
-
-			font-size:
-				8px;
-
-		}
-
-
-		.lightbox-caption strong {
-
-			font-size:
-				11px;
-
-		}
-
-
-		/* FOOTER */
-
-		.footer {
-
+		.toolbar {
 			flex-direction:
 				column;
 
 			align-items:
 				flex-start;
-
-			margin-top:
-				90px;
-
 		}
 
 
-		.footer-note {
+		.admin-footer {
+			flex-direction:
+				column;
 
-			gap:
-				16px;
-
+			align-items:
+				flex-start;
 		}
 
 	}
 
 
-	/* =============================================================
-	   SMALL MOBILE
-	============================================================= */
+	@media (max-width: 460px) {
 
-	@media (max-width: 420px) {
+		.admin-page {
+			width:
+				calc(
+					100% - 24px
+				);
+		}
 
-		.page {
 
-			padding-left:
-				14px;
+		.admin-header-actions {
+			gap:
+				10px;
+		}
 
-			padding-right:
-				14px;
 
+		.header-link {
+			display:
+				none;
 		}
 
 
 		.brand-name {
-
 			font-size:
 				22px;
-
 		}
 
 
-		.result-status {
-
-			max-width:
-				170px;
-
-			overflow:
-				hidden;
-
-			text-overflow:
-				ellipsis;
-
-			white-space:
-				nowrap;
-
+		.admin-meta {
+			gap:
+				22px;
 		}
 
 
-		.works-grid {
-
-			column-gap:
-				11px;
-
-			row-gap:
-				28px;
-
+		.photo-grid {
+			grid-template-columns:
+				1fr;
 		}
 
 
-		.paper-frame {
-
-			padding:
-				6px;
-
-			border-width:
-				1.5px;
-
+		.photo-card:nth-child(n) {
+			transform:
+				none;
 		}
-
-
-		.work-info {
-
-			padding-top:
-				8px;
-
-		}
-
-
-		.work-info h2 {
-
-			font-size:
-				9px;
-
-		}
-
-
-		.work-info p {
-
-			font-size:
-				5.5px;
-
-		}
-
-
-		.work-info time {
-
-			font-size:
-				6px;
-
-		}
-
 
 	}
 
